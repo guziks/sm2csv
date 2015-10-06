@@ -48,11 +48,30 @@ public class main {
             }
         }
 
+        writeDummy(printer);
+
         for (EasyBuilderRecord ebRec : ebRecords) {
             writeCSV(ebRec.toList(), printer);
         }
 
         closeCSV(printer);
+    }
+
+    private static void writeDummy(CSVPrinter printer) {
+        EasyBuilderRecord dummyBit = new EasyBuilderRecord.Builder()
+                .name("dummy_bit")
+                .plcName("plc")
+                .addressType("%MW_Bit")
+                .address("99900")
+                .build();
+        EasyBuilderRecord dummyWord = new EasyBuilderRecord.Builder()
+                .name("dummy_word")
+                .plcName("plc")
+                .addressType("%MW")
+                .address("998")
+                .build();
+        writeCSV(dummyBit.toList(), printer);
+        writeCSV(dummyWord.toList(), printer);
     }
 
     private static void patchWithFakeAddress(EasyBuilderRecord ebRec, SoMachineRecord smRec) {
