@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SoMachineRecord {
+    public static final String SM_ADDRESS_TYPE_BYTE = "%MX";
+    public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
+    public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
+
     private String name;
     private String address;
     private String type;

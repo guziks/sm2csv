@@ -62,13 +62,13 @@ public class main {
                 .name("dummy_bit")
                 .plcName("plc")
                 .addressType("%MW_Bit")
-                .address("99900")
+                .address("999900")
                 .build();
         EasyBuilderRecord dummyWord = new EasyBuilderRecord.Builder()
                 .name("dummy_word")
                 .plcName("plc")
                 .addressType("%MW")
-                .address("998")
+                .address("9998")
                 .build();
         writeCSV(dummyBit.toList(), printer);
         writeCSV(dummyWord.toList(), printer);

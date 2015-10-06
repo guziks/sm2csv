@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EasyBuilderRecord {
-
     public static final String EB_ADDRESS_TYPE_ANALOG = "%MW";
     public static final String EB_ADDRESS_TYPE_DIGITAL = "%M";
     public static final String EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG = "%MW_Bit";
@@ -68,25 +67,52 @@ public class EasyBuilderRecord {
 
         String smAddress = smRec.getAddress();
         if (smAddress != null) {
-            Pattern analogAddressPattern = Pattern.compile("^(%\\D+)(\\d+)$");
             Pattern digitalAddressPattern = Pattern.compile("^(%\\D+)(\\d+)\\.(\\d+)$");
-            Matcher analogMatcher = analogAddressPattern.matcher(smAddress);
+            Pattern analogAddressPattern = Pattern.compile("^(%\\D+)(\\d+)$");
             Matcher digitalMatcher = digitalAddressPattern.matcher(smAddress);
+            Matcher analogMatcher = analogAddressPattern.matcher(smAddress);
+            String type;
+            int number;
+            int digit;
             if (digitalMatcher.matches()) {
-                String wordString = digitalMatcher.group(2);
-                String bitString = digitalMatcher.group(3);
-                String bitStringFormatted = String.format("%02d", Integer.valueOf(bitString).intValue());
+                number = Integer.parseInt(digitalMatcher.group(2));
+                digit = Integer.parseInt(digitalMatcher.group(3));
                 builder.addressType(EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG);
-                builder.address(wordString + bitStringFormatted);
+                builder.address(fromSoMachineAddress(number, digit));
             } else if (analogMatcher.matches()) {
+                type = analogMatcher.group(1);
+                number = Integer.parseInt(analogMatcher.group(2));
                 builder.addressType(EB_ADDRESS_TYPE_ANALOG);
-                builder.address(analogMatcher.group(2));
+                builder.address(fromSoMachineAddress(type, number));
             } else {
                 throw new UnsupportedAddressException(smAddress);
             }
         }
 
         return builder.build();
+    }
+
+    private static String fromSoMachineAddress(int number, int digit) {
+        int newNumber = number / 2;
+        int newDigit;
+        if (number % 2 == 0) {
+            newDigit = digit;
+        } else {
+            newDigit = digit + 8;
+        }
+        return newNumber + String.format("%02d", newDigit);
+    }
+
+    private static String fromSoMachineAddress(String type, int number) {
+        int newNumber;
+        switch (type) {
+            case SoMachineRecord.SM_ADDRESS_TYPE_DWORD:
+                newNumber = number * 2;
+                break;
+            default:
+                newNumber = number;
+        }
+        return Integer.toString(newNumber);
     }
 
     public List<String> toList() {
