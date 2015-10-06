@@ -1,13 +1,12 @@
 import org.apache.commons.cli.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.io.FilenameUtils;
+import reader.SoMachineReader;
 import record.EasyBuilderRecord;
 import record.SoMachineRecord;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class main {
@@ -24,40 +23,59 @@ public class main {
     }
 
     private static void readFiles() {
-        final String extention;
-        if (cmd.getOptionValue(OPTION_SHORT_EXTENTION) != null) {
-            extention = cmd.getOptionValue(OPTION_SHORT_EXTENTION);
-        } else {
-            extention = DEFAULT_EXTENTION;
-        }
         CSVPrinter printer = openCSV();
-        try {
-            Files.walk(Paths.get("")).forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    String curExtention = FilenameUtils.getExtension(filePath.toString());
-                    if (curExtention.equals(extention)) {
-                        try {
-                            Files.lines(filePath).forEach(line -> {
-                                if (Character.isWhitespace(line.charAt(0))) {
-                                    try {
-                                        EasyBuilderRecord ebRec =
-                                            EasyBuilderRecord.fromSoMachineRecord(SoMachineRecord.fromString(line));
-                                        writeCSV(ebRec.toList(), printer);
-                                    } catch (EasyBuilderRecord.UnsupportedAddressException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
+                .path("")
+                .extention(chooseExtention())
+                .build()
+                .read()
+                .getRecords();
+
+        smRecords.sort((rec1, rec2) -> {
+            return rec1.getName().compareTo(rec2.getName());
+        });
+
+        List<EasyBuilderRecord> ebRecords = new ArrayList<>();
+        for (SoMachineRecord smRec : smRecords) {
+            try {
+                EasyBuilderRecord ebRec = EasyBuilderRecord.fromSoMachineRecord(smRec);
+                patchWithFakeAddress(ebRec, smRec);
+                ebRec.setPlcName("plc");
+                ebRecords.add(ebRec);
+            } catch (EasyBuilderRecord.UnsupportedAddressException e) {
+                e.printStackTrace();
+            }
         }
+
+        for (EasyBuilderRecord ebRec : ebRecords) {
+            writeCSV(ebRec.toList(), printer);
+        }
+
         closeCSV(printer);
+    }
+
+    private static void patchWithFakeAddress(EasyBuilderRecord ebRec, SoMachineRecord smRec) {
+        if (!smRec.isExported()) {
+            switch (smRec.getType()) {
+                case "BOOL":
+                    ebRec.setAddressType(EasyBuilderRecord.EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG);
+                    ebRec.setAddress("000");
+                    break;
+                default:
+                    ebRec.setAddressType(EasyBuilderRecord.EB_ADDRESS_TYPE_ANALOG);
+                    ebRec.setAddress("0");
+                    break;
+            }
+        }
+    }
+
+    private static String chooseExtention() {
+        if (cmd.getOptionValue(OPTION_SHORT_EXTENTION) != null) {
+            return cmd.getOptionValue(OPTION_SHORT_EXTENTION);
+        } else {
+            return DEFAULT_EXTENTION;
+        }
     }
 
     private static void prepareOptions(String[] args) {

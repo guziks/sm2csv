@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class EasyBuilderRecord {
 
-    private static final String EB_ADDRESS_TYPE_ANALOG = "%MW";
-    private static final String EB_ADDRESS_TYPE_DIGITAL = "%M";
-    private static final String EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG = "%MW_Bit";
+    public static final String EB_ADDRESS_TYPE_ANALOG = "%MW";
+    public static final String EB_ADDRESS_TYPE_DIGITAL = "%M";
+    public static final String EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG = "%MW_Bit";
 
     private String name;
     private String plcName;
@@ -18,50 +18,42 @@ public class EasyBuilderRecord {
     private String comment;
     private String valueType;
 
+    private boolean dummy;
+
     public String getName() {
         return name;
+    }
+    public String getPlcName() {
+        return plcName;
+    }
+    public String getAddressType() {
+        return addressType;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getComment() {
+        return comment;
+    }
+    public String getValueType() {
+        return valueType;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getPlcName() {
-        return plcName;
-    }
-
     public void setPlcName(String plcName) {
         this.plcName = plcName;
     }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public String getAddressType() {
-        return addressType;
-    }
-
     public void setAddressType(String addressType) {
         this.addressType = addressType;
     }
-
-    public String getAddress() {
-        return address;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public String getValueType() {
-        return valueType;
-    }
-
     public void setComment(String comment) {
         this.comment = comment;
     }
-
     public void setValueType(String valueType) {
         this.valueType = valueType;
     }
