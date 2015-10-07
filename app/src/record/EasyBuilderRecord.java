@@ -89,6 +89,8 @@ public class EasyBuilderRecord {
             }
         }
 
+        builder.comment(smRec.getComment());
+
         return builder.build();
     }
 

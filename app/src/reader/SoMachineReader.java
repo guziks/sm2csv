@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SoMachineReader {
     private List<SoMachineRecord> records;
@@ -36,15 +38,26 @@ public class SoMachineReader {
 
     public SoMachineReader read() {
         records = new ArrayList<>();
+        Pattern commentPattern = Pattern.compile("^\\s+//(.+)$");
+        Pattern recordPattern = Pattern.compile("^\\s+((?!//).)+$");
         try {
             Files.walk(Paths.get(path)).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     String curExtention = FilenameUtils.getExtension(filePath.toString());
                     if (curExtention.equals(extention)) {
                         try {
+                            ArrayList<String> curComments = new ArrayList<>();
                             Files.lines(filePath).forEach(line -> {
-                                if (Character.isWhitespace(line.charAt(0))) {
+                                Matcher commentlMatcher = commentPattern.matcher(line);
+                                Matcher recordMatcher = recordPattern.matcher(line);
+                                if (commentlMatcher.matches()) {
+                                    curComments.add(commentlMatcher.group(1).trim());
+                                } else if (recordMatcher.matches()) {
                                     SoMachineRecord rec = SoMachineRecord.fromString(line);
+                                    if (!curComments.isEmpty()) {
+                                        rec.setComment(curComments.get(0));
+                                        curComments.clear();
+                                    }
                                     records.add(rec);
                                 }
                             });

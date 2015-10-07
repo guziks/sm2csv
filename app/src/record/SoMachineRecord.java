@@ -8,10 +8,14 @@ public class SoMachineRecord {
     public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
     public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
 
+    private String comment;
     private String name;
     private String address;
     private String type;
 
+    public String getComment() {
+        return comment;
+    }
     public String getName() {
         return name;
     }
@@ -22,6 +26,9 @@ public class SoMachineRecord {
         return type;
     }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -55,7 +62,7 @@ public class SoMachineRecord {
         String[] parts = raw
                 .replace(";","")
                 .trim()
-                .split("(\t)|(: )|( AT )", 3);
+                .split("(\t)|(: )|( AT )", 3); //TODO check if \t required
 
         Builder builder = new Builder();
         builder.name(parts[0]);
@@ -75,6 +82,10 @@ public class SoMachineRecord {
     public static class Builder {
         private SoMachineRecord rec = new SoMachineRecord();
 
+        public Builder comment(String comment) {
+            rec.setComment(comment);
+            return this;
+        }
         public Builder name(String name) {
             rec.setName(name);
             return this;
