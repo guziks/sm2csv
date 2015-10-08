@@ -1,9 +1,11 @@
+package ua.com.elius.sm2csv;
+
 import org.apache.commons.cli.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import reader.SoMachineReader;
-import record.EasyBuilderRecord;
-import record.SoMachineRecord;
+import ua.com.elius.sm2csv.reader.SoMachineReader;
+import ua.com.elius.sm2csv.record.EasyBuilderRecord;
+import ua.com.elius.sm2csv.record.SoMachineRecord;
 
 import java.io.*;
 import java.util.ArrayList;

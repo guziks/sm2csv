@@ -1,8 +1,8 @@
-package writer;
+package ua.com.elius.sm2csv.writer;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import record.EasyBuilderRecord;
+import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 
 import java.io.*;
 import java.util.Arrays;

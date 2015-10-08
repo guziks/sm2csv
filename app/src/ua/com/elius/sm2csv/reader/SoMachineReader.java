@@ -1,7 +1,7 @@
-package reader;
+package ua.com.elius.sm2csv.reader;
 
 import org.apache.commons.io.FilenameUtils;
-import record.SoMachineRecord;
+import ua.com.elius.sm2csv.record.SoMachineRecord;
 
 import java.io.IOException;
 import java.nio.file.Files;

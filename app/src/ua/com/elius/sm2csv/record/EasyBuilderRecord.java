@@ -1,4 +1,4 @@
-package record;
+package ua.com.elius.sm2csv.record;
 
 import java.util.ArrayList;
 import java.util.List;
