@@ -17,8 +17,6 @@ public class EasyBuilderRecord {
     private String comment;
     private String valueType;
 
-    private boolean dummy;
-
     public String getName() {
         return name;
     }
@@ -126,6 +124,10 @@ public class EasyBuilderRecord {
         list.add(comment);
         list.add(valueType);
         return list;
+    }
+
+    public boolean isAlarm() {
+        return name.startsWith("f_") || name.startsWith("break_");
     }
 
     public static class Builder {

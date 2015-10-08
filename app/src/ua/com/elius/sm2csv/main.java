@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVPrinter;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
+import ua.com.elius.sm2csv.writer.EeasyBuilderAlarmWriter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -52,13 +53,16 @@ public class main {
 
         writeDummy(printer);
 
+        EeasyBuilderAlarmWriter alarmWriter = new EeasyBuilderAlarmWriter();
+        alarmWriter.open();
+
         for (EasyBuilderRecord ebRec : ebRecords) {
             writeCSV(ebRec.toList(), printer);
+            alarmWriter.write(ebRec);
         }
 
         closeCSV(printer);
-
-//        new EasyBuilderAlarmWriter()
+        alarmWriter.close();
     }
 
     private static void writeDummy(CSVPrinter printer) {
