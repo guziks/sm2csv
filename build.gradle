@@ -1,13 +1,29 @@
-group 'ua.com.elius'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.5
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'gradle.plugin.edu.sc.seis.gradle:launch4j:1.5.1'
+    }
+}
 
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'java'
+apply plugin: 'edu.sc.seis.launch4j'
+
+launch4j {
+    mainClassName = 'ua.com.elius.sm2csv.main'
+    headerType = 'console'
+    jar = '../../out/artifacts/sm2csv.jar'
+}
+
+group 'ua.com.elius'
+version '1.0-SNAPSHOT'
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
