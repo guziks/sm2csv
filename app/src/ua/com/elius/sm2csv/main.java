@@ -1,14 +1,12 @@
 package ua.com.elius.sm2csv;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
+import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
 import ua.com.elius.sm2csv.writer.EeasyBuilderAlarmWriter;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +20,14 @@ public class main {
 
     public static void main(String[] args) {
         prepareOptions(args);
-        readFiles();
+        writeEasyBuilderTables(
+                convertToEasyBuilderRecords(
+                        readSoMachineRecords()
+                )
+        );
     }
 
-    private static void readFiles() {
-        CSVPrinter printer = openCSV();
+    private static List<SoMachineRecord> readSoMachineRecords() {
 
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
                 .path("")
@@ -39,6 +40,10 @@ public class main {
             return rec1.getName().compareTo(rec2.getName());
         });
 
+        return smRecords;
+    }
+
+    private static List<EasyBuilderRecord> convertToEasyBuilderRecords(List<SoMachineRecord> smRecords) {
         List<EasyBuilderRecord> ebRecords = new ArrayList<>();
         for (SoMachineRecord smRec : smRecords) {
             try {
@@ -51,21 +56,27 @@ public class main {
             }
         }
 
-        writeDummy(printer);
+        return  ebRecords;
+    }
 
+    private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
+        EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
         EeasyBuilderAlarmWriter alarmWriter = new EeasyBuilderAlarmWriter();
+        tagWriter.open();
         alarmWriter.open();
 
+        writeDummy(tagWriter);
+
         for (EasyBuilderRecord ebRec : ebRecords) {
-            writeCSV(ebRec.toList(), printer);
+            tagWriter.write(ebRec);
             alarmWriter.write(ebRec);
         }
 
-        closeCSV(printer);
+        tagWriter.close();
         alarmWriter.close();
     }
 
-    private static void writeDummy(CSVPrinter printer) {
+    private static void writeDummy(EasyBuilderTagWriter writer) {
         EasyBuilderRecord dummyBit = new EasyBuilderRecord.Builder()
                 .name("dummy_bit")
                 .plcName("plc")
@@ -78,8 +89,8 @@ public class main {
                 .addressType("%MW")
                 .address("9998")
                 .build();
-        writeCSV(dummyBit.toList(), printer);
-        writeCSV(dummyWord.toList(), printer);
+        writer.write(dummyBit);
+        writer.write(dummyWord);
     }
 
     private static void patchWithFakeAddress(EasyBuilderRecord ebRec, SoMachineRecord smRec) {
@@ -126,46 +137,5 @@ public class main {
             formatter.printHelp("sm2csv", options);
             System.exit(1);
         }
-    }
-
-    private static CSVPrinter openCSV() {
-        CSVFormat format = CSVFormat.EXCEL;
-        OutputStreamWriter writer = null;
-
-        try {
-            writer = new OutputStreamWriter(
-                    new FileOutputStream("tags.csv"), "windows-1251"
-            );
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        CSVPrinter printer = null;
-        try {
-            printer = new CSVPrinter(writer, format);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return printer;
-    }
-
-    private static void writeCSV(List<String> record, CSVPrinter printer) {
-        try {
-            printer.printRecord(record);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void closeCSV(CSVPrinter printer) {
-        try {
-            printer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Printed");
     }
 }
