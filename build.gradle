@@ -20,6 +20,7 @@ launch4j {
     mainClassName = 'ua.com.elius.sm2csv.main'
     headerType = 'console'
     jar = '../../out/artifacts/sm2csv.jar'
+    chdir = ''
 }
 
 group 'ua.com.elius'
