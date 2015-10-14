@@ -62,7 +62,7 @@ public class SoMachineRecord {
         String[] parts = raw
                 .replace(";","")
                 .trim()
-                .split("(\t)|(: )|( AT )", 3); //TODO check if \t required
+                .split("(\t)|( : )|(: )|(:)|( :)|( AT )", 3); //TODO check if \t required
 
         Builder builder = new Builder();
         builder.name(parts[0]);
