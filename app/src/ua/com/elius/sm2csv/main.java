@@ -12,9 +12,16 @@ import java.util.List;
 
 public class main {
 
-    private static final String OPTION_SHORT_EXTENTION = "e";
-    private static final String OPTION_LONG_EXTENTION = "extention";
-    private static final String DEFAULT_EXTENTION = "var";
+    private static final String OPTION_EXTENTION_SHORT = "e";
+    private static final String OPTION_EXTENTION_LONG = "extention";
+    private static final String OPTION_EXTENTION_DEFAULT_VALUE = "var";
+
+    private static final String OPTION_PLC_NAME_SHORT = "n";
+    private static final String OPTION_PLC_NAME_LONG = "plc-name";
+    private static final String OPTION_PLC_NAME_DEFAULT_VALUE = "plc";
+
+    private static final String OPTION_INCLUDE_ALL_SHORT = "a";
+    private static final String OPTION_INCLUDE_ALL_LONG = "include-all";
 
     private static CommandLine cmd;
 
@@ -48,9 +55,13 @@ public class main {
         for (SoMachineRecord smRec : smRecords) {
             try {
                 EasyBuilderRecord ebRec = EasyBuilderRecord.fromSoMachineRecord(smRec);
-                patchWithFakeAddress(ebRec, smRec);
-                ebRec.setPlcName("plc");
-                ebRecords.add(ebRec);
+                if (cmd.hasOption(OPTION_INCLUDE_ALL_SHORT)) {
+                    patchWithFakeAddress(ebRec, smRec);
+                }
+                ebRec.setPlcName(choosePlcName());
+                if (ebRec.getAddress() != null) {
+                    ebRecords.add(ebRec);
+                }
             } catch (EasyBuilderRecord.UnsupportedAddressException e) {
                 e.printStackTrace();
             }
@@ -79,13 +90,13 @@ public class main {
     private static void writeDummy(EasyBuilderTagWriter writer) {
         EasyBuilderRecord dummyBit = new EasyBuilderRecord.Builder()
                 .name("dummy_bit")
-                .plcName("plc")
+                .plcName(choosePlcName())
                 .addressType("%MW_Bit")
                 .address("999900")
                 .build();
         EasyBuilderRecord dummyWord = new EasyBuilderRecord.Builder()
                 .name("dummy_word")
-                .plcName("plc")
+                .plcName(choosePlcName())
                 .addressType("%MW")
                 .address("9998")
                 .build();
@@ -109,23 +120,43 @@ public class main {
     }
 
     private static String chooseExtention() {
-        if (cmd.getOptionValue(OPTION_SHORT_EXTENTION) != null) {
-            return cmd.getOptionValue(OPTION_SHORT_EXTENTION);
+        if (cmd.getOptionValue(OPTION_EXTENTION_SHORT) != null) {
+            return cmd.getOptionValue(OPTION_EXTENTION_SHORT);
         } else {
-            return DEFAULT_EXTENTION;
+            return OPTION_EXTENTION_DEFAULT_VALUE;
+        }
+    }
+
+    private static String choosePlcName() {
+        if (cmd.getOptionValue(OPTION_PLC_NAME_SHORT) != null) {
+            return cmd.getOptionValue(OPTION_PLC_NAME_SHORT);
+        } else {
+            return OPTION_PLC_NAME_DEFAULT_VALUE;
         }
     }
 
     private static void prepareOptions(String[] args) {
-        Option inputFilesExt = Option.builder(OPTION_SHORT_EXTENTION)
-                .longOpt(OPTION_LONG_EXTENTION)
+        Option inputFilesExt = Option.builder(OPTION_EXTENTION_SHORT)
+                .longOpt(OPTION_EXTENTION_LONG)
                 .argName("extention")
                 .desc("search for files with this extention")
                 .hasArg()
                 .build();
+        Option plcName = Option.builder(OPTION_PLC_NAME_SHORT)
+                .longOpt(OPTION_PLC_NAME_LONG)
+                .argName("name")
+                .desc("plc name specified in EasyBuilder project System Parameters section")
+                .hasArg()
+                .build();
+        Option includeAll = Option.builder(OPTION_INCLUDE_ALL_SHORT)
+                .longOpt(OPTION_INCLUDE_ALL_LONG)
+                .desc("include all tags, even if they have no address")
+                .build();
 
         Options options = new Options();
         options.addOption(inputFilesExt);
+        options.addOption(plcName);
+        options.addOption(includeAll);
 
         CommandLineParser parser = new DefaultParser();
         try {
