@@ -12,39 +12,39 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SoMachineReader {
-    private List<SoMachineRecord> records;
-    private String extention;
-    private String path;
+    private List<SoMachineRecord> mRecords;
+    private String mExtention;
+    private String mPath;
 
     public String getExtention() {
-        return extention;
+        return mExtention;
     }
     public String getPath() {
-        return path;
+        return mPath;
     }
 
     public List<SoMachineRecord> getRecords() {
-        return records;
+        return mRecords;
     }
 
     public void setExtention(String extention) {
-        this.extention = extention;
+        this.mExtention = extention;
     }
     public void setPath(String path) {
-        this.path = path;
+        this.mPath = path;
     }
 
     private SoMachineReader() {}
 
     public SoMachineReader read() {
-        records = new ArrayList<>();
+        mRecords = new ArrayList<>();
         Pattern commentPattern = Pattern.compile("^\\s+//(.+)$");
         Pattern recordPattern = Pattern.compile("^\\s+((?!//).)+$");
         try {
-            Files.walk(Paths.get(path)).forEach(filePath -> {
+            Files.walk(Paths.get(mPath)).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     String curExtention = FilenameUtils.getExtension(filePath.toString());
-                    if (curExtention.equals(extention)) {
+                    if (curExtention.equals(mExtention)) {
                         try {
                             ArrayList<String> curComments = new ArrayList<>();
                             Files.lines(filePath).forEach(line -> {
@@ -58,7 +58,7 @@ public class SoMachineReader {
                                         rec.setComment(curComments.get(0));
                                         curComments.clear();
                                     }
-                                    records.add(rec);
+                                    mRecords.add(rec);
                                 }
                             });
                         } catch (IOException e) {

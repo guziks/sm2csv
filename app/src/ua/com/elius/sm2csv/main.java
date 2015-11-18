@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class main {
-
     private static final String OPTION_EXTENTION_SHORT = "e";
     private static final String OPTION_EXTENTION_LONG = "extention";
     private static final String OPTION_EXTENTION_DEFAULT_VALUE = "var";
@@ -23,7 +22,7 @@ public class main {
     private static final String OPTION_INCLUDE_ALL_SHORT = "a";
     private static final String OPTION_INCLUDE_ALL_LONG = "include-all";
 
-    private static CommandLine cmd;
+    private static CommandLine mCmd;
 
     public static void main(String[] args) {
         prepareOptions(args);
@@ -35,7 +34,6 @@ public class main {
     }
 
     private static List<SoMachineRecord> readSoMachineRecords() {
-
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
                 .path("")
                 .extention(chooseExtention())
@@ -55,7 +53,7 @@ public class main {
         for (SoMachineRecord smRec : smRecords) {
             try {
                 EasyBuilderRecord ebRec = EasyBuilderRecord.fromSoMachineRecord(smRec);
-                if (cmd.hasOption(OPTION_INCLUDE_ALL_SHORT)) {
+                if (mCmd.hasOption(OPTION_INCLUDE_ALL_SHORT)) {
                     patchWithFakeAddress(ebRec, smRec);
                 }
                 ebRec.setPlcName(choosePlcName());
@@ -120,16 +118,16 @@ public class main {
     }
 
     private static String chooseExtention() {
-        if (cmd.getOptionValue(OPTION_EXTENTION_SHORT) != null) {
-            return cmd.getOptionValue(OPTION_EXTENTION_SHORT);
+        if (mCmd.getOptionValue(OPTION_EXTENTION_SHORT) != null) {
+            return mCmd.getOptionValue(OPTION_EXTENTION_SHORT);
         } else {
             return OPTION_EXTENTION_DEFAULT_VALUE;
         }
     }
 
     private static String choosePlcName() {
-        if (cmd.getOptionValue(OPTION_PLC_NAME_SHORT) != null) {
-            return cmd.getOptionValue(OPTION_PLC_NAME_SHORT);
+        if (mCmd.getOptionValue(OPTION_PLC_NAME_SHORT) != null) {
+            return mCmd.getOptionValue(OPTION_PLC_NAME_SHORT);
         } else {
             return OPTION_PLC_NAME_DEFAULT_VALUE;
         }
@@ -160,7 +158,7 @@ public class main {
 
         CommandLineParser parser = new DefaultParser();
         try {
-            cmd = parser.parse( options, args );
+            mCmd = parser.parse( options, args );
         }
         catch( ParseException exp ) {
             System.err.println(exp.getMessage());

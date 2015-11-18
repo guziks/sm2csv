@@ -10,55 +10,54 @@ public class EasyBuilderRecord {
     public static final String EB_ADDRESS_TYPE_DIGITAL = "%M";
     public static final String EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG = "%MW_Bit";
 
-    private String name;
-    private String plcName;
-    private String addressType;
-    private String address;
-    private String comment;
-    private String valueType;
+    private String mName;
+    private String mPlcName;
+    private String mAddressType;
+    private String mAddress;
+    private String mComment;
+    private String mValueType;
 
     public String getName() {
-        return name;
+        return mName;
     }
     public String getPlcName() {
-        return plcName;
+        return mPlcName;
     }
     public String getAddressType() {
-        return addressType;
+        return mAddressType;
     }
     public String getAddress() {
-        return address;
+        return mAddress;
     }
     public String getComment() {
-        return comment;
+        return mComment;
     }
     public String getValueType() {
-        return valueType;
+        return mValueType;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
     public void setPlcName(String plcName) {
-        this.plcName = plcName;
+        this.mPlcName = plcName;
     }
     public void setAddressType(String addressType) {
-        this.addressType = addressType;
+        this.mAddressType = addressType;
     }
     public void setAddress(String address) {
-        this.address = address;
+        this.mAddress = address;
     }
     public void setComment(String comment) {
-        this.comment = comment;
+        this.mComment = comment;
     }
     public void setValueType(String valueType) {
-        this.valueType = valueType;
+        this.mValueType = valueType;
     }
 
     private EasyBuilderRecord() {}
 
     public static EasyBuilderRecord fromSoMachineRecord(SoMachineRecord smRec) throws UnsupportedAddressException {
-
         EasyBuilderRecord.Builder builder =
                 new EasyBuilderRecord.Builder()
                     .name(smRec.getName());
@@ -117,48 +116,48 @@ public class EasyBuilderRecord {
 
     public List<String> toList() {
         List<String> list = new ArrayList<>();
-        list.add(name);
-        list.add(plcName);
-        list.add(addressType);
-        list.add(address);
-        list.add(comment);
-        list.add(valueType);
+        list.add(mName);
+        list.add(mPlcName);
+        list.add(mAddressType);
+        list.add(mAddress);
+        list.add(mComment);
+        list.add(mValueType);
         return list;
     }
 
     public boolean isAlarm() {
-        return name.startsWith("f_") || name.startsWith("break_");
+        return mName.startsWith("f_") || mName.startsWith("break_");
     }
 
     public static class Builder {
-        private EasyBuilderRecord rec = new EasyBuilderRecord();
+        private EasyBuilderRecord mRec = new EasyBuilderRecord();
 
         public Builder name(String name) {
-            rec.setName(name);
+            mRec.setName(name);
             return this;
         }
         public Builder plcName(String plcName) {
-            rec.setPlcName(plcName);
+            mRec.setPlcName(plcName);
             return this;
         }
         public Builder addressType(String addressType) {
-            rec.setAddressType(addressType);
+            mRec.setAddressType(addressType);
             return this;
         }
         public Builder address(String address) {
-            rec.setAddress(address);
+            mRec.setAddress(address);
             return this;
         }
         public Builder comment(String comment) {
-            rec.setComment(comment);
+            mRec.setComment(comment);
             return this;
         }
         public Builder valueType(String valueType) {
-            rec.setValueType(valueType);
+            mRec.setValueType(valueType);
             return this;
         }
         public EasyBuilderRecord build() {
-            return rec;
+            return mRec;
         }
     }
 

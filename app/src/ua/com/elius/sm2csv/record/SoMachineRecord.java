@@ -8,48 +8,48 @@ public class SoMachineRecord {
     public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
     public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
 
-    private String comment;
-    private String name;
-    private String address;
-    private String type;
+    private String mComment;
+    private String mName;
+    private String mAddress;
+    private String mType;
 
     public String getComment() {
-        return comment;
+        return mComment;
     }
     public String getName() {
-        return name;
+        return mName;
     }
     public String getAddress() {
-        return address;
+        return mAddress;
     }
     public String getType() {
-        return type;
+        return mType;
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.mComment = comment;
     }
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
     public void setAddress(String address) {
-        this.address = address;
+        this.mAddress = address;
     }
     public void setType(String type) {
-        this.type = type;
+        this.mType = type;
     }
 
     private SoMachineRecord() {}
 
     public boolean isExported() {
-        return (address != null);
+        return (mAddress != null);
     }
 
     public List<String> toList() {
         List<String> list = new ArrayList<>();
-        list.add(name);
-        list.add(address);
-        list.add(type);
+        list.add(mName);
+        list.add(mAddress);
+        list.add(mType);
         return list;
     }
 
@@ -80,26 +80,26 @@ public class SoMachineRecord {
     }
 
     public static class Builder {
-        private SoMachineRecord rec = new SoMachineRecord();
+        private SoMachineRecord mRec = new SoMachineRecord();
 
         public Builder comment(String comment) {
-            rec.setComment(comment);
+            mRec.setComment(comment);
             return this;
         }
         public Builder name(String name) {
-            rec.setName(name);
+            mRec.setName(name);
             return this;
         }
         public Builder address(String address) {
-            rec.setAddress(address);
+            mRec.setAddress(address);
             return this;
         }
         public Builder type(String type) {
-            rec.setType(type);
+            mRec.setType(type);
             return this;
         }
         public SoMachineRecord build() {
-            return rec;
+            return mRec;
         }
     }
 }
