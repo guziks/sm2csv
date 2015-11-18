@@ -2,8 +2,6 @@ package ua.com.elius.sm2csv.record;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EasyBuilderRecord {
     public static final String EB_ADDRESS_TYPE_ANALOG = "%MW";
@@ -62,27 +60,16 @@ public class EasyBuilderRecord {
                 new EasyBuilderRecord.Builder()
                     .name(smRec.getName());
 
-        String smAddress = smRec.getAddress();
+        SoMachineRecord.Address smAddress = smRec.getAddress();
         if (smAddress != null) {
-            Pattern digitalAddressPattern = Pattern.compile("^(%\\D+)(\\d+)\\.(\\d+)$");
-            Pattern analogAddressPattern = Pattern.compile("^(%\\D+)(\\d+)$");
-            Matcher digitalMatcher = digitalAddressPattern.matcher(smAddress);
-            Matcher analogMatcher = analogAddressPattern.matcher(smAddress);
-            String type;
-            int number;
-            int digit;
-            if (digitalMatcher.matches()) {
-                number = Integer.parseInt(digitalMatcher.group(2));
-                digit = Integer.parseInt(digitalMatcher.group(3));
+            if (smAddress.isDigital()) {
                 builder.addressType(EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG);
-                builder.address(fromSoMachineAddress(number, digit));
-            } else if (analogMatcher.matches()) {
-                type = analogMatcher.group(1);
-                number = Integer.parseInt(analogMatcher.group(2));
+                builder.address(fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
+            } else if (smAddress.isAnalog()) {
                 builder.addressType(EB_ADDRESS_TYPE_ANALOG);
-                builder.address(fromSoMachineAddress(type, number));
+                builder.address(fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
             } else {
-                throw new UnsupportedAddressException(smAddress);
+                throw new UnsupportedAddressException(smAddress.toString());
             }
         }
 

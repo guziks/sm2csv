@@ -2,6 +2,8 @@ package ua.com.elius.sm2csv.record;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SoMachineRecord {
     public static final String SM_ADDRESS_TYPE_BYTE = "%MX";
@@ -10,7 +12,7 @@ public class SoMachineRecord {
 
     private String mComment;
     private String mName;
-    private String mAddress;
+    private Address mAddress;
     private String mType;
 
     public String getComment() {
@@ -19,7 +21,7 @@ public class SoMachineRecord {
     public String getName() {
         return mName;
     }
-    public String getAddress() {
+    public Address getAddress() {
         return mAddress;
     }
     public String getType() {
@@ -32,7 +34,7 @@ public class SoMachineRecord {
     public void setName(String name) {
         this.mName = name;
     }
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.mAddress = address;
     }
     public void setType(String type) {
@@ -48,7 +50,7 @@ public class SoMachineRecord {
     public List<String> toList() {
         List<String> list = new ArrayList<>();
         list.add(mName);
-        list.add(mAddress);
+        list.add(mAddress.toString());
         list.add(mType);
         return list;
     }
@@ -91,7 +93,8 @@ public class SoMachineRecord {
             return this;
         }
         public Builder address(String address) {
-            mRec.setAddress(address);
+            Address addr = new Address(address);
+            mRec.setAddress(addr);
             return this;
         }
         public Builder type(String type) {
@@ -100,6 +103,60 @@ public class SoMachineRecord {
         }
         public SoMachineRecord build() {
             return mRec;
+        }
+    }
+
+    public static class Address {
+        private static final Pattern DIGITAL_ADDRESS_PATTERN = Pattern.compile("^(%\\D+)(\\d+)\\.(\\d+)$");
+        private static final Pattern ANALOG_ADDRESS_PATTERN = Pattern.compile("^(%\\D+)(\\d+)$");
+
+        private String mAddress;
+        private boolean mIsDigital;
+        private boolean mIsAnalog;
+        private String mType;
+        private int mNumber;
+        private int mDigit;
+
+        private Matcher mDigitalMatcher;
+        private Matcher mAnalogMatcher;
+
+        public Address(String address) {
+            mAddress = address;
+            mDigitalMatcher = DIGITAL_ADDRESS_PATTERN.matcher(mAddress);
+            mAnalogMatcher = ANALOG_ADDRESS_PATTERN.matcher(mAddress);
+            mIsDigital = mDigitalMatcher.matches();
+            mIsAnalog = mAnalogMatcher.matches();
+            if (mIsDigital) {
+                mNumber = Integer.parseInt(mDigitalMatcher.group(2));
+                mDigit = Integer.parseInt(mDigitalMatcher.group(3));
+            } else if (mIsAnalog) {
+                mType = mAnalogMatcher.group(1);
+                mNumber = Integer.parseInt(mAnalogMatcher.group(2));
+            }
+        }
+
+        public String toString() {
+            return mAddress;
+        }
+
+        public boolean isDigital() {
+            return mIsDigital;
+        }
+
+        public boolean isAnalog() {
+            return mIsAnalog;
+        }
+
+        public String getType() {
+            return mType;
+        }
+
+        public int getNumber() {
+            return mNumber;
+        }
+
+        public int getDigit() {
+            return mDigit;
         }
     }
 }
