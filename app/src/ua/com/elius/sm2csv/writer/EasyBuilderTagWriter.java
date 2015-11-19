@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.List;
 
 public class EasyBuilderTagWriter {
-    private static final String OUTPUT_FILE_NAME = "tags.csv";
+    private static final String OUTPUT_FILE_NAME = "easybuilder-tags.csv";
     private static final String OUTPUT_FILE_ENCODING = "windows-1251";
 
     private CSVPrinter printer;
