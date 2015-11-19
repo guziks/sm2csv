@@ -1,6 +1,7 @@
 ### Custom
 
 work/
+sbin/
 
 ### Gradle template
 .gradle
