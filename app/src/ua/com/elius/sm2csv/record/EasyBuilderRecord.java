@@ -67,7 +67,7 @@ public class EasyBuilderRecord {
                 builder.address(fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
             } else if (smAddress.isAnalog()) {
                 builder.addressType(EB_ADDRESS_TYPE_ANALOG);
-                builder.address(fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
+                builder.address(fromSoMachineAddress(smAddress.getType(), smAddress.getNumber()));
             } else {
                 throw new UnsupportedAddressException(smAddress.toString());
             }
