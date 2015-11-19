@@ -5,8 +5,10 @@ import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
 import ua.com.elius.sm2csv.record.UnsupportedAddressException;
-import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
+import ua.com.elius.sm2csv.record.WinccRecord;
 import ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter;
+import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
+import ua.com.elius.sm2csv.writer.WinccTagWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +29,11 @@ public class main {
 
     public static void main(String[] args) {
         prepareOptions(args);
-        writeEasyBuilderTables(
-                convertToEasyBuilderRecords(
-                        readSoMachineRecords()
-                )
-        );
+
+        List<SoMachineRecord> smRecords = readSoMachineRecords();
+
+        writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
+        writeWinccTables(convertToWinccRecords(smRecords));
     }
 
     private static List<SoMachineRecord> readSoMachineRecords() {
@@ -69,6 +71,23 @@ public class main {
         return  ebRecords;
     }
 
+    private static List<WinccRecord> convertToWinccRecords(List<SoMachineRecord> smRecords) {
+        List<WinccRecord> winccRecords = new ArrayList<>();
+        for (SoMachineRecord smRec : smRecords) {
+            try {
+                WinccRecord winccRec = WinccRecord.fromSoMachineRecord(smRec);
+                winccRec.setConnection(choosePlcName());
+                if (winccRec.getAddress() != null) {
+                    winccRecords.add(winccRec);
+                }
+            } catch (UnsupportedAddressException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return  winccRecords;
+    }
+
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
         EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
@@ -84,6 +103,23 @@ public class main {
 
         tagWriter.close();
         alarmWriter.close();
+    }
+
+    private static void writeWinccTables(List<WinccRecord> winccRecords) {
+        WinccTagWriter tagWriter = new WinccTagWriter();
+//        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
+        tagWriter.open();
+//        alarmWriter.open();
+
+//        writeDummy(tagWriter);
+
+        for (WinccRecord winccRec : winccRecords) {
+            tagWriter.write(winccRec);
+//            alarmWriter.write(ebRec);
+        }
+
+        tagWriter.close();
+//        alarmWriter.close();
     }
 
     private static void writeDummy(EasyBuilderTagWriter writer) {
