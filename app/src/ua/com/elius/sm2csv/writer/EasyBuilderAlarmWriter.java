@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class EeasyBuilderAlarmWriter {
+public class EasyBuilderAlarmWriter {
 
     private static final String OUTPUT_FILE_NAME = "alarms.csv";
     private static final String OUTPUT_FILE_ENCODING = "windows-1251";

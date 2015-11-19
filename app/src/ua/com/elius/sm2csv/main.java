@@ -5,7 +5,7 @@ import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
 import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
-import ua.com.elius.sm2csv.writer.EeasyBuilderAlarmWriter;
+import ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class main {
 
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
-        EeasyBuilderAlarmWriter alarmWriter = new EeasyBuilderAlarmWriter();
+        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
         tagWriter.open();
         alarmWriter.open();
 
