@@ -148,9 +148,4 @@ public class EasyBuilderRecord {
         }
     }
 
-    public static class UnsupportedAddressException extends Throwable {
-        public UnsupportedAddressException(String message) {
-            super(message);
-        }
-    }
 }

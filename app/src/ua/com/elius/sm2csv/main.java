@@ -4,6 +4,7 @@ import org.apache.commons.cli.*;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
+import ua.com.elius.sm2csv.record.UnsupportedAddressException;
 import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
 import ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter;
 
@@ -60,7 +61,7 @@ public class main {
                 if (ebRec.getAddress() != null) {
                     ebRecords.add(ebRec);
                 }
-            } catch (EasyBuilderRecord.UnsupportedAddressException e) {
+            } catch (UnsupportedAddressException e) {
                 e.printStackTrace();
             }
         }
