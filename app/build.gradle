@@ -30,6 +30,9 @@ launch4j {
     mainClassName = project.mainClassName
     copyConfigurable = project.tasks.shadowJar.outputs.files
     jar = file("${staticBinaryDestination}/${project.tasks.shadowJar.archiveName}")
+    productName = rootProject.name
+    description = 'SoMachine to CSV Tags Converter'
+    copyright = 'Elius-M'
 }
 
 task sbin(type: Copy, dependsOn: 'launch4j', group: 'build') {
