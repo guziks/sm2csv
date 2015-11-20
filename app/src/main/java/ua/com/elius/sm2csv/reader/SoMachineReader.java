@@ -48,10 +48,10 @@ public class SoMachineReader {
                         try {
                             ArrayList<String> curComments = new ArrayList<>();
                             Files.lines(filePath).forEach(line -> {
-                                Matcher commentlMatcher = commentPattern.matcher(line);
+                                Matcher commentMatcher = commentPattern.matcher(line);
                                 Matcher recordMatcher = recordPattern.matcher(line);
-                                if (commentlMatcher.matches()) {
-                                    curComments.add(commentlMatcher.group(1).trim());
+                                if (commentMatcher.matches()) {
+                                    curComments.add(commentMatcher.group(1).trim());
                                 } else if (recordMatcher.matches()) {
                                     SoMachineRecord rec = SoMachineRecord.fromString(line);
                                     if (!curComments.isEmpty()) {
