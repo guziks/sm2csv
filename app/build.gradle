@@ -29,8 +29,7 @@ launch4j {
     chdir = ''
     mainClassName = project.mainClassName
     copyConfigurable = project.tasks.shadowJar.outputs.files
-    jar = "${staticBinaryDestination}/${project.tasks.shadowJar.archiveName}"
-    println jar
+    jar = file("${staticBinaryDestination}/${project.tasks.shadowJar.archiveName}")
 }
 
 task sbin(type: Copy, dependsOn: 'launch4j', group: 'build') {
