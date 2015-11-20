@@ -8,6 +8,7 @@ import ua.com.elius.sm2csv.record.UnsupportedAddressException;
 import ua.com.elius.sm2csv.record.WinccRecord;
 import ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter;
 import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
+import ua.com.elius.sm2csv.writer.WinccAlarmWriter;
 import ua.com.elius.sm2csv.writer.WinccTagWriter;
 
 import java.util.ArrayList;
@@ -107,19 +108,17 @@ public class main {
 
     private static void writeWinccTables(List<WinccRecord> winccRecords) {
         WinccTagWriter tagWriter = new WinccTagWriter();
-//        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
+        WinccAlarmWriter alarmWriter = new WinccAlarmWriter();
         tagWriter.open();
-//        alarmWriter.open();
-
-//        writeDummy(tagWriter);
+        alarmWriter.open();
 
         for (WinccRecord winccRec : winccRecords) {
             tagWriter.write(winccRec);
-//            alarmWriter.write(ebRec);
+            alarmWriter.write(winccRec);
         }
 
         tagWriter.close();
-//        alarmWriter.close();
+        alarmWriter.close();
     }
 
     private static void writeDummy(EasyBuilderTagWriter writer) {
