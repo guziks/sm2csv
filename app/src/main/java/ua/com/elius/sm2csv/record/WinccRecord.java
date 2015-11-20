@@ -19,6 +19,7 @@ public class WinccRecord {
     private String mFormat;
     private String mConnection;
     private String mAddress;
+    private String mComment;
 
     public String getName() {
         return mName;
@@ -37,6 +38,9 @@ public class WinccRecord {
     }
     public String getAddress() {
         return mAddress;
+    }
+    public String getComment() {
+        return mComment;
     }
 
     public void setName(String mName) {
@@ -57,6 +61,9 @@ public class WinccRecord {
     public void setAddress(String mAddress) {
         this.mAddress = mAddress;
     }
+    public void setComment(String mComment) {
+        this.mComment = mComment;
+    }
 
     private WinccRecord() {
 
@@ -65,7 +72,8 @@ public class WinccRecord {
     public static WinccRecord fromSoMachineRecord(SoMachineRecord smRec) throws UnsupportedAddressException {
         WinccRecord.Builder builder =
                 new WinccRecord.Builder()
-                        .name(smRec.getName());
+                        .name(smRec.getName())
+                        .comment(smRec.getComment());
 
         SoMachineRecord.Address smAddress = smRec.getAddress();
         if (smAddress != null) {
@@ -138,6 +146,10 @@ public class WinccRecord {
         }
         public Builder address(String address) {
             mRec.setAddress(address);
+            return this;
+        }
+        public Builder comment(String comment) {
+            mRec.setComment(comment);
             return this;
         }
         public WinccRecord build() {
