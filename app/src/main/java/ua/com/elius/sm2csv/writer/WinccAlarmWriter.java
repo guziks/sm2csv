@@ -26,7 +26,9 @@ public class WinccAlarmWriter {
     private CSVPrinter printer;
 
     public void open() {
-        CSVFormat format = CSVFormat.EXCEL.withDelimiter('\t');
+        CSVFormat format = CSVFormat.DEFAULT
+                .withDelimiter('\t')
+                .withQuote(null);
         OutputStreamWriter writer = null;
 
         try {
