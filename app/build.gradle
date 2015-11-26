@@ -9,6 +9,10 @@ run {
     workingDir = "$project.rootDir/work"
 }
 
+run.doFirst {
+    workingDir.mkdir()
+}
+
 jar {
     manifest {
         attributes("Main-Class": mainClassName)
