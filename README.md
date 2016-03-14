@@ -27,5 +27,8 @@ This is pure gradle project, java development kit is the only requirement. On wi
 ## Development without IDE
 If you want to change and run a program without IDE there is helper `run` task with customized working directory. This means yout can put input files to folder with name `work` and run program with gradle: `./gradlew run`.
 
+## Contribute
+Feel free to open a pull request/issue or fork this repo and submit your changes via a pull request.
+
 ## License
 TODO
