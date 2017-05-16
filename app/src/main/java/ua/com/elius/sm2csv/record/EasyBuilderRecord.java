@@ -113,7 +113,16 @@ public class EasyBuilderRecord {
     }
 
     public boolean isAlarm() {
-        return mName.startsWith("f_") || mName.startsWith("break_");
+        return mName.startsWith("f_") || mName.startsWith("break_") || mName.startsWith("sta_");
+    }
+
+    public boolean isDigital() {
+        if (EB_ADDRESS_TYPE_DIGITAL.equals(mAddressType) ||
+                EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG.equals(mAddressType)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static class Builder {
