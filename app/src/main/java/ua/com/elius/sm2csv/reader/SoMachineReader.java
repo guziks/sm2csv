@@ -13,11 +13,11 @@ import java.util.regex.Pattern;
 
 public class SoMachineReader {
     private List<SoMachineRecord> mRecords;
-    private String mExtention;
+    private String mExtension;
     private String mPath;
 
-    public String getExtention() {
-        return mExtention;
+    public String getExtension() {
+        return mExtension;
     }
     public String getPath() {
         return mPath;
@@ -27,8 +27,8 @@ public class SoMachineReader {
         return mRecords;
     }
 
-    public void setExtention(String extention) {
-        this.mExtention = extention;
+    public void setExtension(String extension) {
+        this.mExtension = extension;
     }
     public void setPath(String path) {
         this.mPath = path;
@@ -45,8 +45,8 @@ public class SoMachineReader {
         try {
             Files.walk(Paths.get(mPath)).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    String curExtention = FilenameUtils.getExtension(filePath.toString());
-                    if (curExtention.equals(mExtention)) {
+                    String curExtension = FilenameUtils.getExtension(filePath.toString());
+                    if (curExtension.equals(mExtension)) {
                         try {
                             ArrayList<String> curComments = new ArrayList<>();
                             boolean inBlockComment = false;
@@ -91,8 +91,8 @@ public class SoMachineReader {
             reader.setPath(path);
             return this;
         }
-        public Builder extention(String extention) {
-            reader.setExtention(extention);
+        public Builder extension(String extension) {
+            reader.setExtension(extension);
             return this;
         }
 

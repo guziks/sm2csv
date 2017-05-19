@@ -16,9 +16,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    private static final String OPTION_EXTENTION_SHORT = "e";
-    private static final String OPTION_EXTENTION_LONG = "extention";
-    private static final String OPTION_EXTENTION_DEFAULT_VALUE = "var";
+    private static final String OPTION_EXTENSION_SHORT = "e";
+    private static final String OPTION_EXTENSION_LONG = "extension";
+    private static final String OPTION_EXTENSION_DEFAULT_VALUE = "var";
 
     private static final String OPTION_PLC_NAME_SHORT = "n";
     private static final String OPTION_PLC_NAME_LONG = "plc-name";
@@ -41,7 +41,7 @@ public class Main {
     private static List<SoMachineRecord> readSoMachineRecords() {
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
                 .path("")
-                .extention(chooseExtention())
+                .extension(chooseExtension())
                 .build()
                 .read()
                 .getRecords();
@@ -152,11 +152,11 @@ public class Main {
         }
     }
 
-    private static String chooseExtention() {
-        if (mCmd.getOptionValue(OPTION_EXTENTION_SHORT) != null) {
-            return mCmd.getOptionValue(OPTION_EXTENTION_SHORT);
+    private static String chooseExtension() {
+        if (mCmd.getOptionValue(OPTION_EXTENSION_SHORT) != null) {
+            return mCmd.getOptionValue(OPTION_EXTENSION_SHORT);
         } else {
-            return OPTION_EXTENTION_DEFAULT_VALUE;
+            return OPTION_EXTENSION_DEFAULT_VALUE;
         }
     }
 
@@ -169,10 +169,10 @@ public class Main {
     }
 
     private static void prepareOptions(String[] args) {
-        Option inputFilesExt = Option.builder(OPTION_EXTENTION_SHORT)
-                .longOpt(OPTION_EXTENTION_LONG)
-                .argName("extention")
-                .desc("search for files with this extention")
+        Option inputFilesExt = Option.builder(OPTION_EXTENSION_SHORT)
+                .longOpt(OPTION_EXTENSION_LONG)
+                .argName("extension")
+                .desc("search for files with this extension")
                 .hasArg()
                 .build();
         Option plcName = Option.builder(OPTION_PLC_NAME_SHORT)
