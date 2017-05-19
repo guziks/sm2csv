@@ -12,6 +12,7 @@ import ua.com.elius.sm2csv.writer.WinccAlarmWriter;
 import ua.com.elius.sm2csv.writer.WinccTagWriter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -45,9 +46,7 @@ public class Main {
                 .read()
                 .getRecords();
 
-        smRecords.sort((rec1, rec2) -> {
-            return rec1.getName().compareTo(rec2.getName());
-        });
+        smRecords.sort(Comparator.comparing(SoMachineRecord::getName));
 
         return smRecords;
     }
