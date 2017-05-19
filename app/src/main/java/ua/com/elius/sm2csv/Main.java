@@ -14,7 +14,7 @@ import ua.com.elius.sm2csv.writer.WinccTagWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class main {
+public class Main {
     private static final String OPTION_EXTENTION_SHORT = "e";
     private static final String OPTION_EXTENTION_LONG = "extention";
     private static final String OPTION_EXTENTION_DEFAULT_VALUE = "var";
