@@ -8,7 +8,7 @@ public class WinccRecord {
     public static final String TYPE_DIGITAL = "Binary Tag";
     public static final String TYPE_REAL = "Floating-point number 32-bit IEEE 754";
 
-    public static final String TYPE_LENGTH_DIGIAL = "1";
+    public static final String TYPE_LENGTH_DIGITAL = "1";
     public static final String TYPE_LENGTH_REAL = "4";
 
     public static final String FORMAT_FLOAT_TO_FLOAT = "FloatToFloat";
@@ -80,7 +80,7 @@ public class WinccRecord {
             if (smAddress.isDigital()) {
                 builder.address(ADDRESS_TYPE_DIGITAL_IN_ANALOG + fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
                 builder.type(TYPE_DIGITAL);
-                builder.length(TYPE_LENGTH_DIGIAL);
+                builder.length(TYPE_LENGTH_DIGITAL);
             } else if (smAddress.isAnalog()) {
                 builder.address(ADDRESS_TYPE_ANALOG + fromSoMachineAddress(smAddress.getType(), smAddress.getNumber()));
                 builder.type(TYPE_REAL); // TODO support other types like double word
