@@ -92,7 +92,6 @@ public class Main {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
         EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
         tagWriter.open();
-        alarmWriter.open();
 
         writeDummy(tagWriter);
 

@@ -1,15 +1,12 @@
 package ua.com.elius.sm2csv.writer;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class EasyBuilderAlarmWriter {
+public class EasyBuilderAlarmWriter extends CSVWriter {
     private static final String OUTPUT_FILE_NAME = "easybuilder-alarms.csv";
     private static final String OUTPUT_FILE_ENCODING = "windows-1251";
     private static final String[] OUTPUT_FILE_HEADER = {"Category","Priority","Address Type","PLC Name (Read)","Device Type (Read)","System Tag (Read)","User-defined Tag (Read)","Address (Read)","Index (Read)","Data Format (Read)","Enable Notification","Set ON (Notification)","PLC Name (Notification)","Device Type (Notification)","System Tag (Notification)","User-defined Tag (Notification)","Address (Notification)","Index (Notification)","Condition","Trigger Value","Content","Use Label Library","Label Name","Font","Color","Acknowledge Value","Enable Sound","Sound Library Name","Sound Index","No. of Multi-watch","Continuous Beep","Time Interval of Beeps","Send eMail when Event Triggered","Send eMail when Event Cleared","Delay Time","Dynamic Condition","PLC Name (Condition)","Device Type (Condition)","System Tag (Condition)","User-defined Tag (Condition)","Address (Condition)","Index (Condition)"};
@@ -22,28 +19,12 @@ public class EasyBuilderAlarmWriter {
     private static final String[] RECORD_TEMPLATE_BIT =  {"0","Middle","Bit", PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","",               "False","False","Local HMI","LB","False","False","0","null","bt: 1", "0",COMMENT_ID,"False","","Arial","139:0:0","11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","",               "", "", "False","False","False","False"};
     private static final String[] RECORD_TEMPLATE_WORD = {"0","Middle","Word",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==","2",COMMENT_ID,"False","","Arial","139:0:0","11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
 
-    private CSVPrinter printer;
+    public EasyBuilderAlarmWriter() {
+        super(CSVFormat.EXCEL, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING, "EasyBuilder", "alarm");
+    }
 
-    public void open() {
-        CSVFormat format = CSVFormat.EXCEL;
-        OutputStreamWriter writer = null;
-
-        try {
-            writer = new OutputStreamWriter(
-                    new FileOutputStream(OUTPUT_FILE_NAME), OUTPUT_FILE_ENCODING
-            );
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            printer = new CSVPrinter(writer, format);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    @Override
+    void onOpen() {
         write(Arrays.asList(OUTPUT_FILE_HEADER));
     }
 
@@ -63,24 +44,8 @@ public class EasyBuilderAlarmWriter {
                 if (ADDRESS_ID.equals(r.get(i)))  r.set(i, record.getAddressType() + "-" + record.getAddress());
                 if (COMMENT_ID.equals(r.get(i)))  r.set(i, record.getComment());
             }
-            
+
             write(r);
-        }
-    }
-
-    private void write(List<String> record) {
-        try {
-            printer.printRecord(record);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void close() {
-        try {
-            printer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
