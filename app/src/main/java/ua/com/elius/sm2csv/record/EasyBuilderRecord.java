@@ -117,12 +117,8 @@ public class EasyBuilderRecord {
     }
 
     public boolean isDigital() {
-        if (EB_ADDRESS_TYPE_DIGITAL.equals(mAddressType) ||
-                EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG.equals(mAddressType)) {
-            return true;
-        } else {
-            return false;
-        }
+        return EB_ADDRESS_TYPE_DIGITAL.equals(mAddressType) ||
+               EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG.equals(mAddressType);
     }
 
     public static class Builder {
