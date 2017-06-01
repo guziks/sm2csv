@@ -64,7 +64,7 @@ public class SoMachineRecord {
         String[] parts = raw
                 .replace(";","")
                 .trim()
-                .split("(\t)|( : )|(: )|(:)|( :)|( AT )", 3); //TODO check if \t required
+                .split("(^\\s*)|(\\s*:\\s*)|(\\s*AT\\s*)", 3);
 
         Builder builder = new Builder();
         builder.name(parts[0]);
@@ -136,7 +136,7 @@ public class SoMachineRecord {
         }
 
         public String toString() {
-            return mAddress;
+            return mType + ":" + mAddress;
         }
 
         public boolean isDigital() {
