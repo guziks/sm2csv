@@ -6,7 +6,7 @@ import org.apache.commons.csv.CSVPrinter;
 import java.io.*;
 import java.util.List;
 
-public abstract class CSVWriter {
+public class CSVWriter {
 
     private CSVPrinter mPrinter;
     private CSVFormat mFormat;
@@ -59,7 +59,7 @@ public abstract class CSVWriter {
         }
     }
 
-    abstract void onOpen();
+    void onOpen() {}
 
     void write(List<String> record) {
         try {
