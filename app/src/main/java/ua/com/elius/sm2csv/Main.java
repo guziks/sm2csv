@@ -106,7 +106,6 @@ public class Main {
     private static void writeWinccTables(List<WinccRecord> winccRecords) {
         WinccTagWriter tagWriter = new WinccTagWriter();
         WinccAlarmWriter alarmWriter = new WinccAlarmWriter();
-        tagWriter.open();
         alarmWriter.open();
 
         for (WinccRecord winccRec : winccRecords) {
