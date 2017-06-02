@@ -8,7 +8,9 @@ public class EasyBuilderTagWriter extends CSVWriter {
     private static final String OUTPUT_FILE_ENCODING = "windows-1251";
 
     public EasyBuilderTagWriter() {
-        super(CSVFormat.EXCEL, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING, "EasyBuilder", "tag");
+        super(CSVFormat.EXCEL,
+                OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+                CSVWriter.TARGET_TAG_EASYBUILDER, CSVWriter.TARGET_TAG_TAG);
     }
 
     public void write(EasyBuilderRecord record) {

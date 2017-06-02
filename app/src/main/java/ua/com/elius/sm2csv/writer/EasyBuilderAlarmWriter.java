@@ -20,7 +20,9 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
     private static final String[] RECORD_TEMPLATE_WORD = {"0","Middle","Word",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==","2",COMMENT_ID,"False","","Arial","139:0:0","11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
 
     public EasyBuilderAlarmWriter() {
-        super(CSVFormat.EXCEL, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING, "EasyBuilder", "alarm");
+        super(CSVFormat.EXCEL,
+                OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+                CSVWriter.TARGET_TAG_EASYBUILDER, CSVWriter.TARGET_TAG_ALARM);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class WinccTagWriter extends CSVWriter {
                         .withDelimiter('\t')
                         .withQuote(null),
                 OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
-                "WinCC", "tag");
+                CSVWriter.TARGET_TAG_WINCC, CSVWriter.TARGET_TAG_TAG);
     }
 
     @Override

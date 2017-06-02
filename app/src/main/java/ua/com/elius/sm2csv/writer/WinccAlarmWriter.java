@@ -29,7 +29,7 @@ public class WinccAlarmWriter extends CSVWriter {
                         .withDelimiter('\t')
                         .withQuote(null),
                 OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
-                "WinCC", "alarm");
+                CSVWriter.TARGET_TAG_WINCC, CSVWriter.TARGET_TAG_ALARM);
     }
 
     @Override
