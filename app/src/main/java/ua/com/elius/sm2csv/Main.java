@@ -91,7 +91,6 @@ public class Main {
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
         EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
-        tagWriter.open();
 
         writeDummy(tagWriter);
 
