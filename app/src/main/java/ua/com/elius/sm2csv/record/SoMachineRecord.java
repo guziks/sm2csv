@@ -70,6 +70,7 @@ public class SoMachineRecord {
         builder.name(parts[0]);
         switch (parts.length) {
             case 2:
+                builder.address("");
                 builder.type(parts[1]);
                 break;
             case 3:
