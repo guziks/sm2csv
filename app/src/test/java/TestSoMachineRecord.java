@@ -42,25 +42,4 @@ public class TestSoMachineRecord {
             }
         }
     }
-
-    @Test
-    public void testSingleFromString() {
-        final String NAME = "cmd_main";
-        final String TYPE = "WORD";
-        final String ADDR = "%MW4";
-
-        SoMachineRecord exp = new SoMachineRecord.Builder()
-                .name(NAME)
-                .type(TYPE)
-                .address(ADDR)
-                .build();
-
-        SoMachineRecord act = SoMachineRecord.fromString("\tcmd_main AT %MW4 : WORD;");
-
-        assertEquals(exp.getName(), act.getName());
-        assertEquals(exp.getType(), act.getType());
-        assertEquals(exp.getAddress().getType(), act.getAddress().getType());
-        assertEquals(exp.getAddress().getNumber(), act.getAddress().getNumber());
-        assertEquals(exp.getAddress().getDigit(), act.getAddress().getDigit());
-    }
 }
