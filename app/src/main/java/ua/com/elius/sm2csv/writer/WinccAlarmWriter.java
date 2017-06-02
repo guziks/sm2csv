@@ -4,11 +4,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import ua.com.elius.sm2csv.record.WinccRecord;
 
-import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class WinccAlarmWriter {
+public class WinccAlarmWriter extends CSVWriter {
     private static final String OUTPUT_FILE_NAME = "wincc-alarms.txt";
     private static final String OUTPUT_FILE_ENCODING = "UTF-16";
 
@@ -25,28 +24,16 @@ public class WinccAlarmWriter {
 
     private CSVPrinter printer;
 
-    public void open() {
-        CSVFormat format = CSVFormat.DEFAULT
-                .withDelimiter('\t')
-                .withQuote(null);
-        OutputStreamWriter writer = null;
+    public WinccAlarmWriter() {
+        super(CSVFormat.DEFAULT
+                        .withDelimiter('\t')
+                        .withQuote(null),
+                OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+                "WinCC", "alarm");
+    }
 
-        try {
-            writer = new OutputStreamWriter(
-                    new FileOutputStream(OUTPUT_FILE_NAME), OUTPUT_FILE_ENCODING
-            );
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            printer = new CSVPrinter(writer, format);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    @Override
+    void onOpen() {
         write(Arrays.asList(HEADER1));
         write(Arrays.asList(HEADER2));
         write(Arrays.asList(HEADER3));
@@ -59,22 +46,6 @@ public class WinccAlarmWriter {
             list.set(TAG_INDEX, record.getName());
             list.set(COMMENT_INDEX, record.getComment());
             write(list);
-        }
-    }
-
-    private void write(List<String> record) {
-        try {
-            printer.printRecord(record);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void close() {
-        try {
-            printer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
