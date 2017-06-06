@@ -11,7 +11,7 @@ public class SoMachineRecordTest {
     public void testFromString() {
         String[] names = {"cmd_main","primary_st","t_bk","sb_start","init_auto","sta_l_p_in","s_pp_a1"};
         String[] types = {"WORD","WORD","REAL","BOOL","BOOL","WORD","REAL"};
-        String[] addresses = {"%MW4","%MW1","%MD229","","%MX400.0","%MW119","%MD267"};
+        String[] addresses = {"%MW4","%MW1","%MD229",null,"%MX400.0","%MW119","%MD267"};
         String[] strings = {
                 "\tcmd_main AT %MW4 : WORD;",
                 "\tprimary_st AT %MW1 : WORD;",
@@ -23,11 +23,15 @@ public class SoMachineRecordTest {
         };
 
         for (int i = 1; i < strings.length; i++) {
-            SoMachineRecord exp = new SoMachineRecord.Builder()
+            SoMachineRecord.Builder expBuilder = new SoMachineRecord.Builder()
                     .name(names[i])
-                    .type(types[i])
-                    .address(addresses[i])
-                    .build();
+                    .type(types[i]);
+
+            if (addresses[i] != null) {
+                expBuilder.address(addresses[i]);
+            }
+
+            SoMachineRecord exp = expBuilder.build();
             SoMachineRecord act = SoMachineRecord.fromString(strings[i]);
 
             assertEquals(names[i], exp.getName(), act.getName());
