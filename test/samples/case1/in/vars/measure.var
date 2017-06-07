@@ -1,0 +1,73 @@
+VAR_GLOBAL
+	t_in AT %MD400: REAL;
+	// Обрыв температуры входа
+	break_t_in AT %MX4.0: BOOL;
+	t_out_1st AT %MD401: REAL;
+	// Обрыв температуры нагнетания 1 ступени
+	break_t_out_1st AT %MX4.1: BOOL;
+	t_oil AT %MD402: REAL;
+	// Обрыв температуры масла
+	break_t_oil AT %MX4.2: BOOL;
+(*	t_atm AT %MD403: REAL;
+	// Обрыв температуры в БК
+	break_t_atm AT %MX4.3: BOOL;*)
+	t_in_2st AT %MD404: REAL;
+	// Обрыв температуры всаса 2 ступени
+	break_t_in_2st AT %MX4.4: BOOL;
+	t_out_2st AT %MD405: REAL;
+	// Обрыв температуры нагнетания 2 ступени
+	break_t_out_2st AT %MX4.5: BOOL;
+	t_in_3st AT %MD406: REAL;
+	// Обрыв температуры всаса 3 ступени
+	break_t_in_3st AT %MX4.6: BOOL;
+	t_out_3_1st AT %MD407: REAL;
+	// Обрыв температуры нагнетания 3.1 ступени
+	break_t_out_3_1st AT %MX4.7: BOOL;
+	t_out_3_2st AT %MD478: REAL;
+	// Обрыв температуры нагнетания 3.2 ступени
+	break_t_out_3_2st AT %MX5.0: BOOL;
+	t_in_4st AT %MD408: REAL;
+	// Обрыв температуры всаса 4 ступени
+	break_t_in_4st AT %MX5.1: BOOL;
+	t_out_4_1st AT %MD409: REAL;
+	// Обрыв температуры нагнетания 4.1 ступени
+	break_t_out_4_1st AT %MX5.2: BOOL;
+	t_out_4_2st AT %MD410: REAL;
+	// Обрыв температуры нагнетания 4.2 ступени
+	break_t_out_4_2st AT %MX5.3: BOOL;
+	t_out AT %MD411: REAL;
+	// Обрыв температуры выхода
+	break_t_out AT %MX5.4: BOOL;
+	t_cool AT %MD412: REAL;
+	// Обрыв температуры охлаждающей жидкости
+	break_t_cool AT %MX5.5: BOOL;
+	p_in AT %MD413: REAL;
+	// Обрыв давления входа
+	break_p_in AT %MX5.6: BOOL;
+	p_cool AT %MD414: REAL;
+	// Обрыв давления охлаждающей жидкости
+	break_p_cool AT %MX5.7: BOOL;
+	p_out AT %MD415: REAL;
+	// Обрыв давления выхода
+	break_p_out AT %MX6.0: BOOL;
+	p_oil AT %MD416: REAL;
+	// Обрыв давления масла
+	break_p_oil AT %MX6.1: BOOL;
+	p_akk AT %MD417: REAL;
+	// Обрыв давления в аккумуляторе
+	break_p_akk AT %MX6.2: BOOL;
+(*	ek1_pos AT %MD479: REAL;
+	// Обрыв канала позиции ЭК1
+	break_ek1_pos AT %MX16.4: BOOL;*)
+END_VAR
+VAR_GLOBAL
+	moto_minutes AT %MD418: DINT;
+END_VAR
+VAR_GLOBAL
+	// Аналоговые каналы в норме
+	a_ch_ok AT %MX6.3: BOOL;
+	// Температурные каналы в норме
+	t_ch_ok AT %MX6.4: BOOL;
+	I AT %MD472: REAL;
+	U AT %MD473: REAL;
+END_VAR

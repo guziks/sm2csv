@@ -1,0 +1,46 @@
+VAR_GLOBAL
+	auto_mode AT %MX10.6: BOOL;
+	manual_mode AT %MX10.7: BOOL;
+	init_mechs : BOOL;
+	alarm_sound: BOOL;
+	l_t_atm: BOOL;
+	h_t_atm: BOOL;
+	l_t_in: BOOL;
+	h_t_in: BOOL;
+	h_t_cool: BOOL;
+	h_t_oil: BOOL;
+	h_t_out_4_1st: BOOL;
+	h_t_out_4_2st: BOOL;
+	h_t_out_3_1st: BOOL;
+	h_t_out_3_2st: BOOL;
+	h_t_out_2st: BOOL;
+	h_t_out_1st: BOOL;
+	init_auto AT %MX11.0: BOOL;
+	auto_work : BOOL;
+	auto_start : BOOL;
+	auto_stop : BOOL;
+	main_pause AT %MX11.4: BOOL;
+	eks_ok AT %MX11.5: BOOL;
+	mechs_ok AT %MX11.6: BOOL;
+	t_ok AT %MX13.6: BOOL;
+	warn_sound: BOOL;
+	test_alg: BOOL;
+	calculate_vmo2: BOOL;
+	calculate_vmo3: BOOL;
+	calculate_vmo4: BOOL;
+	pause_time : TIME;
+	ek8_time: TIME;
+	delay_vo1: TIME;
+	delay_vmo2: TIME;
+	delay_vmo3: TIME;
+	delay_vmo4: TIME;
+	delay_condensate: TIME;
+	auto_stop_st : INT;
+	auto_start_st : INT;
+	auto_work_st : INT;
+	primary_st AT %MW100: INT;
+	secondary_st AT %MW101: INT;
+(*	interval_vmo2 AT %MW112: INT;
+	interval_vmo3 AT %MW113: INT;
+	interval_vmo4 AT %MW114: INT;*)
+END_VAR

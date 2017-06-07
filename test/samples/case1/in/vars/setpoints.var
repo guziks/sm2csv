@@ -1,0 +1,46 @@
+VAR_GLOBAL RETAIN
+	s_h_t_out_1st AT %MD419: REAL;
+	s_h_t_out_2st AT %MD420: REAL;
+	s_h_t_out_3st AT %MD421: REAL;
+	s_h_t_out_4st AT %MD422: REAL;
+	s_h_t_oil AT %MD423: REAL;
+	s_h_t_cool AT %MD424: REAL;
+	delta_t_in AT %MD425: REAL;
+	delta_t_out_1st AT %MD426: REAL;
+	delta_t_oil AT %MD427: REAL;
+	(*delta_t_atm AT %MD428: REAL;*)
+	delta_t_in_2st AT %MD429: REAL;
+	delta_t_out_2st AT %MD430: REAL;
+	delta_t_in_3st AT %MD431: REAL;
+	delta_t_out_3_1st AT %MD432: REAL;
+	delta_t_out_3_2st AT %MD433: REAL;
+	delta_t_in_4st AT %MD434: REAL;
+	delta_t_out_4_1st AT %MD435: REAL;
+	delta_t_out_4_2st AT %MD436: REAL;
+	delta_t_out AT %MD437: REAL;
+	delta_t_cool AT %MD438: REAL;	
+	s_h_t_in AT %MD439: REAL;
+	s_l_t_in AT %MD440: REAL;
+	(*s_h_t_atm AT %MD441: REAL;
+	s_l_t_atm AT %MD442: REAL;*)
+	s_p_start_compressor AT %MD443: REAL;
+	s_p_stop_compressor AT %MD444: REAL;
+	scale_p_in AT %MD445: REAL;
+	scale_p_cool AT %MD446: REAL;
+	scale_p_out AT %MD447: REAL;
+	scale_p_oil AT %MD448: REAL;
+	scale_p_akk AT %MD449: REAL;
+	s_t_oil AT %MD450: REAL;
+	s_l_p_oil AT %MD451: REAL;
+	s_l_p_in AT %MD452: REAL;
+	s_h_p_in AT %MD453: REAL;
+	s_h_p_out AT %MD454: REAL;
+	s_l_p_cool AT %MD455: REAL;
+	s_p_ek8 AT %MD456: REAL;
+	s_main_pause_time AT %MW103: INT :=300;
+	s_ek8_time AT %MW104: INT;
+	s_t_on_avo1 AT %MD480: REAL;
+	s_t_off_avo1 AT %MD481: REAL;
+	s_t_on_avo2 AT %MD482: REAL;
+	s_t_off_avo2 AT %MD483: REAL;
+END_VAR

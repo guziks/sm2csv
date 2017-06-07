@@ -1,0 +1,35 @@
+VAR_GLOBAL
+	avo1 AT %MX13.7: BOOL;
+	avo2 AT %MX14.0: BOOL;	
+	main AT %MX14.1: BOOL;
+	oilpump AT %MX14.2: BOOL;
+	lubr AT %MX14.3: BOOL;
+	coolpump AT %MX14.4: BOOL;
+	avo1_km: BOOL;
+	avo2_km: BOOL;
+	main_run: BOOL;
+	main_flt: BOOL;
+	oilpump_km: BOOL;
+	lubr_km: BOOL;
+	coolpump_km: BOOL;
+	power_24: BOOL;
+	sw_auto: BOOL;
+	sb_cancel_discharge: BOOL;
+	sb_start: BOOL;
+	sb_stop: BOOL;
+	power_380 AT %MX11.7: BOOL;
+	sb_fire: BOOL;
+	sb_start_bk: BOOL;
+	sb_stop_bk: BOOL;
+	gas: BOOL;
+	fire: BOOL;
+	hl_fire: BOOL;
+	hl_start: BOOL;
+	hl_stop: BOOL;
+	ha: BOOL;
+	ha_bk: BOOL;
+	ek1 AT %MX14.6: BOOL;
+	ek2 AT %MX14.7: BOOL;
+	ek8 AT %MX15.0: BOOL;
+	oilheat AT %MX15.6: BOOL;
+END_VAR

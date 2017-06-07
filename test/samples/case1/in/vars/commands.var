@@ -1,0 +1,40 @@
+VAR_GLOBAL
+	p_k_on_main AT %MX0.0: BOOL;
+	p_k_off_main AT %MX0.1: BOOL;
+	p_k_on_avo1 AT %MX0.2: BOOL;
+	p_k_off_avo1 AT %MX0.3: BOOL;
+	p_k_on_avo2 AT %MX0.4: BOOL;
+	p_k_off_avo2 AT %MX0.5: BOOL;
+	p_k_on_oilpump AT %MX0.6: BOOL;
+	p_k_off_oilpump AT %MX0.7: BOOL;
+	p_k_on_lubr AT %MX1.0: BOOL;
+	p_k_off_lubr AT %MX1.1: BOOL;
+	p_k_on_coolpump AT %MX1.2: BOOL;
+	p_k_off_coolpump AT %MX1.3: BOOL;
+	(*p_k_on_vent AT %MX1.4: BOOL;
+	p_k_off_vent AT %MX1.5: BOOL;*)
+	p_k_faults_reset AT %MX1.6: BOOL;
+	p_k_sound_reset AT %MX1.7: BOOL;
+	p_k_on_ek1 AT %MX2.0: BOOL;
+	p_k_off_ek1 AT %MX2.1: BOOL;
+	p_k_on_ek2 AT %MX2.2: BOOL;
+	p_k_off_ek2 AT %MX2.3: BOOL;
+	p_k_on_ek8 AT %MX2.4: BOOL;
+	p_k_off_ek8 AT %MX2.5: BOOL;
+	(*p_k_on_ek_vo1 AT %MX2.6: BOOL;
+	p_k_off_ek_vo1 AT %MX2.7: BOOL;
+	p_k_on_ek_vmo2 AT %MX3.0: BOOL;
+	p_k_off_ek_vmo2 AT %MX3.1: BOOL;
+	p_k_on_ek_vmo3 AT %MX3.2: BOOL;
+	p_k_off_ek_vmo3 AT %MX3.3: BOOL;
+	p_k_on_ek_vmo4 AT %MX3.4: BOOL;
+	p_k_off_ek_vmo4 AT %MX3.5: BOOL;
+	p_k_on_ek_condensate AT %MX3.6: BOOL;
+	p_k_off_ek_condensate AT %MX3.7: BOOL;*)
+	p_k_on_oilheat AT %MX15.7: BOOL;
+	p_k_off_oilheat AT %MX16.0: BOOL;
+END_VAR
+
+VAR_GLOBAL RETAIN
+	enable_avo_control AT %MX16.5:BOOL;
+END_VAR
