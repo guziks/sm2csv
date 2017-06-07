@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import ua.com.elius.sm2csv.record.WinccRecord;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,11 +25,11 @@ public class WinccAlarmWriter extends CSVWriter {
 
     private CSVPrinter printer;
 
-    public WinccAlarmWriter() {
+    public WinccAlarmWriter(Path outputPath) {
         super(CSVFormat.DEFAULT
                         .withDelimiter('\t')
                         .withQuote(null),
-                OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+                outputPath, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
                 CSVWriter.TARGET_TAG_WINCC, CSVWriter.TARGET_TAG_ALARM);
     }
 

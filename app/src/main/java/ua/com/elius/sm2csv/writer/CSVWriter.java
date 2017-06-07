@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.List;
 
 public class CSVWriter {
@@ -16,14 +17,17 @@ public class CSVWriter {
     private CSVPrinter mPrinter;
     private CSVFormat mFormat;
     private boolean mOpened;
+    private Path mOutputPath;
     private String mOutputFileName;
     private String mOutputFileEncoding;
     private String mTargetSoftwareName; // e.g. EasyBuilder
     private String mTargetTypeName; // e.g. alarm, tag
 
-    public CSVWriter(CSVFormat format, String outputFileName, String outputFileEncoding,
+    public CSVWriter(CSVFormat format,
+                     Path outputPath, String outputFileName, String outputFileEncoding,
                      String targetSoftwareName, String targetTypeName) {
         mFormat = format;
+        mOutputPath = outputPath;
         mOutputFileName = outputFileName;
         mOutputFileEncoding = outputFileEncoding;
         mTargetSoftwareName = targetSoftwareName;
@@ -38,10 +42,10 @@ public class CSVWriter {
 
     private void open(){
         OutputStreamWriter writer = null;
-
+        File outputFile = mOutputPath.resolve(mOutputFileName).toFile();
         try {
             writer = new OutputStreamWriter(
-                    new FileOutputStream(mOutputFileName), mOutputFileEncoding);
+                    new FileOutputStream(outputFile), mOutputFileEncoding);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {

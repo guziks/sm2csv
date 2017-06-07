@@ -11,6 +11,8 @@ import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
 import ua.com.elius.sm2csv.writer.WinccAlarmWriter;
 import ua.com.elius.sm2csv.writer.WinccTagWriter;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +29,10 @@ public class Main {
     private static final String OPTION_INCLUDE_ALL_SHORT = "a";
     private static final String OPTION_INCLUDE_ALL_LONG = "include-all";
 
+    private static final String OPTION_PATH_SHORT = "p";
+    private static final String OPTION_PATH_LONG = "path";
+    private static final String OPTION_PATH_DEFAULT_VALUE = "";
+
     private static CommandLine mCmd;
 
     public static void main(String[] args) {
@@ -40,7 +46,7 @@ public class Main {
 
     private static List<SoMachineRecord> readSoMachineRecords() {
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
-                .path("")
+                .path(choosePath().toString())
                 .extension(chooseExtension())
                 .build()
                 .read()
@@ -89,8 +95,8 @@ public class Main {
     }
 
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
-        EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter();
-        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter();
+        EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter(choosePath());
+        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter(choosePath());
 
         writeDummy(tagWriter);
 
@@ -104,8 +110,8 @@ public class Main {
     }
 
     private static void writeWinccTables(List<WinccRecord> winccRecords) {
-        WinccTagWriter tagWriter = new WinccTagWriter();
-        WinccAlarmWriter alarmWriter = new WinccAlarmWriter();
+        WinccTagWriter tagWriter = new WinccTagWriter(choosePath());
+        WinccAlarmWriter alarmWriter = new WinccAlarmWriter(choosePath());
 
         for (WinccRecord winccRec : winccRecords) {
             tagWriter.write(winccRec);
@@ -164,6 +170,16 @@ public class Main {
         }
     }
 
+    private static Path choosePath() {
+        String path;
+        if (mCmd.getOptionValue(OPTION_PATH_SHORT) != null) {
+            path = mCmd.getOptionValue(OPTION_PATH_SHORT);
+        } else {
+            path = OPTION_PATH_DEFAULT_VALUE;
+        }
+        return Paths.get(path).toAbsolutePath();
+    }
+
     private static void prepareOptions(String[] args) {
         Option inputFilesExt = Option.builder(OPTION_EXTENSION_SHORT)
                 .longOpt(OPTION_EXTENSION_LONG)
@@ -181,11 +197,18 @@ public class Main {
                 .longOpt(OPTION_INCLUDE_ALL_LONG)
                 .desc("include all tags, even if they have no address")
                 .build();
+        Option inputPath = Option.builder(OPTION_PATH_SHORT)
+                .longOpt(OPTION_PATH_LONG)
+                .argName("path")
+                .desc("directory to start traversing")
+                .hasArg()
+                .build();
 
         Options options = new Options();
         options.addOption(inputFilesExt);
         options.addOption(plcName);
         options.addOption(includeAll);
+        options.addOption(inputPath);
 
         CommandLineParser parser = new DefaultParser();
         try {
