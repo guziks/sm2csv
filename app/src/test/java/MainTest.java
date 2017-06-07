@@ -20,19 +20,15 @@ public class MainTest {
 
     private static final Path TEST_PATH = Paths.get("test");
 
-    /**
-     * Subdirectory that stores test samples
-     */
+    /** Subdirectory that stores test samples */
     private static final Path SAMPLES_PATH = TEST_PATH.resolve("samples");
 
-    /**
-     * Subdirectory to copy to for actual testing
-     */
-    private static final Path TEST_WORK_PATH = TEST_PATH.resolve("work");
+    /** Subdirectory to copy cases to for actual testing */
+    private static final Path WORK_PATH = TEST_PATH.resolve("work");
 
     /**
      * Returns samples subdirectories
-     * @return stream of paths to cases
+     * @return Stream of paths to cases
      */
     private static Stream<Path> getCasesPaths () {
         Stream<Path> paths = null;
@@ -46,12 +42,13 @@ public class MainTest {
     }
 
     /**
-     * Copies case input files to corresponding case working directory
-     * @param casePath Path to copy from
+     * Copies case input files to corresponding case inside working directory
+     * {@link #WORK_PATH}
+     * @param casePath path to copy from
      */
     private static void copyCase(Path casePath) {
         File src = casePath.resolve("in").toFile();
-        File dst = TEST_WORK_PATH.resolve(casePath.getFileName()).toFile();
+        File dst = WORK_PATH.resolve(casePath.getFileName()).toFile();
         try {
             FileUtils.copyDirectory(src, dst);
         } catch (IOException e) {
@@ -61,10 +58,10 @@ public class MainTest {
 
     /**
      * Deletes case from working directory
-     * @param casePath Case path inside samples
+     * @param casePath corresponding case path inside {@link #SAMPLES_PATH}
      */
     private static void deleteCase(Path casePath) {
-        File caseDir = TEST_WORK_PATH.resolve(casePath.getFileName()).toFile();
+        File caseDir = WORK_PATH.resolve(casePath.getFileName()).toFile();
         try {
             FileUtils.deleteDirectory(caseDir);
         } catch (IOException e) {
@@ -73,11 +70,11 @@ public class MainTest {
     }
 
     /**
-     * Deletes whole working directory @{TEST_WORK_PATH}
+     * Deletes whole working directory {@link #WORK_PATH}
      */
     private static void deleteAllCases() {
         try {
-            FileUtils.deleteDirectory(TEST_WORK_PATH.toFile());
+            FileUtils.deleteDirectory(WORK_PATH.toFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,16 +82,16 @@ public class MainTest {
 
     /**
      * Returns case path inside working directory
-     * @param casePath Case path inside samples
-     * @return Case path inside working directory @{link TEST_WORK_PATH}
+     * @param casePath corresponding case path inside samples {@link #SAMPLES_PATH}
+     * @return Case path inside working directory {@link #WORK_PATH}
      */
     private static Path getCaseWorkPath(Path casePath) {
-        return TEST_WORK_PATH.resolve(casePath.getFileName()).toAbsolutePath();
+        return WORK_PATH.resolve(casePath.getFileName()).toAbsolutePath();
     }
 
     /**
      * Returns path to directory containing expected output
-     * @param casePath Case path inside samples
+     * @param casePath case path inside samples directory {@link #SAMPLES_PATH}
      * @return Path to directory containing expected output
      */
     private static Path getCaseOutPath(Path casePath) {
@@ -102,7 +99,7 @@ public class MainTest {
     }
 
     /**
-     * Checks whether samples directory correct
+     * Checks whether samples directory is correct
      */
     @BeforeClass
     public static void haveSamples() {
@@ -113,7 +110,7 @@ public class MainTest {
     }
 
     /**
-     * Deletes tests working directory @{link TEST_WORK_PATH}
+     * Deletes tests working directory {@link #WORK_PATH}
      */
     @AfterClass
     public static void clean() {
