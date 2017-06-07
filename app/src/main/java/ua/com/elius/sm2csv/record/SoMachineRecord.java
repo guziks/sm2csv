@@ -5,21 +5,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SoMachineRecord {
+public class SoMachineRecord extends Record {
     public static final String SM_ADDRESS_TYPE_BYTE = "%MX";
     public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
     public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
 
     private String mComment;
-    private String mName;
     private Address mAddress;
     private String mType;
 
     public String getComment() {
         return mComment;
-    }
-    public String getName() {
-        return mName;
     }
     public Address getAddress() {
         return mAddress;
@@ -30,9 +26,6 @@ public class SoMachineRecord {
 
     public void setComment(String comment) {
         this.mComment = comment;
-    }
-    public void setName(String name) {
-        this.mName = name;
     }
     public void setAddress(Address address) {
         this.mAddress = address;
@@ -49,7 +42,7 @@ public class SoMachineRecord {
 
     public List<String> toList() {
         List<String> list = new ArrayList<>();
-        list.add(mName);
+        list.add(getName());
         list.add(mAddress.toString());
         list.add(mType);
         return list;

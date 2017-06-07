@@ -3,21 +3,17 @@ package ua.com.elius.sm2csv.record;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EasyBuilderRecord {
+public class EasyBuilderRecord extends Record {
     public static final String EB_ADDRESS_TYPE_ANALOG = "%MW";
     public static final String EB_ADDRESS_TYPE_DIGITAL = "%M";
     public static final String EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG = "%MW_Bit";
 
-    private String mName;
     private String mPlcName;
     private String mAddressType;
     private String mAddress;
     private String mComment;
     private String mValueType;
 
-    public String getName() {
-        return mName;
-    }
     public String getPlcName() {
         return mPlcName;
     }
@@ -34,9 +30,6 @@ public class EasyBuilderRecord {
         return mValueType;
     }
 
-    public void setName(String name) {
-        this.mName = name;
-    }
     public void setPlcName(String plcName) {
         this.mPlcName = plcName;
     }
@@ -103,17 +96,13 @@ public class EasyBuilderRecord {
 
     public List<String> toList() {
         List<String> list = new ArrayList<>();
-        list.add(mName);
+        list.add(getName());
         list.add(mPlcName);
         list.add(mAddressType);
         list.add(mAddress);
         list.add(mComment);
         list.add(mValueType);
         return list;
-    }
-
-    public boolean isAlarm() {
-        return mName.startsWith("f_") || mName.startsWith("break_") || mName.startsWith("sta_");
     }
 
     public boolean isDigital() {

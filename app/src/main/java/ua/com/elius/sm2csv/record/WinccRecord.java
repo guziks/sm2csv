@@ -1,6 +1,6 @@
 package ua.com.elius.sm2csv.record;
 
-public class WinccRecord {
+public class WinccRecord extends Record {
     public static final String ADDRESS_TYPE_ANALOG = "3x";
     public static final String ADDRESS_TYPE_DIGITAL = "0x";
     public static final String ADDRESS_TYPE_DIGITAL_IN_ANALOG = "3x";
@@ -13,7 +13,6 @@ public class WinccRecord {
 
     public static final String FORMAT_FLOAT_TO_FLOAT = "FloatToFloat";
 
-    private String mName;
     private String mType;
     private String mLength;
     private String mFormat;
@@ -21,9 +20,6 @@ public class WinccRecord {
     private String mAddress;
     private String mComment;
 
-    public String getName() {
-        return mName;
-    }
     public String getType() {
         return mType;
     }
@@ -43,9 +39,6 @@ public class WinccRecord {
         return mComment;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
-    }
     public void setType(String mType) {
         this.mType = mType;
     }
@@ -115,10 +108,6 @@ public class WinccRecord {
                 newNumber = number;
         }
         return Integer.toString(newNumber);
-    }
-
-    public boolean isAlarm() {
-        return mName.startsWith("f_") || mName.startsWith("break_");
     }
 
     public static class Builder {
