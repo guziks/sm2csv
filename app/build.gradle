@@ -50,6 +50,10 @@ clean {
     delete staticBinaryDestination
 }
 
+test {
+    workingDir = "$project.rootDir"
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'org.apache.commons:commons-csv:1.2'
