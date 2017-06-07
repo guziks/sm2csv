@@ -5,7 +5,7 @@ import ua.com.elius.sm2csv.record.SoMachineRecord;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 public class SoMachineReader {
     private List<SoMachineRecord> mRecords;
     private String mExtension;
-    private String mPath;
+    private Path mPath;
 
     public String getExtension() {
         return mExtension;
     }
-    public String getPath() {
+    public Path getPath() {
         return mPath;
     }
 
@@ -30,7 +30,7 @@ public class SoMachineReader {
     public void setExtension(String extension) {
         this.mExtension = extension;
     }
-    public void setPath(String path) {
+    public void setPath(Path path) {
         this.mPath = path;
     }
 
@@ -43,7 +43,7 @@ public class SoMachineReader {
         Pattern commentPattern = Pattern.compile("^\\s+//(.+)$");
         Pattern recordPattern = Pattern.compile("^\\s+((?!//).)+$");
         try {
-            Files.walk(Paths.get(mPath)).forEach(filePath -> {
+            Files.walk(mPath).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     String curExtension = FilenameUtils.getExtension(filePath.toString());
                     if (curExtension.equals(mExtension)) {
@@ -87,7 +87,7 @@ public class SoMachineReader {
     public static class Builder {
         SoMachineReader reader = new SoMachineReader();
 
-        public Builder path(String path) {
+        public Builder path(Path path) {
             reader.setPath(path);
             return this;
         }

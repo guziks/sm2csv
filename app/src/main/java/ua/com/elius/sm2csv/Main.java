@@ -46,7 +46,7 @@ public class Main {
 
     private static List<SoMachineRecord> readSoMachineRecords() {
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
-                .path(choosePath().toString())
+                .path(choosePath())
                 .extension(chooseExtension())
                 .build()
                 .read()
