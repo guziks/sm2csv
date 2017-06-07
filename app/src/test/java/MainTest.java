@@ -40,10 +40,6 @@ public class MainTest {
         }
     }
 
-    private void setWorkDir(Path casePath) {
-        System.setProperty("user.dir", TEST_WORK_PATH.resolve(casePath.getFileName()).toAbsolutePath().toString());
-    }
-
     private static void deleteCase(Path casePath) {
         File caseDir = TEST_WORK_PATH.resolve(casePath.getFileName()).toFile();
         try {
@@ -59,6 +55,14 @@ public class MainTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static Path getCaseWorkPath(Path casePath) {
+        return TEST_WORK_PATH.resolve(casePath.getFileName()).toAbsolutePath();
+    }
+
+    private static Path getCaseOutPath(Path casePath) {
+        return casePath.resolve("out");
     }
 
     @BeforeClass
@@ -78,26 +82,18 @@ public class MainTest {
     public void testOnSamples() {
         getCasesPaths().forEach(casePath -> {
             copyCase(casePath);
-            String testDir = TEST_WORK_PATH.resolve(casePath.getFileName()).toAbsolutePath().toString();
-            System.out.println("Testing " + testDir);
-            Main.main(new String[] {"-p", testDir});
 
-            String[] outFileNames = casePath.resolve("out").toFile().list();
+            Main.main(new String[] {"-p", getCaseWorkPath(casePath).toString()});
+
+            String[] outFileNames = getCaseOutPath(casePath).toFile().list();
             if (outFileNames != null) {
                 for (String name : outFileNames) {
-                    File exp = casePath
-                            .resolve("out")
-                            .resolve(name)
-                            .toFile();
-                    File act = TEST_WORK_PATH
-                            .resolve(casePath.getFileName())
-                            .resolve(name)
-                            .toFile();
-                    System.out.println("Comparing " + " " +
-                            exp.getAbsolutePath() + " " +
-                            act.getAbsolutePath());
+                    File exp = getCaseOutPath(casePath).resolve(name).toFile();
+                    File act = getCaseWorkPath(casePath).resolve(name).toFile();
+                    System.out.println("Comparing\n" + exp.getAbsolutePath() + "\n" + act.getAbsolutePath());
                     try {
                         assertTrue(FileUtils.contentEquals(exp, act));
+                        System.out.println("Equals\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
