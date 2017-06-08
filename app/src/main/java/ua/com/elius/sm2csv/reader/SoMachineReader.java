@@ -64,7 +64,7 @@ public class SoMachineReader {
                                 if (commentMatcher.matches()) {
                                     curComments.add(commentMatcher.group(1).trim());
                                 } else if (recordMatcher.matches()) {
-                                    SoMachineRecord rec = SoMachineRecord.fromString(line);
+                                    SoMachineRecord rec = SoMachineRecord.of(line);
                                     if (!curComments.isEmpty()) {
                                         rec.setComment(curComments.get(0));
                                         curComments.clear();

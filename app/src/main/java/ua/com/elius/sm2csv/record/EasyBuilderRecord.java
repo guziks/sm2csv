@@ -48,7 +48,7 @@ public class EasyBuilderRecord extends Record {
 
     private EasyBuilderRecord() {}
 
-    public static EasyBuilderRecord fromSoMachineRecord(SoMachineRecord smRec) throws UnsupportedAddressException {
+    public static EasyBuilderRecord of(SoMachineRecord smRec) throws UnsupportedAddressException {
         EasyBuilderRecord.Builder builder =
                 new EasyBuilderRecord.Builder()
                     .name(smRec.getName());

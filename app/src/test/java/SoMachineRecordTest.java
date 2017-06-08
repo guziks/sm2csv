@@ -32,7 +32,7 @@ public class SoMachineRecordTest {
             }
 
             SoMachineRecord exp = expBuilder.build();
-            SoMachineRecord act = SoMachineRecord.fromString(strings[i]);
+            SoMachineRecord act = SoMachineRecord.of(strings[i]);
 
             assertEquals(names[i], exp.getName(), act.getName());
             assertEquals(names[i], exp.getType(), act.getType());

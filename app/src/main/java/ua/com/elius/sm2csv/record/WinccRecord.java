@@ -62,7 +62,7 @@ public class WinccRecord extends Record {
 
     }
 
-    public static WinccRecord fromSoMachineRecord(SoMachineRecord smRec) throws UnsupportedAddressException {
+    public static WinccRecord of(SoMachineRecord smRec) throws UnsupportedAddressException {
         WinccRecord.Builder builder =
                 new WinccRecord.Builder()
                         .name(smRec.getName())

@@ -53,7 +53,7 @@ public class SoMachineRecord extends Record {
      *     "auto_start AT %MX11.2: BOOL;"
      *     "warn_sound: BOOL;"
      */
-    public static SoMachineRecord fromString(String raw) {
+    public static SoMachineRecord of(String raw) {
         String[] parts = raw
                 .replace(";","")
                 .trim()

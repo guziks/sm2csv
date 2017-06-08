@@ -61,7 +61,7 @@ public class Main {
         List<EasyBuilderRecord> ebRecords = new ArrayList<>();
         for (SoMachineRecord smRec : smRecords) {
             try {
-                EasyBuilderRecord ebRec = EasyBuilderRecord.fromSoMachineRecord(smRec);
+                EasyBuilderRecord ebRec = EasyBuilderRecord.of(smRec);
                 if (mCmd.hasOption(OPTION_INCLUDE_ALL_SHORT)) {
                     patchWithFakeAddress(ebRec, smRec);
                 }
@@ -81,7 +81,7 @@ public class Main {
         List<WinccRecord> winccRecords = new ArrayList<>();
         for (SoMachineRecord smRec : smRecords) {
             try {
-                WinccRecord winccRec = WinccRecord.fromSoMachineRecord(smRec);
+                WinccRecord winccRec = WinccRecord.of(smRec);
                 winccRec.setConnection(choosePlcName());
                 if (winccRec.getAddress() != null) {
                     winccRecords.add(winccRec);
