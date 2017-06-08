@@ -7,6 +7,7 @@ public class Record {
 
     /**
      * Returns tag name
+     *
      * @return {@link #mName}
      */
     public String getName() {
@@ -15,7 +16,8 @@ public class Record {
 
     /**
      * Sets tag name
-     * @param name New value for {@link #mName}
+     *
+     * @param name new value for {@link #mName}
      */
     public void setName(String name) {
         this.mName = name;
@@ -25,6 +27,7 @@ public class Record {
      * Checks if this is alarm tag
      * <p>
      * Alarm tags are used by alarm writers.
+     *
      * @return {@code true} if tag is alarm
      * @see ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter#write(EasyBuilderRecord)
      * @see ua.com.elius.sm2csv.writer.WinccAlarmWriter#write(WinccRecord)

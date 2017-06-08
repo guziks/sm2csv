@@ -28,6 +28,7 @@ public class MainTest {
 
     /**
      * Returns samples subdirectories
+     *
      * @return Stream of paths to cases
      */
     private static Stream<Path> getCasesPaths () {
@@ -44,6 +45,7 @@ public class MainTest {
     /**
      * Copies case input files to corresponding case inside working directory
      * {@link #WORK_PATH}
+     *
      * @param casePath path to copy from
      */
     private static void copyCase(Path casePath) {
@@ -58,6 +60,7 @@ public class MainTest {
 
     /**
      * Deletes case from working directory
+     *
      * @param casePath corresponding case path inside {@link #SAMPLES_PATH}
      */
     private static void deleteCase(Path casePath) {
@@ -82,6 +85,7 @@ public class MainTest {
 
     /**
      * Returns case path inside working directory
+     *
      * @param casePath corresponding case path inside samples {@link #SAMPLES_PATH}
      * @return Case path inside working directory {@link #WORK_PATH}
      */
@@ -91,6 +95,7 @@ public class MainTest {
 
     /**
      * Returns path to directory containing expected output
+     *
      * @param casePath case path inside samples directory {@link #SAMPLES_PATH}
      * @return Path to directory containing expected output
      */
