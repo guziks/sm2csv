@@ -1,23 +1,23 @@
 package ua.com.elius.sm2csv.record;
 
+import java.util.List;
+
 public class Record {
 
-    /** Tag name */
+    /**
+     * Tag name
+     */
     private String mName;
 
     /**
-     * Returns tag name
-     *
-     * @return {@link #mName}
+     * @return Tag name
      */
     public String getName() {
         return mName;
     }
 
     /**
-     * Sets tag name
-     *
-     * @param name new value for {@link #mName}
+     * @param name new tag name
      */
     public void setName(String name) {
         this.mName = name;
@@ -32,10 +32,13 @@ public class Record {
      * @see ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter#write(EasyBuilderRecord)
      * @see ua.com.elius.sm2csv.writer.WinccAlarmWriter#write(WinccRecord)
      */
-    public boolean isAlarm() {
-        return mName.startsWith("f_") ||
-               mName.startsWith("break_") ||
-               mName.startsWith("sta_");
+    public boolean isAlarm(List<String> prefixes) {
+        for (String prefix : prefixes) {
+            if (mName.startsWith(prefix)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

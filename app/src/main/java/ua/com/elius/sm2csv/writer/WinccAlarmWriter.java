@@ -41,12 +41,10 @@ public class WinccAlarmWriter extends CSVWriter {
     }
 
     public void write(WinccRecord record) {
-        if (record.isAlarm()) {
-            List<String> list = Arrays.asList(RECORD_TEMPLATE);
-            list.set(NUMBER_INDEX, Integer.toString(++writtenAmount));
-            list.set(TAG_INDEX, record.getName());
-            list.set(COMMENT_INDEX, record.getComment());
-            write(list);
-        }
+        List<String> list = Arrays.asList(RECORD_TEMPLATE);
+        list.set(NUMBER_INDEX, Integer.toString(++writtenAmount));
+        list.set(TAG_INDEX, record.getName());
+        list.set(COMMENT_INDEX, record.getComment());
+        write(list);
     }
 }

@@ -32,23 +32,21 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
     }
 
     public void write(EasyBuilderRecord record) {
-        if (record.isAlarm()) {
-            ArrayList<String> r = new ArrayList<>(); // record to write
+        ArrayList<String> r = new ArrayList<>(); // record to write
 
-            if (record.isDigital()) {
-                r.addAll(Arrays.asList(RECORD_TEMPLATE_BIT));
-            } else {
-                r.addAll(Arrays.asList(RECORD_TEMPLATE_WORD));
-            }
-
-            for (int i = 0; i < r.size(); i++) {
-                if (PLC_NAME_ID.equals(r.get(i))) r.set(i, record.getPlcName());
-                if (TAG_NAME_ID.equals(r.get(i))) r.set(i, record.getName());
-                if (ADDRESS_ID.equals(r.get(i)))  r.set(i, record.getAddressType() + "-" + record.getAddress());
-                if (COMMENT_ID.equals(r.get(i)))  r.set(i, record.getComment());
-            }
-
-            write(r);
+        if (record.isDigital()) {
+            r.addAll(Arrays.asList(RECORD_TEMPLATE_BIT));
+        } else {
+            r.addAll(Arrays.asList(RECORD_TEMPLATE_WORD));
         }
+
+        for (int i = 0; i < r.size(); i++) {
+            if (PLC_NAME_ID.equals(r.get(i))) r.set(i, record.getPlcName());
+            if (TAG_NAME_ID.equals(r.get(i))) r.set(i, record.getName());
+            if (ADDRESS_ID.equals(r.get(i)))  r.set(i, record.getAddressType() + "-" + record.getAddress());
+            if (COMMENT_ID.equals(r.get(i)))  r.set(i, record.getComment());
+        }
+
+        write(r);
     }
 }

@@ -23,11 +23,12 @@ import static java.util.Arrays.asList;
 
 public class Main {
 
+    private static final String OPTION_HELP = "h";
     private static final String OPTION_EXTENSION = "e";
     private static final String OPTION_PLC_NAME = "n";
     private static final String OPTION_INCLUDE_ALL = "a";
     private static final String OPTION_WORK_DIR = "d";
-    private static final String OPTION_HELP = "h";
+    private static final String OPTION_ALARM_PREFIXES = "p";
 
     private static final int EXIT_OK = 0;
     private static final int EXIT_ERROR = 1;
@@ -40,6 +41,7 @@ public class Main {
     private static OptionSpec<String> specExtention;
     private static OptionSpec<String> specPlcName;
     private static OptionSpec<File> specWorkDir;
+    private static OptionSpec<String> specAlarmPrefixes;
 
     public static void main(String[] args) {
         parseArgs(args);
@@ -131,7 +133,9 @@ public class Main {
 
         for (EasyBuilderRecord ebRec : ebRecords) {
             tagWriter.write(ebRec);
-            alarmWriter.write(ebRec);
+            if (ebRec.isAlarm(specAlarmPrefixes.values(opts))) {
+                alarmWriter.write(ebRec);
+            }
         }
 
         tagWriter.close();
@@ -149,7 +153,9 @@ public class Main {
 
         for (WinccRecord winccRec : winccRecords) {
             tagWriter.write(winccRec);
-            alarmWriter.write(winccRec);
+            if (winccRec.isAlarm(specAlarmPrefixes.values(opts))) {
+                alarmWriter.write(winccRec);
+            }
         }
 
         tagWriter.close();
@@ -211,23 +217,25 @@ public class Main {
     private static void parseArgs(String[] args) {
         OptionParser parser = new OptionParser();
 
+        parser.acceptsAll(asList(OPTION_HELP, "?", "help")).forHelp();
+
         specExtention = parser.acceptsAll(asList(
                 OPTION_EXTENSION, "extention"),
-                "search for files with this extension")
+                "Search for files with this extension")
                 .withRequiredArg()
                 .describedAs("extention")
                 .defaultsTo("var");
 
         specPlcName = parser.acceptsAll(asList(
                 OPTION_PLC_NAME, "plc-name"),
-                "plc name specified in EasyBuilder project System Parameters section")
+                "PLC name specified in EasyBuilder project System Parameters section")
                 .withRequiredArg()
                 .describedAs("name")
                 .defaultsTo("plc");
 
         specWorkDir = parser.acceptsAll(asList(
                 OPTION_WORK_DIR, "directory"),
-                "directory to start searching input files and output generated files")
+                "Directory to start searching input files and output generated files")
                 .withRequiredArg()
                 .describedAs("dir")
                 .ofType(File.class)
@@ -235,9 +243,15 @@ public class Main {
 
         parser.acceptsAll(asList(
                 OPTION_INCLUDE_ALL, "include-all"),
-                "include all tags, even if they have no address");
+                "Include all tags, even if they have no address");
 
-        parser.acceptsAll(asList(OPTION_HELP, "?", "help")).forHelp();
+        specAlarmPrefixes = parser.acceptsAll(asList(
+                OPTION_ALARM_PREFIXES, "alarm-prefixes"),
+                "Tag name prefixes to recognize alarms")
+                .withRequiredArg()
+                .describedAs("p,p,...")
+                .withValuesSeparatedBy(',')
+                .defaultsTo("f_", "break_", "sta_");
 
         opts = parser.parse(args);
 
