@@ -20,10 +20,14 @@ public class MainTest {
 
     private static final Path TEST_PATH = Paths.get("test");
 
-    /** Subdirectory that stores test samples */
+    /**
+     * Subdirectory that stores test samples
+     */
     private static final Path SAMPLES_PATH = TEST_PATH.resolve("samples");
 
-    /** Subdirectory to copy cases to for actual testing */
+    /**
+     * Subdirectory to copy cases to for actual testing
+     */
     private static final Path WORK_PATH = TEST_PATH.resolve("work");
 
     /**
@@ -31,7 +35,7 @@ public class MainTest {
      *
      * @return Stream of paths to cases
      */
-    private static Stream<Path> getCasesPaths () {
+    private static Stream<Path> getCasesPaths() {
         Stream<Path> paths = null;
         try {
             paths = Files.list(SAMPLES_PATH).sorted();
@@ -108,18 +112,13 @@ public class MainTest {
      */
     @BeforeClass
     public static void haveSamples() {
+        // clean previous test results
+        deleteAllCases();
+
         assertTrue("Samples folder exists", Files.isDirectory(SAMPLES_PATH));
 
         String case1 = ((Path) getCasesPaths().toArray()[0]).getFileName().toString();
         assertEquals("case1", case1);
-    }
-
-    /**
-     * Deletes tests working directory {@link #WORK_PATH}
-     */
-    @AfterClass
-    public static void clean() {
-        deleteAllCases();
     }
 
     /**
