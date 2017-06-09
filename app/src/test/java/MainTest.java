@@ -130,7 +130,7 @@ public class MainTest {
         getCasesPaths().forEach(casePath -> {
             copyCase(casePath);
 
-            Main.main(new String[] {"-p", getCaseWorkPath(casePath).toString()});
+            Main.main(new String[]{"-d", getCaseWorkPath(casePath).toString()});
 
             String[] outFileNames = getCaseOutPath(casePath).toFile().list();
             if (outFileNames != null) {

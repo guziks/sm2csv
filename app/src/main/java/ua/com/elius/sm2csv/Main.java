@@ -1,6 +1,8 @@
 package ua.com.elius.sm2csv;
 
-import org.apache.commons.cli.*;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+import joptsimple.OptionSpec;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.EasyBuilderRecord;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
@@ -11,32 +13,37 @@ import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
 import ua.com.elius.sm2csv.writer.WinccAlarmWriter;
 import ua.com.elius.sm2csv.writer.WinccTagWriter;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class Main {
-    private static final String OPTION_EXTENSION_SHORT = "e";
-    private static final String OPTION_EXTENSION_LONG = "extension";
-    private static final String OPTION_EXTENSION_DEFAULT_VALUE = "var";
 
-    private static final String OPTION_PLC_NAME_SHORT = "n";
-    private static final String OPTION_PLC_NAME_LONG = "plc-name";
-    private static final String OPTION_PLC_NAME_DEFAULT_VALUE = "plc";
+    private static final String OPTION_EXTENSION = "e";
+    private static final String OPTION_PLC_NAME = "n";
+    private static final String OPTION_INCLUDE_ALL = "a";
+    private static final String OPTION_WORK_DIR = "d";
+    private static final String OPTION_HELP = "h";
 
-    private static final String OPTION_INCLUDE_ALL_SHORT = "a";
-    private static final String OPTION_INCLUDE_ALL_LONG = "include-all";
+    private static final int EXIT_OK = 0;
+    private static final int EXIT_ERROR = 1;
 
-    private static final String OPTION_PATH_SHORT = "p";
-    private static final String OPTION_PATH_LONG = "path";
-    private static final String OPTION_PATH_DEFAULT_VALUE = "";
+    /**
+     * Parsed command line options
+     */
+    private static OptionSet opts;
 
-    private static CommandLine mCmd;
+    private static OptionSpec<String> specExtention;
+    private static OptionSpec<String> specPlcName;
+    private static OptionSpec<File> specWorkDir;
 
     public static void main(String[] args) {
-        prepareOptions(args);
+        parseArgs(args);
+        checkWorkDir();
 
         List<SoMachineRecord> smRecords = readSoMachineRecords();
 
@@ -44,10 +51,15 @@ public class Main {
         writeWinccTables(convertToWinccRecords(smRecords));
     }
 
+    /**
+     * Top level action to read SoMachine variables
+     *
+     * @return list of {@link SoMachineRecord}
+     */
     private static List<SoMachineRecord> readSoMachineRecords() {
         List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
-                .path(choosePath())
-                .extension(chooseExtension())
+                .path(specWorkDir.value(opts).toPath())
+                .extension(specExtention.value(opts))
                 .build()
                 .read()
                 .getRecords();
@@ -57,15 +69,21 @@ public class Main {
         return smRecords;
     }
 
+    /**
+     * Converts SoMachine records to EasyBuilder records
+     *
+     * @param smRecords SoMachine records list
+     * @return EasyBuilder records list
+     */
     private static List<EasyBuilderRecord> convertToEasyBuilderRecords(List<SoMachineRecord> smRecords) {
         List<EasyBuilderRecord> ebRecords = new ArrayList<>();
         for (SoMachineRecord smRec : smRecords) {
             try {
                 EasyBuilderRecord ebRec = EasyBuilderRecord.of(smRec);
-                if (mCmd.hasOption(OPTION_INCLUDE_ALL_SHORT)) {
+                if (opts.has(OPTION_INCLUDE_ALL)) {
                     patchWithFakeAddress(ebRec, smRec);
                 }
-                ebRec.setPlcName(choosePlcName());
+                ebRec.setPlcName(specPlcName.value(opts));
                 if (ebRec.getAddress() != null) {
                     ebRecords.add(ebRec);
                 }
@@ -74,15 +92,21 @@ public class Main {
             }
         }
 
-        return  ebRecords;
+        return ebRecords;
     }
 
+    /**
+     * Converts SoMachine records to WinCC records
+     *
+     * @param smRecords SoMachine records
+     * @return WinCC records list
+     */
     private static List<WinccRecord> convertToWinccRecords(List<SoMachineRecord> smRecords) {
         List<WinccRecord> winccRecords = new ArrayList<>();
         for (SoMachineRecord smRec : smRecords) {
             try {
                 WinccRecord winccRec = WinccRecord.of(smRec);
-                winccRec.setConnection(choosePlcName());
+                winccRec.setConnection(specPlcName.value(opts));
                 if (winccRec.getAddress() != null) {
                     winccRecords.add(winccRec);
                 }
@@ -91,12 +115,17 @@ public class Main {
             }
         }
 
-        return  winccRecords;
+        return winccRecords;
     }
 
+    /**
+     * Top level action to write EasyBuilder targeted files
+     *
+     * @param ebRecords EasyBuilder records list
+     */
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
-        EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter(choosePath());
-        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter(choosePath());
+        EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter(specWorkDir.value(opts).toPath());
+        EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter(specWorkDir.value(opts).toPath());
 
         writeDummy(tagWriter);
 
@@ -109,9 +138,14 @@ public class Main {
         alarmWriter.close();
     }
 
+    /**
+     * Top level action to write WinCC targeted files
+     *
+     * @param winccRecords WinCC records list
+     */
     private static void writeWinccTables(List<WinccRecord> winccRecords) {
-        WinccTagWriter tagWriter = new WinccTagWriter(choosePath());
-        WinccAlarmWriter alarmWriter = new WinccAlarmWriter(choosePath());
+        WinccTagWriter tagWriter = new WinccTagWriter(specWorkDir.value(opts).toPath());
+        WinccAlarmWriter alarmWriter = new WinccAlarmWriter(specWorkDir.value(opts).toPath());
 
         for (WinccRecord winccRec : winccRecords) {
             tagWriter.write(winccRec);
@@ -122,16 +156,23 @@ public class Main {
         alarmWriter.close();
     }
 
+    /**
+     * Write dummy tags
+     * <p>
+     * These are convenience tags to use as placeholders in HMI
+     *
+     * @param writer to write with
+     */
     private static void writeDummy(EasyBuilderTagWriter writer) {
         EasyBuilderRecord dummyBit = new EasyBuilderRecord.Builder()
                 .name("dummy_bit")
-                .plcName(choosePlcName())
+                .plcName(specPlcName.value(opts))
                 .addressType("%MW_Bit")
                 .address("999900")
                 .build();
         EasyBuilderRecord dummyWord = new EasyBuilderRecord.Builder()
                 .name("dummy_word")
-                .plcName(choosePlcName())
+                .plcName(specPlcName.value(opts))
                 .addressType("%MW")
                 .address("9998")
                 .build();
@@ -139,6 +180,14 @@ public class Main {
         writer.write(dummyWord);
     }
 
+    /**
+     * Assigns fake address to EasyBuilderRecord based on SoMachineRecord type
+     * <p>
+     * If SoMachineRecord does not have address then do nothing
+     *
+     * @param ebRec {@link EasyBuilderRecord} to patch
+     * @param smRec {@link SoMachineRecord} to analyze
+     */
     private static void patchWithFakeAddress(EasyBuilderRecord ebRec, SoMachineRecord smRec) {
         if (!smRec.isExported()) {
             switch (smRec.getType()) {
@@ -154,71 +203,69 @@ public class Main {
         }
     }
 
-    private static String chooseExtension() {
-        if (mCmd.getOptionValue(OPTION_EXTENSION_SHORT) != null) {
-            return mCmd.getOptionValue(OPTION_EXTENSION_SHORT);
-        } else {
-            return OPTION_EXTENSION_DEFAULT_VALUE;
+    /**
+     * Parses arguments and assigns a result to {@link #opts}
+     *
+     * @param args command line arguments
+     */
+    private static void parseArgs(String[] args) {
+        OptionParser parser = new OptionParser();
+
+        specExtention = parser.acceptsAll(asList(
+                OPTION_EXTENSION, "extention"),
+                "search for files with this extension")
+                .withRequiredArg()
+                .describedAs("extention")
+                .defaultsTo("var");
+
+        specPlcName = parser.acceptsAll(asList(
+                OPTION_PLC_NAME, "plc-name"),
+                "plc name specified in EasyBuilder project System Parameters section")
+                .withRequiredArg()
+                .describedAs("name")
+                .defaultsTo("plc");
+
+        specWorkDir = parser.acceptsAll(asList(
+                OPTION_WORK_DIR, "directory"),
+                "directory to start searching input files and output generated files")
+                .withRequiredArg()
+                .describedAs("dir")
+                .ofType(File.class)
+                .defaultsTo(new File("."));
+
+        parser.acceptsAll(asList(
+                OPTION_INCLUDE_ALL, "include-all"),
+                "include all tags, even if they have no address");
+
+        parser.acceptsAll(asList(OPTION_HELP, "?", "help")).forHelp();
+
+        opts = parser.parse(args);
+
+        if (opts.has(OPTION_HELP)) {
+            try {
+                parser.printHelpOn(System.out);
+                System.exit(EXIT_OK);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static String choosePlcName() {
-        if (mCmd.getOptionValue(OPTION_PLC_NAME_SHORT) != null) {
-            return mCmd.getOptionValue(OPTION_PLC_NAME_SHORT);
-        } else {
-            return OPTION_PLC_NAME_DEFAULT_VALUE;
-        }
-    }
-
-    private static Path choosePath() {
-        String path;
-        if (mCmd.getOptionValue(OPTION_PATH_SHORT) != null) {
-            path = mCmd.getOptionValue(OPTION_PATH_SHORT);
-        } else {
-            path = OPTION_PATH_DEFAULT_VALUE;
-        }
-        return Paths.get(path).toAbsolutePath();
-    }
-
-    private static void prepareOptions(String[] args) {
-        Option inputFilesExt = Option.builder(OPTION_EXTENSION_SHORT)
-                .longOpt(OPTION_EXTENSION_LONG)
-                .argName("extension")
-                .desc("search for files with this extension")
-                .hasArg()
-                .build();
-        Option plcName = Option.builder(OPTION_PLC_NAME_SHORT)
-                .longOpt(OPTION_PLC_NAME_LONG)
-                .argName("name")
-                .desc("plc name specified in EasyBuilder project System Parameters section")
-                .hasArg()
-                .build();
-        Option includeAll = Option.builder(OPTION_INCLUDE_ALL_SHORT)
-                .longOpt(OPTION_INCLUDE_ALL_LONG)
-                .desc("include all tags, even if they have no address")
-                .build();
-        Option inputPath = Option.builder(OPTION_PATH_SHORT)
-                .longOpt(OPTION_PATH_LONG)
-                .argName("path")
-                .desc("directory to start traversing")
-                .hasArg()
-                .build();
-
-        Options options = new Options();
-        options.addOption(inputFilesExt);
-        options.addOption(plcName);
-        options.addOption(includeAll);
-        options.addOption(inputPath);
-
-        CommandLineParser parser = new DefaultParser();
-        try {
-            mCmd = parser.parse( options, args );
-        }
-        catch( ParseException exp ) {
-            System.err.println(exp.getMessage());
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("sm2csv", options);
-            System.exit(1);
+    /**
+     * Checks if provided working directory is correct
+     * <p>
+     * Exits if provided File does not exist or
+     * is not a directory
+     */
+    private static void checkWorkDir() {
+        File dir = specWorkDir.value(opts);
+        String path = dir.getAbsolutePath();
+        if (!dir.exists()) {
+            System.out.println(path + " does not exist");
+            System.exit(EXIT_ERROR);
+        } else if (!dir.isDirectory()) {
+            System.out.println(path + " is not a directory");
+            System.exit(EXIT_ERROR);
         }
     }
 }
