@@ -19,17 +19,13 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
     private static final String ID_TAG_NAME = "${tag_name}";
     private static final String ID_ADDRESS = "${address_type_and_address}";
     private static final String ID_COMMENT = "${comment}";
-    private static final String ID_TRIGGER_VALUE = "${trigger_value}";
-    private static final String ID_COLOR = "${color}";
 
     private static final String COLOR_RED = "139:0:0";
     private static final String COLOR_PURPLE = "139:0:139";
 
-    private static final String TRIGGER_GENERAL = "2";
-    private static final String TRIGGER_POTENTIAL = "3";
-
-    private static final String[] RECORD_TEMPLATE_BIT =  {"0","Middle","Bit", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","",               "False","False","Local HMI","LB","False","False","0","null","bt: 1", "0",             ID_COMMENT,"False","","Arial",COLOR_RED,"11","False","","0","0","False","10","False","False","0","0", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","True","False","Local HMI","LW","False","False","0","null","",               "", "", "False","False","False","False"};
-    private static final String[] RECORD_TEMPLATE_WORD = {"0","Middle","Word",ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==",ID_TRIGGER_VALUE,ID_COMMENT,"False","","Arial",ID_COLOR, "11","False","","0","0","False","10","False","False","0","0", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
+    private static final String[] RECORD_TEMPLATE_BIT =            {"0","Middle","Bit", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","",               "False","False","Local HMI","LB","False","False","0","null","bt: 1", "0",ID_COMMENT,"False","","Arial",COLOR_RED,   "11","False","","0","0","False","10","False","False","0","0", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","True","False","Local HMI","LW","False","False","0","null","",               "", "", "False","False","False","False"};
+    private static final String[] RECORD_TEMPLATE_WORD_GENERAL =   {"0","Middle","Word",ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==","2",ID_COMMENT,"False","","Arial",COLOR_RED,   "11","False","","0","0","False","10","False","False","0","0", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
+    private static final String[] RECORD_TEMPLATE_WORD_POTENTIAL = {"1","Middle","Word",ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==","3",ID_COMMENT,"False","","Arial",COLOR_PURPLE,"11","False","","0","0","False","10","False","False","0","0", ID_PLC_NAME, ID_TAG_NAME,"False","True", ID_ADDRESS,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
 
     public EasyBuilderAlarmWriter(Path outputPath) {
         super(CSVFormat.EXCEL,
@@ -47,32 +43,25 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
 
         if (record.isDigital()) {
             t.addAll(asList(RECORD_TEMPLATE_BIT));
-            renderTemplateCommon(t, record);
+            renderTemplate(t, record);
             write(t);
         } else {
             // general alarm
-            t.addAll(asList(RECORD_TEMPLATE_WORD));
-            renderTemplateCommon(t,record);
-            renderTemplateWord(t,record,TRIGGER_GENERAL, COLOR_RED);
+            t.addAll(asList(RECORD_TEMPLATE_WORD_GENERAL));
+            renderTemplate(t,record);
             write(t);
             // potential alarm
             t.clear();
-            t.addAll(asList(RECORD_TEMPLATE_WORD));
-            renderTemplateCommon(t,record);
-            renderTemplateWord(t,record,TRIGGER_POTENTIAL, COLOR_PURPLE);
+            t.addAll(asList(RECORD_TEMPLATE_WORD_POTENTIAL));
+            renderTemplate(t,record);
             write(t);
         }
     }
 
-    private void renderTemplateCommon(ArrayList<String> t, EasyBuilderRecord r) {
+    private void renderTemplate(ArrayList<String> t, EasyBuilderRecord r) {
         findAndReplace(t, ID_PLC_NAME, r.getPlcName());
         findAndReplace(t, ID_TAG_NAME, r.getName());
         findAndReplace(t, ID_ADDRESS, r.getAddressType() + "-" + r.getAddress());
         findAndReplace(t, ID_COMMENT, r.getComment());
-    }
-
-    private void renderTemplateWord(ArrayList<String> t, EasyBuilderRecord r, String triggerValue, String color) {
-        findAndReplace(t, ID_COLOR, color);
-        findAndReplace(t, ID_TRIGGER_VALUE, triggerValue);
     }
 }
