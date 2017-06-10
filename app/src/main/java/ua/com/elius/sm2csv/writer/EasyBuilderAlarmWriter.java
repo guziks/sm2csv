@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.util.Arrays.asList;
+
 public class EasyBuilderAlarmWriter extends CSVWriter {
     private static final String OUTPUT_FILE_NAME = "easybuilder-alarms.csv";
     private static final String OUTPUT_FILE_ENCODING = "windows-1251";
@@ -16,9 +18,17 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
     private static final String TAG_NAME_ID = "${tag_name}";
     private static final String ADDRESS_ID = "${address_type_and_address}";
     private static final String COMMENT_ID = "${comment}";
+    private static final String TRIGGER_VALUE_ID = "${trigger_value}";
+    private static final String COLOR_ID = "${color}";
 
-    private static final String[] RECORD_TEMPLATE_BIT =  {"0","Middle","Bit", PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","",               "False","False","Local HMI","LB","False","False","0","null","bt: 1", "0",COMMENT_ID,"False","","Arial","139:0:0","11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","",               "", "", "False","False","False","False"};
-    private static final String[] RECORD_TEMPLATE_WORD = {"0","Middle","Word",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==","2",COMMENT_ID,"False","","Arial","139:0:0","11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
+    private static final String RED = "139:0:0";
+    private static final String PURPLE = "139:0:139";
+
+    private static final String TRIGGER_GENERAL = "2";
+    private static final String TRIGGER_POTENTIAL = "3";
+
+    private static final String[] RECORD_TEMPLATE_BIT =  {"0","Middle","Bit", PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","",               "False","False","Local HMI","LB","False","False","0","null","bt: 1", "0",             COMMENT_ID,"False","","Arial",RED,     "11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","",               "", "", "False","False","False","False"};
+    private static final String[] RECORD_TEMPLATE_WORD = {"0","Middle","Word",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","16-bit Unsigned","False","False","Local HMI","LB","False","False","0","null","wd: ==",TRIGGER_VALUE_ID,COMMENT_ID,"False","","Arial",COLOR_ID,"11","False","","0","0","False","10","False","False","0","0",PLC_NAME_ID,TAG_NAME_ID,"False","True",ADDRESS_ID,"null","True","False","Local HMI","LW","False","False","0","null","16-bit Unsigned","0","0","False","False","False","False"};
 
     public EasyBuilderAlarmWriter(Path outputPath) {
         super(CSVFormat.EXCEL,
@@ -28,25 +38,42 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
 
     @Override
     void onOpen() {
-        write(Arrays.asList(OUTPUT_FILE_HEADER));
+        write(asList(OUTPUT_FILE_HEADER));
     }
 
     public void write(EasyBuilderRecord record) {
-        ArrayList<String> r = new ArrayList<>(); // record to write
+        ArrayList<String> t = new ArrayList<>(); // record to write
 
         if (record.isDigital()) {
-            r.addAll(Arrays.asList(RECORD_TEMPLATE_BIT));
+            t.addAll(asList(RECORD_TEMPLATE_BIT));
+            renderTemplateCommon(t, record);
+            write(t);
         } else {
-            r.addAll(Arrays.asList(RECORD_TEMPLATE_WORD));
+            t.addAll(asList(RECORD_TEMPLATE_WORD));
+            renderTemplateCommon(t,record);
+            renderTemplateWord(t,record,TRIGGER_GENERAL, RED);
+            write(t);
+            t.clear();
+            t.addAll(asList(RECORD_TEMPLATE_WORD));
+            renderTemplateCommon(t,record);
+            renderTemplateWord(t,record,TRIGGER_POTENTIAL, PURPLE);
+            write(t);
         }
+    }
 
-        for (int i = 0; i < r.size(); i++) {
-            if (PLC_NAME_ID.equals(r.get(i))) r.set(i, record.getPlcName());
-            if (TAG_NAME_ID.equals(r.get(i))) r.set(i, record.getName());
-            if (ADDRESS_ID.equals(r.get(i)))  r.set(i, record.getAddressType() + "-" + record.getAddress());
-            if (COMMENT_ID.equals(r.get(i)))  r.set(i, record.getComment());
+    private void renderTemplateCommon(ArrayList<String> t, EasyBuilderRecord r) {
+        for (int i = 0; i < t.size(); i++) {
+            if (PLC_NAME_ID.equals(t.get(i))) t.set(i, r.getPlcName());
+            if (TAG_NAME_ID.equals(t.get(i))) t.set(i, r.getName());
+            if (ADDRESS_ID.equals(t.get(i)))  t.set(i, r.getAddressType() + "-" + r.getAddress());
+            if (COMMENT_ID.equals(t.get(i)))  t.set(i, r.getComment());
         }
+    }
 
-        write(r);
+    private void renderTemplateWord(ArrayList<String> t, EasyBuilderRecord r, String triggerValue, String color) {
+        for (int i = 0; i < t.size(); i++) {
+            if (COLOR_ID.equals(t.get(i))) t.set(i, color);
+            if (TRIGGER_VALUE_ID.equals(t.get(i))) t.set(i, triggerValue);
+        }
     }
 }
