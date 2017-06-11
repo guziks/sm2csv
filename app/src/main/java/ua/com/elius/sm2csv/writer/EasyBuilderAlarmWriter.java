@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
-import static ua.com.elius.sm2csv.writer.Util.findAndReplace;
+import static java.util.Collections.replaceAll;
 
 public class EasyBuilderAlarmWriter extends CSVWriter {
 
@@ -59,9 +59,9 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
     }
 
     private void renderTemplate(ArrayList<String> t, EasyBuilderRecord r) {
-        findAndReplace(t, ID_PLC_NAME, r.getPlcName());
-        findAndReplace(t, ID_TAG_NAME, r.getName());
-        findAndReplace(t, ID_ADDRESS, r.getAddressType() + "-" + r.getAddress());
-        findAndReplace(t, ID_COMMENT, r.getComment());
+        replaceAll(t, ID_PLC_NAME, r.getPlcName());
+        replaceAll(t, ID_TAG_NAME, r.getName());
+        replaceAll(t, ID_ADDRESS, r.getAddressType() + "-" + r.getAddress());
+        replaceAll(t, ID_COMMENT, r.getComment());
     }
 }
