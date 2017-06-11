@@ -11,6 +11,7 @@ public class CSVWriter {
 
     public static final String TARGET_TAG_WINCC = "WinCC";
     public static final String TARGET_TAG_EASYBUILDER = "EasyBuilder";
+    public static final String TARGET_TAG_SIMPLESCADA = "SimpleScada";
     public static final String TARGET_TAG_TAG = "tag";
     public static final String TARGET_TAG_ALARM = "alarm";
 

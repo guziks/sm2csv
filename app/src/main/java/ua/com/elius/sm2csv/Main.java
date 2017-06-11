@@ -4,14 +4,8 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
-import ua.com.elius.sm2csv.record.EasyBuilderRecord;
-import ua.com.elius.sm2csv.record.SoMachineRecord;
-import ua.com.elius.sm2csv.record.UnsupportedAddressException;
-import ua.com.elius.sm2csv.record.WinccRecord;
-import ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter;
-import ua.com.elius.sm2csv.writer.EasyBuilderTagWriter;
-import ua.com.elius.sm2csv.writer.WinccAlarmWriter;
-import ua.com.elius.sm2csv.writer.WinccTagWriter;
+import ua.com.elius.sm2csv.record.*;
+import ua.com.elius.sm2csv.writer.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +45,7 @@ public class Main {
 
         writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
         writeWinccTables(convertToWinccRecords(smRecords));
+        writeSimpleScadaTable(convertToSimpleScadaRecords(smRecords));
     }
 
     /**
@@ -121,6 +116,24 @@ public class Main {
     }
 
     /**
+     * Converts SoMachine records to SimpleScada records
+     *
+     * @param smRecords SoMachine records
+     * @return SimpleScada records list
+     */
+    private static List<SimpleScadaRecord> convertToSimpleScadaRecords(List<SoMachineRecord> smRecords) {
+        List<SimpleScadaRecord> ssRecords = new ArrayList<>();
+        for (SoMachineRecord smRec : smRecords) {
+            SimpleScadaRecord ssRec = SimpleScadaRecord.of(smRec);
+            if (smRec.isExported()) {
+                ssRecords.add(ssRec);
+            }
+        }
+
+        return ssRecords;
+    }
+
+    /**
      * Top level action to write EasyBuilder targeted files
      *
      * @param ebRecords EasyBuilder records list
@@ -160,6 +173,21 @@ public class Main {
 
         tagWriter.close();
         alarmWriter.close();
+    }
+
+    /**
+     * Top level action to write SimpleScada targeted files
+     *
+     * @param ssRecords SimpleScada records list
+     */
+    private static void writeSimpleScadaTable(List<SimpleScadaRecord> ssRecords) {
+        SimpleScadaTagWriter tagWriter = new SimpleScadaTagWriter(specWorkDir.value(opts).toPath());
+
+        for (SimpleScadaRecord rec : ssRecords) {
+            tagWriter.write(rec);
+        }
+
+        tagWriter.close();
     }
 
     /**
