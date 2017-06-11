@@ -9,9 +9,9 @@ public class SoMachineRecordTest {
 
     @Test
     public void testFromString() {
-        String[] names = {"cmd_main","primary_st","t_bk","sb_start","init_auto","sta_l_p_in","s_pp_a1"};
-        String[] types = {"WORD","WORD","REAL","BOOL","BOOL","WORD","REAL"};
-        String[] addresses = {"%MW4","%MW1","%MD229",null,"%MX400.0","%MW119","%MD267"};
+        String[] names = {"cmd_main","primary_st","t_bk","sb_start","init_auto","sta_l_p_in","s_pp_a1","s_main_pause_time"};
+        String[] types = {"WORD","WORD","REAL","BOOL","BOOL","WORD","REAL","INT"};
+        String[] addresses = {"%MW4","%MW1","%MD229",null,"%MX400.0","%MW119","%MD267","%MW103"};
         String[] strings = {
                 "\tcmd_main AT %MW4 : WORD;",
                 "\tprimary_st AT %MW1 : WORD;",
@@ -19,7 +19,8 @@ public class SoMachineRecordTest {
                 "\tsb_start :\tBOOL;",
                 "\tinit_auto    AT %MX400.0 : BOOL;",
                 "\tsta_l_p_in AT %MW119: WORD;",
-                "\ts_pp_a1 \tAT %MD267 : REAL;"
+                "\ts_pp_a1 \tAT %MD267 : REAL;",
+                "\ts_main_pause_time AT %MW103: INT :=300"
         };
 
         for (int i = 1; i < strings.length; i++) {

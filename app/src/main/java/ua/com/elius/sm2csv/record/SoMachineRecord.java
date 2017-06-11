@@ -48,27 +48,20 @@ public class SoMachineRecord extends Record {
         return list;
     }
 
-    /**
-     * Converts from string like this:
-     *     "auto_start AT %MX11.2: BOOL;"
-     *     "warn_sound: BOOL;"
-     */
     public static SoMachineRecord of(String raw) {
-        String[] parts = raw
-                .replace(";","")
-                .trim()
-                .split("(^\\s*)|(\\s*:\\s*)|(\\s*AT\\s*)", 3);
+        Pattern pattern = Pattern.compile("^\\s*(?<name>\\S+)(?:\\s+AT\\s+(?<addr>\\S+))?\\s*:\\s*(?<type>\\S+)\\s*\\S+\\s*$");
 
         Builder builder = new Builder();
-        builder.name(parts[0]);
-        switch (parts.length) {
-            case 2:
-                builder.type(parts[1]);
-                break;
-            case 3:
-                builder.address(parts[1]);
-                builder.type(parts[2]);
-                break;
+        Matcher matcher;
+
+        matcher = pattern.matcher(raw);
+        if (matcher.matches()) {
+            builder.name(matcher.group("name"));
+            String addr = matcher.group("addr");
+            if (addr != null) {
+                builder.address(addr);
+            }
+            builder.type(matcher.group("type"));
         }
 
         return builder.build();

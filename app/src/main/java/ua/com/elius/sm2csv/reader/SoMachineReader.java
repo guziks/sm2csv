@@ -41,7 +41,7 @@ public class SoMachineReader {
         Pattern blockCommentBeginPattern = Pattern.compile("\\(\\*");
         Pattern blockCommentEndPattern = Pattern.compile("\\*\\)");
         Pattern commentPattern = Pattern.compile("^\\s+//(.+)$");
-        Pattern recordPattern = Pattern.compile("^\\s+((?!//).)+$");
+        Pattern recordPattern = Pattern.compile("^\\s*(?<name>\\S+)(?:\\s+AT\\s+(?<addr>\\S+))?\\s*:\\s*(?<type>\\S+)\\s*\\S+\\s*$");
         try {
             Files.walk(mPath).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
