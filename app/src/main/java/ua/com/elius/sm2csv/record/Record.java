@@ -28,6 +28,7 @@ public class Record {
      * <p>
      * Alarm tags are used by alarm writers.
      *
+     * @param prefixes tag names with any of this prefixes considered an alarm
      * @return {@code true} if tag is alarm
      * @see ua.com.elius.sm2csv.writer.EasyBuilderAlarmWriter#write(EasyBuilderRecord)
      * @see ua.com.elius.sm2csv.writer.WinccAlarmWriter#write(WinccRecord)
