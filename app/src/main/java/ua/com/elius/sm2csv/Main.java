@@ -8,6 +8,7 @@ import ua.com.elius.sm2csv.record.*;
 import ua.com.elius.sm2csv.writer.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,7 +46,7 @@ public class Main {
 
         writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
         writeWinccTables(convertToWinccRecords(smRecords));
-        writeSimpleScadaTable(convertToSimpleScadaRecords(smRecords));
+        writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords));
     }
 
     /**
@@ -180,7 +181,7 @@ public class Main {
      *
      * @param ssRecords SimpleScada records list
      */
-    private static void writeSimpleScadaTable(List<SimpleScadaRecord> ssRecords) {
+    private static void writeSimpleScadaTables(List<SimpleScadaRecord> ssRecords) {
         SimpleScadaTagWriter tagWriter = new SimpleScadaTagWriter(specWorkDir.value(opts).toPath());
 
         for (SimpleScadaRecord rec : ssRecords) {
@@ -188,6 +189,24 @@ public class Main {
         }
 
         tagWriter.close();
+
+        SimpleScadaAlarmWriter alarmWriter = null;
+        try {
+            alarmWriter = new SimpleScadaAlarmWriter(
+                    specWorkDir.value(opts).toPath(),
+                    specAlarmPrefixes.values(opts));
+            alarmWriter.write(ssRecords);
+        } catch (FileNotFoundException e) {
+            System.out.println("SimpleScada alarm file can not be opened");
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Failed to write to SimpleScada alarm file");
+            System.err.println(e.getMessage());
+        } finally {
+            if (alarmWriter != null) {
+                alarmWriter.close();
+            }
+        }
     }
 
     /**
