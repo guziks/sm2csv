@@ -6,6 +6,11 @@ import java.util.List;
 
 public class SimpleScadaRecord extends Record {
 
+    public static final String DATA_TYPE_BOOLEAN = "Boolean";
+    public static final String DATA_TYPE_SMALLINT = "SmallInt";
+    public static final String DATA_TYPE_INTEGER = "Integer";
+    public static final String DATA_TYPE_SINGLE = "Single";
+
     private String mTagGroup = "Main";
     private String mOpcNode = "Main";
 
@@ -39,11 +44,11 @@ public class SimpleScadaRecord extends Record {
 
     static {
         sFromSoMachineType = new HashMap<>();
-        sFromSoMachineType.put("BOOL", "Boolean");
-        sFromSoMachineType.put("WORD", "SmallInt");
-        sFromSoMachineType.put("INT", "SmallInt");
-        sFromSoMachineType.put("DINT", "Integer");
-        sFromSoMachineType.put("REAL", "Single");
+        sFromSoMachineType.put("BOOL", DATA_TYPE_BOOLEAN);
+        sFromSoMachineType.put("WORD", DATA_TYPE_SMALLINT);
+        sFromSoMachineType.put("INT", DATA_TYPE_SMALLINT);
+        sFromSoMachineType.put("DINT", DATA_TYPE_INTEGER);
+        sFromSoMachineType.put("REAL", DATA_TYPE_SINGLE);
     }
 
     public String getTagGroup() {
