@@ -10,18 +10,31 @@ import java.util.List;
 
 public class SimpleScadaAlarmWriter {
 
+    /**
+     * SimpleScada messages file name
+     */
     private static final String OUTPUT_FILE_NAME = "Messages.smg";
 
-    List<String> mAlarmPrefixes;
-    FileOutputStream mFileOutputStream;
-    BufferedOutputStream mBufferedOutputStream;
-    DataOutput mOut;
+    /**
+     * Trigger for digital alarms, i.e. boolean tags
+     */
+    private static final int TRIGGER_DIGIAL = 1;
+
+    /**
+     * Trigger for analog (not digital) alarms, i.g. word, real,...
+     *
+     * This value is ELIUS-M convention
+     */
+    private static final int TRIGGER_ANALOG = 2;
+
+    private List<String> mAlarmPrefixes;
+    private BufferedOutputStream mBufferedOutputStream;
+    private DataOutput mOut;
 
     public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes) throws FileNotFoundException {
         mAlarmPrefixes = alarmPrefixes;
-        mFileOutputStream = new FileOutputStream(
-                outputPath.resolve(OUTPUT_FILE_NAME).toFile());
-        mBufferedOutputStream = new BufferedOutputStream(mFileOutputStream);
+        mBufferedOutputStream = new BufferedOutputStream(
+                new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
     }
 
@@ -30,9 +43,13 @@ public class SimpleScadaAlarmWriter {
                 .filter(r -> r.isAlarm(mAlarmPrefixes))
                 .count();
         writeHeader(messagesCount);
+        // iterating over not filtered list because we need original indexes
         for (int i = 0; i < records.size(); i++) {
             if (records.get(i).isAlarm(mAlarmPrefixes)) {
-                writeMessage(i, "msg_" + records.get(i).getName(), records.get(i).getComment());
+                writeMessage(i,
+                        "msg_" + records.get(i).getName(),
+                        records.get(i).getComment(),
+                        chooseTrigger(records.get(i)));
             }
         }
         writeEnd();
@@ -48,7 +65,7 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(messagesCount);
     }
 
-    private void writeMessage(int messageID, String name, String message) throws IOException {
+    private void writeMessage(int messageID, String name, String message, int trigger) throws IOException {
         mOut.writeInt(messageID);
         mOut.writeInt(name.length());
         mOut.write(name.getBytes());
@@ -60,16 +77,16 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(0);
         mOut.writeInt(0);
         mOut.writeInt(1); // states count
-        writeState(1, message);
+        writeState(1, message, trigger);
     }
 
-    private void writeState(int stateID, String comment) throws IOException {
+    private void writeState(int stateID, String comment, int trigger) throws IOException {
         mOut.writeInt(stateID);
         byte[] commentBytes = comment.getBytes(StandardCharsets.UTF_8);
         mOut.writeInt(commentBytes.length);
         mOut.write(commentBytes);
         mOut.write(0);
-        mOut.writeInt(2); // value to trigger on
+        mOut.writeInt(trigger); // value to trigger on
         mOut.writeInt(0xFFFFFFFF);
         mOut.write(1); // sound on
         mOut.write(0);
@@ -81,6 +98,14 @@ public class SimpleScadaAlarmWriter {
 
     private void writeEnd() throws IOException {
         mOut.writeInt(0);
+    }
+
+    private int chooseTrigger(SimpleScadaRecord record) {
+        if (record.isDigital()) {
+            return TRIGGER_DIGIAL;
+        } else {
+            return TRIGGER_ANALOG;
+        }
     }
 
     public void close() {

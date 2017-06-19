@@ -283,4 +283,12 @@ public class SimpleScadaRecord extends Record {
 
         return list;
     }
+
+    public boolean isDigital() {
+        return DATA_TYPE_BOOLEAN.equals(mDataType);
+    }
+
+    public boolean isAnalog() {
+        return !isDigital();
+    }
 }
