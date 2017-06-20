@@ -50,6 +50,8 @@ public class Main {
 
         List<SoMachineRecord> smRecords = readSoMachineRecords();
 
+        checkIfRecordsFound(smRecords);
+
         if (haveTarget(TARGET_EASYBUILDER)) {
             writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
         }
@@ -348,6 +350,19 @@ public class Main {
         } else if (!dir.isDirectory()) {
             System.out.println(path + " is not a directory");
             System.exit(EXIT_ERROR);
+        }
+    }
+
+    /**
+     * Checks if list contains records, if not then exit
+     *
+     * @param smRecords list to check
+     */
+    private static void checkIfRecordsFound(List<SoMachineRecord> smRecords) {
+        if (smRecords.size() == 0) {
+            // nothing to do
+            System.out.println("SoMachine records not found");
+            System.exit(EXIT_OK);
         }
     }
 
