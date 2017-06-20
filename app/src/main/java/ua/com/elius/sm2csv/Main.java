@@ -24,6 +24,11 @@ public class Main {
     private static final String OPTION_INCLUDE_ALL = "a";
     private static final String OPTION_WORK_DIR = "d";
     private static final String OPTION_ALARM_PREFIXES = "p";
+    private static final String OPTION_TARGETS = "t";
+
+    private static final String TARGET_EASYBUILDER = "easybuilder";
+    private static final String TARGET_WINCC = "wincc";
+    private static final String TARGET_SIMPLESCADA = "simplescada";
 
     private static final int EXIT_OK = 0;
     private static final int EXIT_ERROR = 1;
@@ -37,6 +42,7 @@ public class Main {
     private static OptionSpec<String> specPlcName;
     private static OptionSpec<File> specWorkDir;
     private static OptionSpec<String> specAlarmPrefixes;
+    private static OptionSpec<String> specTargets;
 
     public static void main(String[] args) {
         parseArgs(args);
@@ -44,9 +50,16 @@ public class Main {
 
         List<SoMachineRecord> smRecords = readSoMachineRecords();
 
-        writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
-        writeWinccTables(convertToWinccRecords(smRecords));
-        writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords));
+        if (haveTarget(TARGET_EASYBUILDER)) {
+            writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
+        }
+        if (haveTarget(TARGET_WINCC)) {
+            writeWinccTables(convertToWinccRecords(smRecords));
+        }
+        if (haveTarget(TARGET_SIMPLESCADA)) {
+            writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords));
+        }
+
     }
 
     /**
@@ -300,6 +313,14 @@ public class Main {
                 .withValuesSeparatedBy(',')
                 .defaultsTo("f_", "break_", "sta_");
 
+        specTargets = parser.acceptsAll(asList(
+                OPTION_TARGETS, "targets"),
+                "Targets to generate files for. See defaults for available targets")
+                .withRequiredArg()
+                .describedAs("t,t,...")
+                .withValuesSeparatedBy(',')
+                .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA);
+
         opts = parser.parse(args);
 
         if (opts.has(OPTION_HELP)) {
@@ -328,5 +349,21 @@ public class Main {
             System.out.println(path + " is not a directory");
             System.exit(EXIT_ERROR);
         }
+    }
+
+    /**
+     * Checks if target asked by the user within options
+     *
+     * @param target to check
+     * @return <code>true</code> if target asked for,
+     * else <code>false</code>
+     */
+    private static boolean haveTarget(String target) {
+        for (String t : specTargets.values(opts)) {
+            if (target.equals(t.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
