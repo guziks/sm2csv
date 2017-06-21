@@ -11,8 +11,10 @@ public class SimpleScadaRecord extends Record {
     public static final String DATA_TYPE_INTEGER = "Integer";
     public static final String DATA_TYPE_SINGLE = "Single";
 
-    private String mTagGroup = "Main";
-    private String mOpcNode = "Main";
+    public static final String GROUP_DEFAULT = "Main";
+
+    private String mTagGroup = GROUP_DEFAULT;
+    private String mOpcNode = GROUP_DEFAULT;
 
     private String mDataType;
 
@@ -44,11 +46,11 @@ public class SimpleScadaRecord extends Record {
 
     static {
         sFromSoMachineType = new HashMap<>();
-        sFromSoMachineType.put("BOOL", DATA_TYPE_BOOLEAN);
-        sFromSoMachineType.put("WORD", DATA_TYPE_SMALLINT);
-        sFromSoMachineType.put("INT", DATA_TYPE_SMALLINT);
-        sFromSoMachineType.put("DINT", DATA_TYPE_INTEGER);
-        sFromSoMachineType.put("REAL", DATA_TYPE_SINGLE);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALLINT);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_INT, DATA_TYPE_SMALLINT);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DINT, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_REAL, DATA_TYPE_SINGLE);
     }
 
     public String getTagGroup() {

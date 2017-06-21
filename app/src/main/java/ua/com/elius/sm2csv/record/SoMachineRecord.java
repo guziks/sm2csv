@@ -6,6 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SoMachineRecord extends Record {
+
+    public static final String DATA_TYPE_BOOL = "BOOL";
+    public static final String DATA_TYPE_WORD = "WORD";
+    public static final String DATA_TYPE_INT = "INT";
+    public static final String DATA_TYPE_DINT = "DINT";
+    public static final String DATA_TYPE_REAL = "REAL";
+
     public static final String SM_ADDRESS_TYPE_BYTE = "%MX";
     public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
     public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
