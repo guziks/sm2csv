@@ -29,6 +29,7 @@ public class Main {
     private static final String TARGET_EASYBUILDER = "easybuilder";
     private static final String TARGET_WINCC = "wincc";
     private static final String TARGET_SIMPLESCADA = "simplescada";
+    private static final String TARGET_LECTUS = "lectus";
 
     private static final int EXIT_OK = 0;
     private static final int EXIT_ERROR = 1;
@@ -61,7 +62,9 @@ public class Main {
         if (haveTarget(TARGET_SIMPLESCADA)) {
             writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords));
         }
-
+        if (haveTarget(TARGET_LECTUS)) {
+            writeLectusTables(convertToLectusRecords(smRecords));
+        }
     }
 
     /**
@@ -150,6 +153,24 @@ public class Main {
     }
 
     /**
+     * Converts SoMachine records to Lectus records
+     *
+     * @param smRecords SoMachine records
+     * @return Lectus records
+     */
+    private static List<LectusRecord> convertToLectusRecords(List<SoMachineRecord> smRecords) {
+        List<LectusRecord> lectusRecords = new ArrayList<>();
+        for (SoMachineRecord smRec : smRecords) {
+            if (smRec.isExported()) {
+                LectusRecord rec = LectusRecord.of(smRec);
+                lectusRecords.add(rec);
+            }
+        }
+
+        return lectusRecords;
+    }
+
+    /**
      * Top level action to write EasyBuilder targeted files
      *
      * @param ebRecords EasyBuilder records list
@@ -222,6 +243,21 @@ public class Main {
                 alarmWriter.close();
             }
         }
+    }
+
+    /**
+     * Top level action to write Lectus targeted files
+     *
+     * @param lectusRecords Lectus records
+     */
+    private static void writeLectusTables(List<LectusRecord> lectusRecords) {
+        LectusTagWriter tagWriter = new LectusTagWriter(specWorkDir.value(opts).toPath());
+
+        for (LectusRecord rec : lectusRecords) {
+            tagWriter.write(rec);
+        }
+
+        tagWriter.close();
     }
 
     /**
@@ -321,7 +357,7 @@ public class Main {
                 .withRequiredArg()
                 .describedAs("t,t,...")
                 .withValuesSeparatedBy(',')
-                .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA);
+                .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA, TARGET_LECTUS);
 
         opts = parser.parse(args);
 
