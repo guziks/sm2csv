@@ -3,6 +3,7 @@ package ua.com.elius.sm2csv;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import ua.com.elius.sm2csv.reader.SimpleScadaAssignmentReader;
 import ua.com.elius.sm2csv.reader.SimpleScadaTarReader;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.*;
@@ -263,6 +264,30 @@ public class Main {
         } finally {
             if (alarmWriter != null) {
                 alarmWriter.close();
+            }
+        }
+
+        // read  assignment script
+        SimpleScadaAssignmentReader aReader = new SimpleScadaAssignmentReader(specWorkDir.value(opts).toPath());
+        List<String> toUncomment = null;
+        try {
+            toUncomment = aReader.read();
+        } catch (IOException e) {
+            System.out.println("Failed to read existing SimpleScada update_tags_script, skip update");
+            return;
+        }
+
+        // write assignment script
+        SimpleScadaAssignmentWriter aWriter = null;
+        try {
+            aWriter = new SimpleScadaAssignmentWriter(specWorkDir.value(opts).toPath());
+            aWriter.write(newRecords, toUncomment);
+        } catch (IOException e) {
+            System.out.println("Failed to write to SimpleScada update_tags_script");
+            System.err.println(e.getMessage());
+        } finally {
+            if (aWriter != null) {
+                aWriter.close();
             }
         }
     }
