@@ -11,8 +11,8 @@ import static java.util.Arrays.asList;
 
 public class SimpleScadaTagWriter extends CSVWriter {
 
-    private static final String OUTPUT_FILE_NAME = "simplescada-tags.csv";
-    private static final String OUTPUT_FILE_ENCODING = "windows-1251";
+    public static final String FILE_NAME = "simplescada-tags.csv";
+    public static final String FILE_ENCODING = "windows-1251";
 
     private static final String[] HEADER1 = {"", "", "", "Архив", "", "", "", "Шкала", "", "", "", "", "", "", "", "", "", "", "", "Границы", "", "", ""};
     private static final String[] HEADER2 = {"Имя группы", "Имя переменной", "Тип данных", "Тип архивации", "Тип тренда", "Зона нечувствительности", "Интервал архивации", "Имя шкалы", "Ед. измерения", "Минимум", "Максимум", "Описание", "Тип тега", "Адрес", "Имя ПК", "OPC-сервер", "Частота опроса тегов", "Формат", "Сдвиг", "ВА", "ВП", "НП", "НА"};
@@ -21,8 +21,8 @@ public class SimpleScadaTagWriter extends CSVWriter {
     private List<String> mWrittenGroupHeaders = new ArrayList<>();
 
     public SimpleScadaTagWriter(Path outputPath) {
-        super(CSVFormat.EXCEL.withDelimiter(';').withQuote(null),
-                outputPath, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+        super(getCSVFormat(),
+                outputPath, FILE_NAME, FILE_ENCODING,
                 CSVWriter.TARGET_TAG_SIMPLESCADA, CSVWriter.TARGET_TAG_TAG);
     }
 
@@ -40,5 +40,9 @@ public class SimpleScadaTagWriter extends CSVWriter {
             mWrittenGroupHeaders.add(record.getTagGroup());
         }
         write(record.toList());
+    }
+
+    public static CSVFormat getCSVFormat() {
+        return CSVFormat.EXCEL.withDelimiter(';').withQuote(null);
     }
 }
