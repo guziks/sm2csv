@@ -3,6 +3,7 @@ package ua.com.elius.sm2csv;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import ua.com.elius.sm2csv.reader.SimpleScadaTarReader;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.*;
 import ua.com.elius.sm2csv.writer.*;
@@ -215,23 +216,44 @@ public class Main {
     /**
      * Top level action to write SimpleScada targeted files
      *
-     * @param ssRecords SimpleScada records list
+     * @param newRecords SimpleScada records list
      */
-    private static void writeSimpleScadaTables(List<SimpleScadaRecord> ssRecords) {
-        SimpleScadaTagWriter tagWriter = new SimpleScadaTagWriter(specWorkDir.value(opts).toPath());
-
-        for (SimpleScadaRecord rec : ssRecords) {
-            tagWriter.write(rec);
+    private static void writeSimpleScadaTables(List<SimpleScadaRecord> newRecords) {
+        // read existing file
+        SimpleScadaTarReader tagReader = new SimpleScadaTarReader(specWorkDir.value(opts).toPath());
+        List<SimpleScadaRecord> existRecords = null;
+        try {
+            existRecords = tagReader.read();
+        } catch (IOException e) {
+            System.out.println("Failed to read existing SimpleScada tags, skip update");
+            return;
         }
 
+        // merge
+        if (existRecords != null) {
+            for (SimpleScadaRecord nRec : newRecords) {
+                for (SimpleScadaRecord eRec : existRecords) {
+                    if (eRec.getName().equals(nRec.getName())) {
+                        nRec.merge(eRec);
+                    }
+                }
+            }
+        }
+
+        // write tags
+        SimpleScadaTagWriter tagWriter = new SimpleScadaTagWriter(specWorkDir.value(opts).toPath());
+        for (SimpleScadaRecord rec : newRecords) {
+            tagWriter.write(rec);
+        }
         tagWriter.close();
 
+        // write alarms
         SimpleScadaAlarmWriter alarmWriter = null;
         try {
             alarmWriter = new SimpleScadaAlarmWriter(
                     specWorkDir.value(opts).toPath(),
                     specAlarmPrefixes.values(opts));
-            alarmWriter.write(ssRecords);
+            alarmWriter.write(newRecords);
         } catch (FileNotFoundException e) {
             System.out.println("SimpleScada alarm file can not be opened");
             System.err.println(e.getMessage());

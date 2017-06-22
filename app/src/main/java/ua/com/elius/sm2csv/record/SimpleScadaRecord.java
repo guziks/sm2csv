@@ -250,10 +250,14 @@ public class SimpleScadaRecord extends Record {
             rec.setDataType(sFromSoMachineType.get(smRec.getType()));
         }
 
-        rec.setAddress(rec.getOpcNode() + "." + rec.getName());
+        rec.updateAddress();
         rec.setComment(smRec.getComment());
 
         return rec;
+    }
+
+    public void updateAddress() {
+        setAddress(getOpcNode() + "." + getName());
     }
 
     public List<String> toList() {
@@ -284,6 +288,41 @@ public class SimpleScadaRecord extends Record {
         list.add(mAlarmLow);
 
         return list;
+    }
+
+    /**
+     * Merges with other SimpleScada record
+     * <p>
+     * Takes most fields from other record
+     * but keeps mName, mDataType, mComment from
+     * this one
+     *
+     * @param eRec other record to merge with
+     */
+    public void merge(SimpleScadaRecord eRec) {
+        // assigning all fields except:
+        // mName, mDataType, mComment
+        mTagGroup = eRec.getTagGroup();
+        mOpcNode = eRec.getOpcNode();
+        updateAddress();
+        mArchiveType = eRec.getArchiveType();
+        mTrendType = eRec.getTrendType();
+        mDeadband = eRec.getDeadband();
+        mArchveInterval = eRec.getArchveInterval();
+        mScaleName = eRec.getScaleName();
+        mScaleUnits = eRec.getScaleUnits();
+        mScaleMin = eRec.getScaleMin();
+        mScaleMax = eRec.getScaleMax();
+        mTagType = eRec.getTagType();
+        mPcName = eRec.getPcName();
+        mOpcServer = eRec.getOpcServer();
+        mSamplingFrequency = eRec.getSamplingFrequency();
+        mFormat = eRec.getFormat();
+        mShift = eRec.getShift();
+        mAlarmHigh = eRec.getAlarmHigh();
+        mWarnHigh = eRec.getWarnHigh();
+        mWarnLow = eRec.getWarnLow();
+        mAlarmLow = eRec.getAlarmLow();
     }
 
     public boolean isDigital() {
