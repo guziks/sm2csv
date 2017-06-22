@@ -273,7 +273,7 @@ public class Main {
         try {
             toUncomment = aReader.read();
         } catch (IOException e) {
-            System.out.println("Failed to read existing SimpleScada update_tags_script, skip update");
+            System.out.println("Failed to read existing SimpleScada assign script, skip update");
             return;
         }
 
@@ -283,7 +283,7 @@ public class Main {
             aWriter = new SimpleScadaAssignmentWriter(specWorkDir.value(opts).toPath());
             aWriter.write(newRecords, toUncomment);
         } catch (IOException e) {
-            System.out.println("Failed to write to SimpleScada update_tags_script");
+            System.out.println("Failed to write to SimpleScada assign script");
             System.err.println(e.getMessage());
         } finally {
             if (aWriter != null) {

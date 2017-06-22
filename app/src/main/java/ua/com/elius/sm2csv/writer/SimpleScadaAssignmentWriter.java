@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SimpleScadaAssignmentWriter {
 
-    public static final String FILE_NAME = "update_tags_script.txt";
+    public static final String FILE_NAME = "simplescada-assign-tags-script.txt";
 
     private FileWriter mWriter;
 
