@@ -46,6 +46,7 @@ public class Main {
     private static OptionSpec<File> specWorkDir;
     private static OptionSpec<String> specAlarmPrefixes;
     private static OptionSpec<String> specTargets;
+    private static OptionSpec<Integer> specSimpleScadaIdShift;
 
     public static void main(String[] args) {
         parseArgs(args);
@@ -253,7 +254,8 @@ public class Main {
         try {
             alarmWriter = new SimpleScadaAlarmWriter(
                     specWorkDir.value(opts).toPath(),
-                    specAlarmPrefixes.values(opts));
+                    specAlarmPrefixes.values(opts),
+                    specSimpleScadaIdShift.value(opts));
             alarmWriter.write(newRecords);
         } catch (FileNotFoundException e) {
             System.out.println("SimpleScada alarm file can not be opened");
@@ -405,6 +407,14 @@ public class Main {
                 .describedAs("t,t,...")
                 .withValuesSeparatedBy(',')
                 .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA, TARGET_LECTUS);
+
+        specSimpleScadaIdShift = parser.accepts(
+                "simplescada-id-shift",
+                "First tag ID in SimpleScada IDE")
+                .withRequiredArg()
+                .describedAs("shift")
+                .ofType(Integer.class)
+                .defaultsTo(0);
 
         opts = parser.parse(args);
 

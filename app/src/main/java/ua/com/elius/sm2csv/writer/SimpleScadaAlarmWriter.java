@@ -30,12 +30,14 @@ public class SimpleScadaAlarmWriter {
     private List<String> mAlarmPrefixes;
     private BufferedOutputStream mBufferedOutputStream;
     private DataOutput mOut;
+    private int mIdShift;
 
-    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes) throws FileNotFoundException {
+    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift) throws FileNotFoundException {
         mAlarmPrefixes = alarmPrefixes;
         mBufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
+        mIdShift = idShift;
     }
 
     public void write(List<SimpleScadaRecord> records) throws IOException {
@@ -69,7 +71,7 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(messageID);
         mOut.writeInt(name.length());
         mOut.write(name.getBytes());
-        mOut.writeInt(messageID); // tag ID for now equals message ID
+        mOut.writeInt(messageID + mIdShift); // message ID in its turn equals tag ID
         mOut.writeInt(0);
         writeStrangeCounter();
         mOut.writeShort(0);
