@@ -1,0 +1,11 @@
+begin
+//I1.Variable := GetVariableByName('I1');
+I2.Variable := GetVariableByName('I2');
+//I3.Variable := GetVariableByName('I3');
+//Uin.Variable := GetVariableByName('Uin');
+//a_ch_ok.Variable := GetVariableByName('a_ch_ok');
+//auto_mode_on.Variable := GetVariableByName('auto_mode_on');
+cmd_avo1.Variable := GetVariableByName('cmd_avo1');
+//cmd_avo2.Variable := GetVariableByName('cmd_avo2');
+//cmd_avo3.Variable := GetVariableByName('cmd_avo3');
+end.
