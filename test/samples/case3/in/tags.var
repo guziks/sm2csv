@@ -1,0 +1,639 @@
+VAR_GLOBAL
+	// Режим работы: 0 - выключен, 1 - ручной, 2 - автоматический 
+	mode AT %MW0 : WORD;
+	//Основное состояние установки : 0 - стоп, 1 - пуск, 2 - работа, 3 - останов, 4 - авария, 5 - ожидание, 6 - остановлен
+	primary_st AT %MW1 : WORD;
+	//Вспомогательное состояние установки : 0 - нет готовности к пуску, 1 - готовность к пуску
+	secondary_st AT %MW2 : WORD;
+	//Командное слово управления 1 - останов установки, 2 - пуск установки, 3 - сброс аварий, 4 - сброс звука, 5 - включение сирены
+	cmd_global AT %MW3 : WORD;
+END_VAR
+
+VAR_GLOBAL
+	//Компрессор
+	main : CMm_ss;
+	cmd_main AT %MW4 : WORD;
+	//Неисправность главного двигателя
+	sta_main AT %MW5 : WORD;
+	//Маслонасос
+	oilpump : CMm_direct;
+	cmd_oilpump AT %MW6 : WORD;
+	//Неисправность маслонасоса
+	sta_oilpump AT %MW7 : WORD;
+	//Лубрикатор
+	lubr : CMm_direct;
+	cmd_lubr AT %MW8: WORD;
+	//Неисправность лубрикатора
+	sta_lubr AT %MW9: WORD;
+	//АВО1
+	avo1 : CMm_direct;
+	cmd_avo1 AT %MW10: WORD;
+	//Неисправность АВО1
+	sta_avo1 AT %MW11: WORD;
+	//АВО2
+	avo2 : CMm_direct;
+	cmd_avo2 AT %MW12: WORD;
+	//Неисправность АВО2
+	sta_avo2 AT %MW13: WORD;
+	//АВО3
+	avo3 : CMm_direct;
+	cmd_avo3 AT %MW14: WORD;
+	//Неисправность АВО3
+	sta_avo3 AT %MW15: WORD;
+	//Обдув цилиндров 1
+	cooler1: CMm_direct;
+	cmd_cooler1 AT %MW16: WORD;
+	//Неисправность обдува 1
+	sta_cooler1 AT %MW17: WORD;
+	//Обдув цилиндров 2
+	cooler2: CMm_direct;
+	cmd_cooler2 AT %MW18: WORD;
+	//Неисправность обдува 2
+	sta_cooler2 AT %MW19: WORD;
+	//Вентиляция
+	vent: CMm_direct;
+	cmd_vent AT %MW20: WORD;
+	//Неисправность вентиляции
+	sta_vent AT %MW21: WORD;
+	//Нагреватель масла
+	oilheater : CMm_direct;
+	cmd_oilheater AT %MW22: WORD;
+	//Неисправность нагревателя масла
+	sta_oilheater AT %MW23: WORD;
+	//Нагреватель масла осушки
+	dry_oilheater : CMm_direct;
+	cmd_dry_oilheater : WORD;
+	//Неисправность нагревателя масла осушки
+	sta_dry_oilheater AT %MW24 : WORD;
+END_VAR
+
+VAR_GLOBAL
+	ek1 : CMValve;
+	cmd_ek1 AT %MW25 : WORD;
+	//Неисправность ЭК1
+	sta_ek1 AT %MW26 : WORD;
+	ek2 : CMvalve;
+	cmd_ek2 AT %MW27 : WORD;
+	//Неисправность ЭК2
+	sta_ek2 AT %MW28 : WORD;
+	ek8 : CMvalve;
+	cmd_ek8 AT %MW29 : WORD;
+	//Неисправность ЭК8
+	sta_ek8 AT %MW30 : WORD;
+	ek9 : CMvalve;
+	cmd_ek9 AT %MW31 : WORD;
+	//Неисправность ЭК9
+	sta_ek9 AT %MW32 : WORD;
+	
+	dry_ek3 : CMrotator;
+	cmd_dry_ek3 AT %MW33 : WORD;
+	//Неисправность ЭК3
+	sta_dry_ek3 AT %MW34 : WORD;
+	//Концевик
+	sq_ek3 AT %MW35 : WORD;
+
+	dry_ek3a : CMrotator;
+	cmd_dry_ek3a AT %MW36: WORD;
+	//Неисправность ЭК3а
+	sta_dry_ek3a AT %MW37: WORD;
+	//Концевик
+	sq_ek3a AT %MW38 : WORD;
+
+	dry_ek4 : CMrotator;
+	cmd_dry_ek4 AT %MW39 : WORD;
+	//Неисправность ЭК4
+	sta_dry_ek4 AT %MW40 : WORD;
+	//Концевик
+	sq_ek4 AT %MW41 : WORD;	
+
+	dry_ek5 : CMrotator;
+	cmd_dry_ek5 AT %MW42 : WORD;
+	//Неисправность ЭК5
+	sta_dry_ek5 AT %MW43 : WORD;
+	//Концевик
+	sq_ek5 AT %MW44 : WORD;	
+
+	dry_ek6 : CMrotator;
+	cmd_dry_ek6 AT %MW45 : WORD;
+	//Неисправность ЭК6
+	sta_dry_ek6 AT %MW46 : WORD;
+	//Концевик
+	sq_ek6 AT %MW47 : WORD;
+	
+	dry_ek7 : CMrotator;
+	cmd_dry_ek7 AT %MW48 : WORD;
+	//Неисправность ЭК7
+	sta_dry_ek7 AT %MW49 : WORD;
+	//Концевик
+	sq_ek7 AT %MW50 : WORD;
+	
+	pp_ek10 : CMrotator;
+	cmd_pp_ek10 AT %MW51 : WORD;
+	//Неисправность ЭК10
+	sta_pp_ek10 AT %MW52 : WORD;
+	//Концевик
+	sq_ek10 AT %MW53 : WORD;
+	
+	pp_ek11 : CMrotator;
+	cmd_pp_ek11 AT %MW54 : WORD;
+	//Неисправность ЭК11
+	sta_pp_ek11 AT %MW55 : WORD;
+	//Концевик
+	sq_ek11 AT %MW56 : WORD;
+	
+	pp_ek12 : CMrotator;
+	cmd_pp_ek12 AT %MW57 : WORD;
+	//Неисправность ЭК12
+	sta_pp_ek12 AT %MW58 : WORD;
+	//Концевик
+	sq_ek12 AT %MW59 : WORD;
+	
+	//Сброс газа из аккумуляторов
+	ek_akk_gf : CMvalve;
+	cmd_ek_akk_gf AT %MW60 : WORD;
+	//Неисправность Сброса из аккумуляторов
+	sta_ek_akk_gf AT %MW61 : WORD;
+	
+END_VAR
+
+VAR_GLOBAL
+	//Аварии
+	flts : CMflts;
+	//Пожар
+	fire : CMfire;
+	//ПОЖАР!!!
+	sta_fire AT %MW62 : WORD;
+	//Неисправность пожарной сигнализации
+	sta_fire_eq AT %MW63: WORD;
+	//Загазованность
+	gas : CMgas;
+	//Загазованность
+	sta_gas AT %MW64 : WORD;
+	//Неисправность газовой сигнализации
+	sta_gas_eq AT %MW65 : WORD;
+	//Аварийный останов
+	em_stop : CMem_stop;
+	//Аварийный останов
+	sta_em_stop AT %MW66 : WORD;
+	//Аварийный останов со стравливанием газа
+	em_stop_gf : CMfire;
+	//Аварийный останов со стравливанием газа
+	sta_em_stop_gf AT %MW67 : WORD;
+	
+	//Режим работы
+	mode_switch : CMmode_switch;
+	//Питание 24В
+	power24 : CMpower24;
+	//Нет питания 24В
+	sta_power24 AT %MW68 : WORD;
+	//Вибрация
+	vibr : CMvibration;
+	//Аварийная вибрация
+	sta_vibr AT %MW69 : WORD;
+END_VAR
+
+VAR_GLOBAL
+	c_p_in : CMai;
+	//Давдение на входе в компрессор
+	p_in AT %MD200: REAL;
+	//Шкала давление на входе
+	scale_p_in AT %MD201: REAL;
+	//Обрыв канала Рвх
+	sta_p_in AT %MW70 : WORD;
+	
+	c_p_oil : CMai;
+	//Давление масла
+	p_oil AT %MD202: REAL;
+	//Шкала давление масла
+	scale_p_oil AT %MD203: REAL;
+	//Обрыв канала Рмасла
+	sta_p_oil AT %MW71: WORD;
+	
+	c_p_razgr : CMai;
+	//Давление в разгрузочной емкости
+	p_razgr AT %MD204: REAL;
+	//Шкала давления в разгр. емкости
+	scale_p_razgr AT %MD205: REAL;
+	//Обрыв канала Рразгр
+	sta_p_razgr AT %MW72 : WORD;
+	
+	c_p_1st : CMai;
+	//Давление нагнетания 1 ступени
+	p_1st AT %MD206 : REAL;
+	scale_p_1st AT %MD207 : REAL;
+	//Обрыв канала Р1ст.
+	sta_p_1st AT %MW73 : WORD;
+	
+	c_p_2st : CMai;
+	//Давление нагнетания 2 ступени
+	p_2st AT %MD208: REAL;
+	scale_p_2st AT %MD209: REAL;
+	//Обрыв канала Р2ст.
+	sta_p_2st AT %MW74 : WORD;
+
+	c_p_3st : CMai;
+	//Давление нагнетания 3 ступени
+	p_3st AT %MD210: REAL;
+	scale_p_3st AT %MD211 : REAL;
+	//Обрыв канала Р3ст.
+	sta_p_3st AT %MW75 : WORD;
+
+	c_p_4st : CMai;
+	//Давление нагнетания 4 ступени
+	p_4st AT %MD212 : REAL;
+	scale_p_4st AT %MD213 : REAL;
+	//Обрыв канала Р4ст.
+	sta_p_4st AT %MW76 : WORD;
+
+	c_p_5st : CMai;
+	//Давление нагнетания 5 ступени
+	p_5st AT %MD214 : REAL;
+	scale_p_5st AT %MD215 : REAL;
+	//Обрыв канала Р5ст.
+	sta_p_5st AT %MW77 : WORD;
+
+	c_p_reg : CMai;
+	//Давление газа регенерации
+	p_reg AT %MD216 : REAL;
+	scale_p_reg AT %MD217 : REAL;
+	//Обрыв канала Ррег
+	sta_p_reg AT %MW78 : WORD;
+	
+	c_p_line1 : CMai;
+	//Давление газа на 1й линии
+	p_line1 AT %MD128: REAL;
+	scale_p_line1 AT %MD219 : REAL;
+	//Обрыв канала Р1линии
+	sta_p_line1 AT %MW79 : WORD;
+	
+	c_p_line2 : CMai;
+	//Давление газа на 2й линии
+	p_line2 AT %MD220 : REAL;
+	scale_p_line2 AT %MD221 : REAL;
+	//Обрыв канала Р2линии
+	sta_p_line2 AT %MW80 : WORD;
+
+	c_p_line3 : CMai;
+	//Давление газа на 3й линии
+	p_line3 AT %MD222 : REAL;
+	scale_p_line3 AT %MD223 : REAL;
+	//Обрыв канала Р3линии
+	sta_p_line3 AT %MW81 : WORD;
+
+	c_level_oil : CMai;
+	//Уровень масла
+	level_oil AT %MD224 : REAL;
+	scale_level_oil AT %MD225 : REAL;
+	//Обрыв канала Уровень масла
+	sta_level_oil AT %MW82 : WORD;
+END_VAR
+
+VAR_GLOBAL
+	c_t_in : CMti;
+	//Т на входе
+	t_in AT %MD226 : REAL;
+	// Обрыв канала Т на входе
+	sta_t_in AT %MW83: WORD;
+	
+	c_t_out_1st : CMti;
+	//Т на выходе 1ст.
+	t_out_1st AT %MD227 : REAL;
+	//Обрыв канала Т на выходе 1ст.
+	sta_t_out_1st AT %MW84 : WORD;
+	
+	c_t_oil : CMti;
+	//Т масла
+	t_oil AT %MD228 : REAL;
+	//Обрыв канала Т масала
+	sta_t_oil AT %MW85 : WORD;
+	
+	c_t_bk : CMti;
+	//Т в БК
+	t_bk AT %MD229 : REAL;
+	//Обрыв канала Т в БК
+	sta_t_bk AT %MW86 : WORD;
+	
+	c_t_in_2st : CMti;
+	//Т на входе 2ст.
+	t_in_2st AT %MD230 : REAL;
+	//Обрыв канала Т на входе 2ст.
+	sta_t_in_2st AT %MW87 : WORD;
+	
+	c_t_out_2st : CMti;
+	//Т на выходе 2ст.
+	t_out_2st AT %MD231 : REAL;
+	//Обрыв канала Т на выходе 2ст.
+	sta_t_out_2st AT %MW88: WORD;
+	
+	c_t_in_3st : CMti;
+	//Т на входе 3ст.
+	t_in_3st AT %MD232 : REAL;
+	//Обрыв канала Т на входе 3ст.
+	sta_t_in_3st AT %MW89: WORD;
+	
+	c_t_out_3st : CMti;
+	//Т на выходе 3ст.
+	t_out_3st AT %MD233 : REAL;
+	//обрыв канала Т на выходе 3ст.
+	sta_t_out_3st AT %MW90: WORD;
+	
+	c_t_in_4st : CMti;
+	//Т на входе 4ст.
+	t_in_4st AT %MD234 : REAL;
+	//Обрыв канала Т на входе 4ст.
+	sta_t_in_4st AT %MW91 : WORD;
+	
+	c_t_cr : CMti;
+	//Т в щитовой
+	t_cr AT %MD235 : REAL;
+	//Обрыв канала Т в щитовой
+	sta_t_cr AT %MW92 : WORD;
+	
+	c_t_dry_oil : CMti;
+	//Т масла в маслонагревателе
+	t_dry_oil AT %MD236 : REAL;
+	//Обрыв канала Т масла в маслонагревателе
+	sta_t_dry_oil AT %MW93 : WORD;
+	
+	c_t_dry : CMti;
+	//Т воздуха в осушке
+	t_dry AT %MD237 : REAL;
+	//Обрыв канала Т воздуха в осушке
+	sta_t_dry AT %MW94 : WORD;
+	
+	c_t_out_4st : CMti;
+	//Т на выходе 4ст.
+	t_out_4st AT %MD238 : REAL;
+	//Обрыв канала Т на выходе 4ст.
+	sta_t_out_4st AT %MW95 : WORD;
+	
+	c_t_in_5st : CMti;
+	//Т на входе 5ст.
+	t_in_5st AT %MD239 : REAL;
+	//Обрыв канала Т на входе 5ст.
+	sta_t_in_5st AT %MW96 : WORD;
+	
+	c_t_out_5st : CMti;
+	//Т на выходе 5ст.
+	t_out_5st AT %MD240 : REAL;
+	//Обрыв канала Т на выходе 5ст.
+	sta_t_out_5st AT %MW97 : WORD;
+	
+	c_t_out : CMti;
+	//Т на выходе
+	t_out AT %MD241 : REAL;
+	//Обрыв канала Т на выходе
+	sta_t_out AT %MW98 : WORD;
+	
+	c_t_reg_in : CMti;
+	//Т регенерации до Адс.
+	t_reg_in AT %MD242 : REAL;
+	//Обрыв канала Т регенерации до Адс.
+	sta_t_reg_in AT %MW99 : WORD;
+
+	c_t_reg_out : CMti;
+	//Т регенерации после Адс.
+	t_reg_out AT %MD243 : REAL;
+	//Обрыв канала Т регенерации после Адс.
+	sta_t_reg_out AT %MW100: WORD; 
+END_VAR
+
+VAR_GLOBAL
+	//Осушка
+	dryer : EMdryer;
+	//Режим работы осушки: 0 - выключена, 1 - ручной режим, 2 - автоматический режим
+	mode_dryer AT %MW101 : WORD;
+	cmd_dryer AT %MW102 : WORD;
+	//Неисправность осушки
+	sta_dryer AT %MW103 : WORD;	
+	//Панель приоритетов
+	pp : EMpp;
+	//Режим работы панели приоритетов: 0 - вылючена, 1 - ручной режим, 2 - автоматический режим 
+	mode_pp AT %MW104 : WORD;
+	cmd_pp AT %MW105: WORD;
+	//Неисправность панели приоритетов
+	sta_pp AT %MW106: WORD;
+	//Регулирование температуры по ступеням
+	Tctrl : CMavoctrl;
+	//Режим работы регулятора Т по ступеням
+	mode_Tctrl AT %MW107: WORD;
+	//Неисправность в работе регулятора Т по ступеням
+	sta_Tctrl  AT %MW108: WORD;
+END_VAR
+
+VAR_GLOBAL
+	//Аналоговые каналы
+	a1_3 : TMai;
+	//Аналоговые каналы
+	a1_4 : TMai;
+	//Температурные каналы
+	a1_7 : TMti;
+	//Температурные каналы
+	a1_8 : TMti;
+	//Температурные каналы
+	a1_9 : TMti;
+	//Температурные каналы
+	a1_10 : TMti;
+	//Температурные каналы
+	a1_11 : TMti;
+	sb_start : BOOL;
+	sb_stop : BOOL;
+	sb_ctrl_on : BOOL;
+	sb_start_bk : BOOL;
+	sb_stop_bk : BOOL;
+	sw_vent : BOOL;
+END_VAR
+
+VAR_GLOBAL
+	//Автоматический пуск
+	auto_start   : BOOL;
+	//Автоматический останов
+	auto_stop    : BOOL;
+	//Автоматическая работа
+	auto_work    : BOOL;
+	//Готовность к пуску
+	init_auto    AT %MX400.0 : BOOL;
+	//Останов станции
+	station_stop AT %MX400.1 : BOOL;
+	//Нет активных аварий
+	no_active_faults AT %MX400.2 : BOOL;
+	//Механизмы в исходном
+	mechs_ok AT %MX400.3 : BOOL;
+	//Клапана в исходном
+	eks_ok AT %MX400.4 : BOOL;
+	//Аналоговые каналы в норме
+	a_ch_ok AT %MX400.5 : BOOL;
+	//Температурные каналы в норме
+	t_ch_ok AT %MX400.6 : BOOL;
+	//Готовность осушки
+	dryer_ok AT %MX400.7 : BOOL;
+	//Готовность панели приоритетов
+	pp_ok AT %MX401.0 : BOOL;
+	//Не нажаты кнопки стоп
+	no_sb_stop AT %MX401.1 : BOOL;
+	//Датчик вибрации
+	vibration_ok AT %MX401.2 : BOOL;
+	//Нет управляющего питания
+	ctrl_power_on AT %MX401.3 : BOOL;
+	//Включен автоматический режим
+	auto_mode_on AT %MX401.4 : BOOL;
+	//Предупредительный звук
+	warn_sound : BOOL;
+	//Разгрузка
+	razgr_st : BOOL;
+	
+	man_common_rot_power : BOOL;	
+	common_rot_power   : BOOL;
+END_VAR
+
+VAR_GLOBAL
+	//Низкая температура масла
+	sta_l_t_oil AT %MW109 : WORD;
+	//Высокая температура масла
+	sta_h_t_oil AT %MW110 : WORD;
+	//Высокая температура на входе
+	sta_h_t_in AT %MW111 : WORD;
+	//Низкая температура на входе
+	sta_l_t_in AT %MW112 : WORD;
+	//Высокая температура на выходе 1ст.
+	sta_h_t_out_1st AT %MW113 : WORD;
+	//Высокая температура на выходе 2ст.
+	sta_h_t_out_2st AT %MW114 : WORD;
+	//Высокая температура на выходе 3ст.
+	sta_h_t_out_3st AT %MW115 : WORD;
+	//Высокая температура на выходе 4ст.
+	sta_h_t_out_4st AT %MW116 : WORD;
+	//Высокая температура на выходе 5ст.
+	sta_h_t_out_5st AT %MW117 : WORD;
+	//Низкая температура воздуха в БК
+	sta_l_t_bk AT %MW118 : WORD;
+	//Низкое давление на входе
+	sta_l_p_in AT %MW119: WORD;
+	//Высокое давление на входе
+	sta_h_p_in AT %MW120 : WORD;
+	//Низкое давление масла
+	sta_l_p_oil AT %MW121 : WORD;
+	//Высокое давление масла
+	sta_h_p_oil AT %MW122: WORD;
+	//Высокое давление 1ст.	
+	sta_h_p_1st AT %MW123: WORD;
+	//Высокое давление 2ст.
+	sta_h_p_2st AT %MW124 : WORD;
+	//Высокое давление 3ст.
+	sta_h_p_3st AT %MW125 : WORD;
+	//Высокое давление 4ст.
+	sta_h_p_4st AT %MW126 : WORD;
+	//Высокое давление 5ст.
+	sta_h_p_5st AT %MW127 : WORD;
+	//БО Низкий уровень масла 
+	sta_l_level_oil AT %MW128 : WORD;
+	//БО Высокая температура масла
+	sta_h_t_dry_oil AT %MW129 : WORD;
+	//Балон на регенерации А1 - 1, А2 - 2
+	dry_a AT %MW130: WORD;
+	ctrl_power : CMctrlpower;
+	//Нет питания управления механизмов
+	sta_ctrl_power AT %MW131 : WORD;
+	//Состояние нагревателя масла
+	sta_heater AT %MW132 : WORD;
+	//Общее питание на поворотные клапана
+	cmd_rot_power AT %MW133: WORD;
+END_VAR
+
+VAR_GLOBAL
+	//Р пуска компрессора
+	s_p_start_compressor AT %MD244 : REAL;
+	//Р останова компрессора
+	s_p_stop_compressor AT %MD245 : REAL;
+	//Низкая температура масла
+	s_l_t_oil AT %MD246 : REAL;
+	//Высокая температура масла
+	s_h_t_oil AT %MD247 : REAL;
+	//Высокая температура на входе
+	s_h_t_in AT %MD248 : REAL;
+	//Низкая температура на входе
+	s_l_t_in AT %MD249 : REAL;
+	//Высокая температура на выходе 1ст.
+	s_h_t_out_1st AT %MD250 : REAL;
+	//Высокая температура на выходе 2ст.
+	s_h_t_out_2st AT %MD251 : REAL;
+	//Высокая температура на выходе 3ст.
+	s_h_t_out_3st AT %MD252 : REAL;
+	//Высокая температура на выходе 4ст.
+	s_h_t_out_4st AT %MD253 : REAL;
+	//Высокая температура на выходе 5ст.
+	s_h_t_out_5st AT %MD254 : REAL;
+	//Низкая температура воздуха в БК
+	s_l_t_bk AT %MD255 : REAL;
+	//Низкое давление на входе
+	s_l_p_in AT %MD256 : REAL;
+	//Высокое давление на входе
+	s_h_p_in AT %MD257 : REAL;
+	//Низкое давление масла
+	s_l_p_oil AT %MD258 : REAL;
+	//Высокое давление масла
+	s_h_p_oil AT %MD259 : REAL;
+	//Высокое давление 1ст.
+	s_h_p_1st AT %MD260 : REAL;
+	//Высокое давление 2ст.
+	s_h_p_2st AT %MD261 : REAL;
+	//Высокое давление 3ст.
+	s_h_p_3st AT %MD262 : REAL;
+	//Высокое давление 4ст.
+	s_h_p_4st AT %MD263 : REAL;
+	//Высокое давление 5ст.
+	s_h_p_5st AT %MD264 : REAL;
+	
+	//Р прямой заправки
+	s_pp_direct AT %MD265 : REAL;
+	//Р начала заправки Акк
+	s_pp_start  AT %MD266 : REAL;
+	//Р окончания заправки А1
+	s_pp_a1     AT %MD267 : REAL;
+	//Р окончания заправки А2
+	s_pp_a2     AT %MD268 : REAL;
+	//Р окончания заправки А3
+	s_pp_a3     AT %MD269: REAL;
+
+	//Время работы ЭК8
+	s_t_ek8 AT %MD270 : DINT;
+	
+	//БО Низкий уровень масла
+	s_l_level_dry_oil AT %MD271 : REAL;
+	//БО Высокая температура масла
+	s_h_t_dry_oil AT %MD272 : REAL;
+	//БО Задание температуры масла
+	s_t_dry_oil AT %MD273 : REAL;
+	//БО Время сброса давления
+	s_time_dry_drop AT %MD274: DINT;
+	//БО Температура регенерации
+	s_t_dry_reg AT %MD275: REAL;
+	//БО Выдержка регенерации
+	s_time_dry_reg AT %MD276: DINT;
+	//БО Температура охлаждения
+	s_t_dry_cool AT %MD277: REAL;
+	//БО Время охлаждения
+	s_time_dry_cool AT %MD278: DINT;
+	//БО Время заполнения
+	s_time_dry_fill AT %MD279: DINT;
+	//БО Время работы осушки
+	s_time_dry_change AT %MD280: DINT;
+	//Мотоминуты установки
+	moto_minutes AT %MD281 : DINT;	
+	
+	//Управление АВО Тмин
+	s_t_min_avo AT %MD282 : REAL;
+	//Управление АВО Тмакс 1
+	s_t_max1_avo AT %MD283 : REAL;	
+	//Управление АВО Тмакс 2
+	s_t_max2_avo AT %MD284 : REAL;
+
+	//Ток Фазы1
+	I1 AT %MD285 : REAL;
+	//Ток Фазы2
+	I2 AT %MD286 : REAL;
+	//Ток Фазы2
+	I3 AT %MD287 : REAL;
+	//Напряжение сети
+	Uin AT %MD288 : REAL;	
+END_VAR
