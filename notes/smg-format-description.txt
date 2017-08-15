@@ -1,0 +1,48 @@
+## header
+uint32: total messages count (never decreases, even after message deletion)
+01 00 00 00
+01 00 00 00
+00 00 00 00
+03 00 00 00
+2E 2E 5C 4B 00 00 00
+uint32: this group messages count
+
+## message
+uint32: message ID starting with 0
+uint32: message name length
+message name
+uint32: tag id
+00 00 00 00
+uint8: counter starting with 37 (maybe 03) with step 4 per message
+uint8: counter starting with 50 with step 1 after previous counter ends
+00 00
+01
+00 00 00 00
+00 00 00 00
+uint32: states count
+
+### state
+uint32: state ID starting with 0
+uint32: state comment length
+state comment
+00
+uint32: value to trigger on
+FF FF FF FF
+uint8: 0 - sound off; 1 - sound on
+00
+next state or message
+
+## End
+00 00 00 00: end of file
+
+
+
+035B
+075B
+0B5B
+0F5B
+
+3750
+3B50
+3F50
+4350

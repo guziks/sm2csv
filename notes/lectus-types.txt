@@ -1,0 +1,6 @@
+11  Boolean
+16  Short Integer
+18  Word
+2   Small Integer
+3   Integer
+4   Single Float 
