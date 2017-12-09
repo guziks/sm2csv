@@ -75,8 +75,8 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(0);
         writeStrangeCounter();
         mOut.writeShort(0);
-        mOut.write(1);
-        mOut.writeInt(0);
+        mOut.writeInt(1); // latest state ID (equals to states count)
+        mOut.write(0); // trigger type - value
         mOut.writeInt(0);
         mOut.write(0); // reset is disabled
         mOut.writeInt(1); // states count
@@ -88,11 +88,11 @@ public class SimpleScadaAlarmWriter {
         byte[] commentBytes = comment.getBytes(StandardCharsets.UTF_8);
         mOut.writeInt(commentBytes.length);
         mOut.write(commentBytes);
-        mOut.write(0);
-        mOut.writeInt(trigger); // value to trigger on
+        mOut.write(0); // alarm type - alarm
+        mOut.writeInt(trigger); // value or bit number to trigger on
         mOut.writeInt(0xFFFFFFFF);
         mOut.write(1); // sound on
-        mOut.write(0);
+        mOut.write(0); // invert off
     }
 
     private void writeStrangeCounter() throws IOException {

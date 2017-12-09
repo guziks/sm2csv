@@ -16,34 +16,22 @@ uint32: tag id
 uint8: counter starting with 37 (maybe 03) (or 84) with step 4 per message
 uint8: counter starting with 50 (or 53) with step 1 after previous counter ends
 00 00
-01
-00 00 00 00
+uint32: latest state ID (>= states count)
+uint8: 0 - trigger is value; 1 - trigger is bit inside word
 00 00 00 00
 uint8: 0 - no reset; 1 - reset (reset variable after acknowledgement)
 uint32: states count
 
 ### state
-uint32: state ID starting with 0
+uint32: state ID starting with 1
 uint32: state comment length
 state comment
-00
-uint32: value to trigger on
+uint8: 0 - alarm, 1 - warning, 2 - message
+uint32: value to trigger on (or bit number if trigger is bit inside word)
 FF FF FF FF
 uint8: 0 - sound off; 1 - sound on
-00
+uint8: 0 - invert off; 1 - invert on
 next state or message
 
 ## End
 00 00 00 00: end of file
-
-
-
-035B
-075B
-0B5B
-0F5B
-
-3750
-3B50
-3F50
-4350
