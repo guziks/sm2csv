@@ -78,6 +78,7 @@ public class SimpleScadaAlarmWriter {
         mOut.write(1);
         mOut.writeInt(0);
         mOut.writeInt(0);
+        mOut.write(0); // reset is disabled
         mOut.writeInt(1); // states count
         writeState(1, message, trigger);
     }
@@ -95,7 +96,7 @@ public class SimpleScadaAlarmWriter {
     }
 
     private void writeStrangeCounter() throws IOException {
-        mOut.writeShort(0x5037);
+        mOut.writeShort(0x5384);
     }
 
     private void writeEnd() throws IOException {

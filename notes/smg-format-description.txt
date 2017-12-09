@@ -13,12 +13,13 @@ uint32: message name length
 message name
 uint32: tag id
 00 00 00 00
-uint8: counter starting with 37 (maybe 03) with step 4 per message
-uint8: counter starting with 50 with step 1 after previous counter ends
+uint8: counter starting with 37 (maybe 03) (or 84) with step 4 per message
+uint8: counter starting with 50 (or 53) with step 1 after previous counter ends
 00 00
 01
 00 00 00 00
 00 00 00 00
+uint8: 0 - no reset; 1 - reset (reset variable after acknowledgement)
 uint32: states count
 
 ### state

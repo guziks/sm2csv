@@ -1,5 +1,4 @@
 import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.elius.sm2csv.Main;
