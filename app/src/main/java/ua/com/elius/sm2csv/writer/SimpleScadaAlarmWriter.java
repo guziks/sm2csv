@@ -93,6 +93,8 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(0xFFFFFFFF);
         mOut.write(1); // sound on
         mOut.write(0); // invert off
+        mOut.write(1); // unaknowledged list on
+        mOut.write(1); // active list on
     }
 
     private void writeStrangeCounter() throws IOException {

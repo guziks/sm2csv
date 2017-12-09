@@ -31,6 +31,8 @@ uint32: value to trigger on (or bit number if trigger is bit inside word)
 FF FF FF FF
 uint8: 0 - sound off; 1 - sound on
 uint8: 0 - invert off; 1 - invert on
+uint8: 0 - unaknowledged list off; 1 - unaknowledged list on
+uint8: 0 - active list off; 1 - active list on
 next state or message
 
 ## End
