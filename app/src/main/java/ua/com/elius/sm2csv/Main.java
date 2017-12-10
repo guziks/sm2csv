@@ -4,7 +4,7 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import ua.com.elius.sm2csv.reader.SimpleScadaAssignmentReader;
-import ua.com.elius.sm2csv.reader.SimpleScadaTarReader;
+import ua.com.elius.sm2csv.reader.SimpleScadaTagReader;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
 import ua.com.elius.sm2csv.record.*;
 import ua.com.elius.sm2csv.writer.*;
@@ -222,7 +222,7 @@ public class Main {
      */
     private static void writeSimpleScadaTables(List<SimpleScadaRecord> newRecords) {
         // read existing file
-        SimpleScadaTarReader tagReader = new SimpleScadaTarReader(specWorkDir.value(opts).toPath());
+        SimpleScadaTagReader tagReader = new SimpleScadaTagReader(specWorkDir.value(opts).toPath());
         List<SimpleScadaRecord> existRecords = null;
         try {
             existRecords = tagReader.read();

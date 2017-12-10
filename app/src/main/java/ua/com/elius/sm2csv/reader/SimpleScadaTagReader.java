@@ -12,11 +12,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleScadaTarReader {
+public class SimpleScadaTagReader {
 
     private File mInputFile;
 
-    public SimpleScadaTarReader(Path inputPath) {
+    public SimpleScadaTagReader(Path inputPath) {
         mInputFile = inputPath.resolve(SimpleScadaTagWriter.FILE_NAME).toFile();
     }
 
