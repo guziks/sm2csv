@@ -249,13 +249,18 @@ public class Main {
         }
         tagWriter.close();
 
+        // prepare alarm expander
+        // TODO from configuration file
+        AlarmConfig alarmConfig = new AlarmConfig();
+
         // write alarms
         SimpleScadaAlarmWriter alarmWriter = null;
         try {
             alarmWriter = new SimpleScadaAlarmWriter(
                     specWorkDir.value(opts).toPath(),
                     specAlarmPrefixes.values(opts),
-                    specSimpleScadaIdShift.value(opts));
+                    specSimpleScadaIdShift.value(opts),
+                    alarmConfig);
             alarmWriter.write(newRecords);
         } catch (FileNotFoundException e) {
             System.out.println("SimpleScada alarm file can not be opened");

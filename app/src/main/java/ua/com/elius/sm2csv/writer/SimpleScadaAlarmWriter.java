@@ -30,14 +30,15 @@ public class SimpleScadaAlarmWriter {
     private BufferedOutputStream mBufferedOutputStream;
     private DataOutput mOut;
     private int mIdShift;
-    private SimpleScadaAlarmExpander mAlarmExpander;
+    private AlarmConfig mAlarmConfig;
 
-    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift) throws FileNotFoundException {
+    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift, AlarmConfig alarmConfig) throws FileNotFoundException {
         mAlarmPrefixes = alarmPrefixes;
         mBufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
         mIdShift = idShift;
+        mAlarmConfig = alarmConfig;
     }
 
     public void write(List<SimpleScadaRecord> records) throws IOException {
@@ -116,7 +117,7 @@ public class SimpleScadaAlarmWriter {
         }
     }
 
-    public class SimpleScadaMessage {
+    private class SimpleScadaMessage {
         private static final int ALARM_TYPE_ALARM = 0;
         private static final int ALARM_TYPE_WARNING = 1;
         private static final int ALARM_TYPE_MESSAGE = 2;
@@ -130,19 +131,18 @@ public class SimpleScadaAlarmWriter {
 
             if (record.isDigital()) {
                 mTriggerType = TRIGGER_TYPE_VALUE;
-                mStates.add(new SimpleScadaMessageState(1, baseComment, ALARM_TYPE_ALARM, 1));
+                mStates.add(new SimpleScadaMessageState(1, baseComment,
+                        alarmTypeFrom(mAlarmConfig.getDigitalSeverity()), 1));
             } else {
                 mTriggerType = TRIGGER_TYPE_BIT;
-                mStates.add(new SimpleScadaMessageState(1, "AH: " + baseComment, ALARM_TYPE_ALARM, 0));
-                mStates.add(new SimpleScadaMessageState(2, "WH: " + baseComment, ALARM_TYPE_WARNING, 1));
-                mStates.add(new SimpleScadaMessageState(3, "WL: " + baseComment, ALARM_TYPE_WARNING, 2));
-                mStates.add(new SimpleScadaMessageState(4, "AL: " + baseComment, ALARM_TYPE_ALARM, 3));
+                for (int i = 0; i < mAlarmConfig.size(); i++) {
+                    mStates.add(new SimpleScadaMessageState(i + 1, // ID starts with 1
+                            mAlarmConfig.getPrefix(i) + baseComment,
+                            alarmTypeFrom(mAlarmConfig.getSeverity(i)),
+                            mAlarmConfig.getBit(i))
+                    );
+                }
             }
-        }
-
-        public SimpleScadaMessage(int triggerType, List<SimpleScadaMessageState> states) {
-            mTriggerType = triggerType;
-            mStates = states;
         }
 
         public int getStatesCount() {
@@ -156,9 +156,22 @@ public class SimpleScadaAlarmWriter {
         public List<SimpleScadaMessageState> getStates() {
             return mStates;
         }
+
+        private int alarmTypeFrom(String severity) {
+            switch (severity) {
+                case AlarmConfig.SEVERITY_HIGH:
+                    return ALARM_TYPE_ALARM;
+                case AlarmConfig.SEVERITY_MID:
+                    return ALARM_TYPE_WARNING;
+                case AlarmConfig.SEVERITY_LOW:
+                    return ALARM_TYPE_MESSAGE;
+                default:
+                    return ALARM_TYPE_ALARM;
+            }
+        }
     }
 
-    public class SimpleScadaMessageState {
+    private class SimpleScadaMessageState {
         private int mID;
         private String mComment;
         private int mAlarmType;
