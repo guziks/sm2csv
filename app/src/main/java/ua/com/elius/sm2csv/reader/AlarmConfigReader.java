@@ -17,10 +17,23 @@ public class AlarmConfigReader {
         mFile = file;
     }
 
-    public AlarmConfig read() throws FileNotFoundException, YamlException {
+    public AlarmConfig read() throws FileNotFoundException, YamlException, AlarmConfigException {
 
         YamlReader reader = new YamlReader(new FileReader(mFile));
         AlarmConfigModel model = reader.read(AlarmConfigModel.class);
+
+        // must have at least one trigger and one severity level
+        if (model.numeric.trigger.size() == 0 || model.numeric.severity.size() == 0) {
+            throw new AlarmConfigException();
+        }
+
+        // in case of multiple triggers lengths of lists (trigger, prefix, severity) must be equal
+        if (model.numeric.trigger.size() > 1) {
+            if (!(model.numeric.trigger.size() == model.numeric.prefix.size() &&
+                    model.numeric.trigger.size() == model.numeric.severity.size())) {
+                throw new AlarmConfigException();
+            }
+        }
 
         return new AlarmConfig(model);
     }

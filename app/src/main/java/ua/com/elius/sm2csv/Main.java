@@ -1,12 +1,10 @@
 package ua.com.elius.sm2csv;
 
+import com.esotericsoftware.yamlbeans.YamlException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
-import ua.com.elius.sm2csv.reader.AlarmConfigReader;
-import ua.com.elius.sm2csv.reader.SimpleScadaAssignmentReader;
-import ua.com.elius.sm2csv.reader.SimpleScadaTagReader;
-import ua.com.elius.sm2csv.reader.SoMachineReader;
+import ua.com.elius.sm2csv.reader.*;
 import ua.com.elius.sm2csv.record.*;
 import ua.com.elius.sm2csv.writer.*;
 
@@ -258,8 +256,12 @@ public class Main {
             try {
                 AlarmConfigReader alarmConfigReader = new AlarmConfigReader(specAlarmConfig.value(opts));
                 alarmConfig = alarmConfigReader.read();
-            } catch (Exception e) {
-                System.out.println("Bad alarm config file, using default");
+            } catch (FileNotFoundException e) {
+                System.out.println("Alarm config file not found, using default");;
+            } catch (YamlException e) {
+                System.out.println("Alarm config is not correct YAML file, using default");;
+            } catch (AlarmConfigException e) {
+                System.out.println("Alarm config logic is not correct, using default");;
             }
         }
 
