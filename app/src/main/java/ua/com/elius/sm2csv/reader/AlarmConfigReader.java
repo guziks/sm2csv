@@ -37,5 +37,8 @@ public class AlarmConfigReader {
 
         return new AlarmConfig(model);
     }
+
+    public static class AlarmConfigException extends Throwable {
+    }
 }
 

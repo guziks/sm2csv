@@ -5,6 +5,7 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import ua.com.elius.sm2csv.reader.*;
+import ua.com.elius.sm2csv.reader.AlarmConfigReader.AlarmConfigException;
 import ua.com.elius.sm2csv.record.*;
 import ua.com.elius.sm2csv.writer.*;
 
