@@ -27,6 +27,13 @@ public class AlarmConfigReader {
             throw new AlarmConfigException();
         }
 
+        // if have single trigger then there must be only one severity and no prefixes
+        if (model.numeric.trigger.size() == 1) {
+            if ((model.numeric.severity.size() != 1) || (model.numeric.prefix.size() > 0)) {
+                throw new AlarmConfigException();
+            }
+        }
+
         // in case of multiple triggers lengths of lists (trigger, prefix, severity) must be equal
         if (model.numeric.trigger.size() > 1) {
             if (!(model.numeric.trigger.size() == model.numeric.prefix.size() &&
