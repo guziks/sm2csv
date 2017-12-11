@@ -4,7 +4,4 @@ public class AlarmConfigDigital {
 
     public String severity;
 
-//    public AlarmConfigDigital() {
-//        this.severity = "high";
-//    }
 }

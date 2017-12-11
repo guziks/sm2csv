@@ -11,34 +11,34 @@ public class AlarmConfig {
     public static final String SEVERITY_MID = "mid";
     public static final String SEVERITY_LOW = "low";
 
-    private List<Integer> mBits;
+    private List<Integer> mTriggers;
     private List<String> mPrefixes;
     private List<String> mSeverities;
     private String mDigitalSeverity;
 
     public AlarmConfig() {
-        mBits = Arrays.asList(0, 1, 2, 3);
+        mTriggers = Arrays.asList(0, 1, 2, 3);
         mPrefixes = Arrays.asList("AH: ", "WH: ", "WL: ", "AL: ");
         mSeverities = Arrays.asList(SEVERITY_HIGH, SEVERITY_MID, SEVERITY_MID, SEVERITY_HIGH);
         mDigitalSeverity = SEVERITY_HIGH;
     }
 
-    public AlarmConfig(List<Integer> bits, List<String> prefixes, List<String> severities, String digitalSeverity) {
-        mBits = bits;
+    public AlarmConfig(List<Integer> triggers, List<String> prefixes, List<String> severities, String digitalSeverity) {
+        mTriggers = triggers;
         mPrefixes = prefixes;
         mSeverities = severities;
         mDigitalSeverity = digitalSeverity;
     }
 
     public AlarmConfig(AlarmConfigModel model) {
-        mBits = model.numeric.bit;
+        mTriggers = model.numeric.trigger;
         mPrefixes = model.numeric.prefix;
         mSeverities = model.numeric.severity;
         mDigitalSeverity = model.digital.severity;
     }
 
-    public int getBit(int i) {
-        return mBits.get(i);
+    public int getTrigger(int i) {
+        return mTriggers.get(i);
     }
 
     public String getPrefix(int i) {
