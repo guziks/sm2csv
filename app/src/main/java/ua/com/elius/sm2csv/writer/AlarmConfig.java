@@ -54,6 +54,7 @@ public class AlarmConfig {
     }
 
     public int size() {
-        return Math.min(Math.min(mBits.size(), mPrefixes.size()), mSeverities.size());
+        return mTriggers.size() == 1 ? 1 :
+                Math.min(Math.min(mTriggers.size(), mPrefixes.size()), mSeverities.size());
     }
 }

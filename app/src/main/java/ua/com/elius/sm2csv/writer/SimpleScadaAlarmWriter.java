@@ -133,14 +133,20 @@ public class SimpleScadaAlarmWriter {
                 mTriggerType = TRIGGER_TYPE_VALUE;
                 mStates.add(new SimpleScadaMessageState(1, baseComment,
                         alarmTypeFrom(mAlarmConfig.getDigitalSeverity()), 1));
-            } else {
-                mTriggerType = TRIGGER_TYPE_BIT;
-                for (int i = 0; i < mAlarmConfig.size(); i++) {
-                    mStates.add(new SimpleScadaMessageState(i + 1, // ID starts with 1
-                            mAlarmConfig.getPrefix(i) + baseComment,
-                            alarmTypeFrom(mAlarmConfig.getSeverity(i)),
-                            mAlarmConfig.getBit(i))
-                    );
+            } else { // if record is analog
+                if (mAlarmConfig.size() == 1) {
+                    mTriggerType = TRIGGER_TYPE_VALUE;
+                    mStates.add(new SimpleScadaMessageState(1, baseComment,
+                            alarmTypeFrom(mAlarmConfig.getSeverity(0)), 1));
+                } else { // > 1; it can not be 0 according to rules
+                    mTriggerType = TRIGGER_TYPE_BIT;
+                    for (int i = 0; i < mAlarmConfig.size(); i++) {
+                        mStates.add(new SimpleScadaMessageState(i + 1, // ID starts with 1
+                                mAlarmConfig.getPrefix(i) + baseComment,
+                                alarmTypeFrom(mAlarmConfig.getSeverity(i)),
+                                mAlarmConfig.getTrigger(i))
+                        );
+                    }
                 }
             }
         }
