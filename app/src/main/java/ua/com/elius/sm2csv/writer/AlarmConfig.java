@@ -1,5 +1,7 @@
 package ua.com.elius.sm2csv.writer;
 
+import ua.com.elius.sm2csv.model.AlarmConfigModel;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,13 @@ public class AlarmConfig {
         mPrefixes = prefixes;
         mSeverities = severities;
         mDigitalSeverity = digitalSeverity;
+    }
+
+    public AlarmConfig(AlarmConfigModel model) {
+        mBits = model.numeric.bit;
+        mPrefixes = model.numeric.prefix;
+        mSeverities = model.numeric.severity;
+        mDigitalSeverity = model.digital.severity;
     }
 
     public int getBit(int i) {

@@ -3,6 +3,7 @@ package ua.com.elius.sm2csv;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import ua.com.elius.sm2csv.reader.AlarmConfigReader;
 import ua.com.elius.sm2csv.reader.SimpleScadaAssignmentReader;
 import ua.com.elius.sm2csv.reader.SimpleScadaTagReader;
 import ua.com.elius.sm2csv.reader.SoMachineReader;
@@ -27,6 +28,7 @@ public class Main {
     private static final String OPTION_WORK_DIR = "d";
     private static final String OPTION_ALARM_PREFIXES = "p";
     private static final String OPTION_TARGETS = "t";
+    private static final String OPTION_ALARM_CONFIG = "alarm-config";
 
     private static final String TARGET_EASYBUILDER = "easybuilder";
     private static final String TARGET_WINCC = "wincc";
@@ -47,6 +49,7 @@ public class Main {
     private static OptionSpec<String> specAlarmPrefixes;
     private static OptionSpec<String> specTargets;
     private static OptionSpec<Integer> specSimpleScadaIdShift;
+    private static OptionSpec<File> specAlarmConfig;
 
     public static void main(String[] args) {
         parseArgs(args);
@@ -249,9 +252,16 @@ public class Main {
         }
         tagWriter.close();
 
-        // prepare alarm expander
-        // TODO from configuration file
+        // prepare alarm config
         AlarmConfig alarmConfig = new AlarmConfig();
+        if (opts.has(OPTION_ALARM_CONFIG)) {
+            try {
+                AlarmConfigReader alarmConfigReader = new AlarmConfigReader(specAlarmConfig.value(opts));
+                alarmConfig = alarmConfigReader.read();
+            } catch (Exception e) {
+                System.out.println("Bad alarm config file, using default");
+            }
+        }
 
         // write alarms
         SimpleScadaAlarmWriter alarmWriter = null;
@@ -420,6 +430,13 @@ public class Main {
                 .describedAs("shift")
                 .ofType(Integer.class)
                 .defaultsTo(0);
+
+        specAlarmConfig = parser.accepts(
+                OPTION_ALARM_CONFIG,
+                "Alarm states configuration file")
+                .withRequiredArg()
+                .describedAs("file")
+                .ofType(File.class);
 
         opts = parser.parse(args);
 

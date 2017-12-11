@@ -69,4 +69,5 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'net.sf.jopt-simple:jopt-simple:5.0.3'
     compile 'com.google.guava:guava:22.0'
+    compile 'com.esotericsoftware.yamlbeans:yamlbeans:1.13'
 }
