@@ -6,8 +6,10 @@ import ua.com.elius.sm2csv.model.AlarmConfigModel;
 import ua.com.elius.sm2csv.writer.AlarmConfig;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class AlarmConfigReader {
 
@@ -19,7 +21,10 @@ public class AlarmConfigReader {
 
     public AlarmConfig read() throws FileNotFoundException, YamlException, AlarmConfigException {
 
-        YamlReader reader = new YamlReader(new FileReader(mFile));
+        InputStreamReader streamReader =
+                new InputStreamReader(new FileInputStream(mFile), StandardCharsets.UTF_8);
+
+        YamlReader reader = new YamlReader(streamReader);
         AlarmConfigModel model = reader.read(AlarmConfigModel.class);
 
         // must have at least one trigger and one severity level
