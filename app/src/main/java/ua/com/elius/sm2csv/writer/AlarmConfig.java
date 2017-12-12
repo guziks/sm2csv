@@ -17,9 +17,9 @@ public class AlarmConfig {
     private String mDigitalSeverity;
 
     public AlarmConfig() {
-        mTriggers = Arrays.asList(0, 1, 2, 3);
-        mPrefixes = Arrays.asList("AH: ", "WH: ", "WL: ", "AL: ");
-        mSeverities = Arrays.asList(SEVERITY_HIGH, SEVERITY_MID, SEVERITY_MID, SEVERITY_HIGH);
+        mTriggers = Arrays.asList(2);
+        mPrefixes = Arrays.asList();
+        mSeverities = Arrays.asList(SEVERITY_HIGH);
         mDigitalSeverity = SEVERITY_HIGH;
     }
 
