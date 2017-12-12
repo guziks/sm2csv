@@ -137,7 +137,8 @@ public class SimpleScadaAlarmWriter {
                 if (mAlarmConfig.size() == 1) {
                     mTriggerType = TRIGGER_TYPE_VALUE;
                     mStates.add(new SimpleScadaMessageState(1, baseComment,
-                            alarmTypeFrom(mAlarmConfig.getSeverity(0)), 1));
+                            alarmTypeFrom(mAlarmConfig.getSeverity(0)),
+                            mAlarmConfig.getTrigger(0)));
                 } else { // > 1; it can not be 0 according to rules
                     mTriggerType = TRIGGER_TYPE_BIT;
                     for (int i = 0; i < mAlarmConfig.size(); i++) {
