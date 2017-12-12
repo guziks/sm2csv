@@ -62,6 +62,8 @@ public class SimpleScadaTagReader {
                 ssRec.setWarnHigh(csvRec.get(20));
                 ssRec.setWarnLow(csvRec.get(21));
                 ssRec.setAlarmLow(csvRec.get(22));
+                ssRec.setVisualMin(csvRec.get(23));
+                ssRec.setVisualMax(csvRec.get(24));
                 records.add(ssRec);
             }
         }

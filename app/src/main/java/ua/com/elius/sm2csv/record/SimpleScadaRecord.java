@@ -42,6 +42,9 @@ public class SimpleScadaRecord extends Record {
     private String mWarnLow;
     private String mAlarmLow;
 
+    private String mVisualMin;
+    private String mVisualMax;
+
     private static HashMap<String, String> sFromSoMachineType;
 
     static {
@@ -237,6 +240,22 @@ public class SimpleScadaRecord extends Record {
         mAlarmLow = alarmLow;
     }
 
+    public String getVisualMin() {
+        return mVisualMin;
+    }
+
+    public void setVisualMin(String visualMin) {
+        mVisualMin = visualMin;
+    }
+
+    public String getVisualMax() {
+        return mVisualMax;
+    }
+
+    public void setVisualMax(String visualMax) {
+        mVisualMax = visualMax;
+    }
+
     public SimpleScadaRecord() {
     }
 
@@ -286,6 +305,8 @@ public class SimpleScadaRecord extends Record {
         list.add(mWarnHigh);
         list.add(mWarnLow);
         list.add(mAlarmLow);
+        list.add(mVisualMin);
+        list.add(mVisualMax);
 
         return list;
     }
@@ -323,6 +344,8 @@ public class SimpleScadaRecord extends Record {
         mWarnHigh = eRec.getWarnHigh();
         mWarnLow = eRec.getWarnLow();
         mAlarmLow = eRec.getAlarmLow();
+        mVisualMin = eRec.getVisualMin();
+        mVisualMax = eRec.getVisualMax();
     }
 
     public boolean isDigital() {
