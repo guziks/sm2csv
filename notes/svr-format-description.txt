@@ -1,0 +1,41 @@
+## header
+uint32: next variable ID (used by IDE)
+00 00 00 00
+02 00 00 00
+03 00 00 00
+2e 2e 5c 46
+00 00 00 00 00 00 00 00 00 00 00
+uint32: group name length
+group name
+47 00 00 00
+uint32: variables in group count
+
+## variable
+uint32: variable name length
+variable name
+uint32: variable ID
+00 00 00 00 b8 50 00 00
+uint32: address length
+address
+01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00
+00 00 ff ff ff ff
+uint32: variable comment length
+variable comment
+00 00 ff 00 00 00 00 00 00 00 00
+uint32: OPC name length
+OPC name
+uint32: OPC description length
+OPC description
+uint32: OPC host name length
+OPC host name
+uint32: OPC UID length
+OPC UID
+00 00 00 00 00 00 00 00 00 00 59 40 00 00 00 00
+00 80 56 40 00 00 00 00 00 00 24 40 00 00 00 00
+00 00 00 00 01 00 00 00 30 00 00 00 00 00 00 f0
+69 f8 c0 00 00 00 00 f0 69 f8 c0
+next variable
+
+## End
+00 00 00 00: end of file
+
