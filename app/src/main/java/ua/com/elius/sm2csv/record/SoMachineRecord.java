@@ -13,9 +13,11 @@ public class SoMachineRecord extends Record {
     public static final String DATA_TYPE_DINT = "DINT";
     public static final String DATA_TYPE_REAL = "REAL";
 
-    public static final String SM_ADDRESS_TYPE_BYTE = "%MX";
-    public static final String SM_ADDRESS_TYPE_WORD = "%Mw";
+    public static final String SM_ADDRESS_TYPE_BIT = "%MX";
+    public static final String SM_ADDRESS_TYPE_BYTE = "%MB";
+    public static final String SM_ADDRESS_TYPE_WORD = "%MW";
     public static final String SM_ADDRESS_TYPE_DWORD = "%MD";
+    public static final String SM_ADDRESS_TYPE_LONG = "%ML";
 
     private String mComment;
     private Address mAddress;

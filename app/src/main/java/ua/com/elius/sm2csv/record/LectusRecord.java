@@ -120,7 +120,7 @@ public class LectusRecord extends Record {
             case SoMachineRecord.SM_ADDRESS_TYPE_DWORD:
                 newNumber = smAddress.getNumber() * 2;
                 break;
-            case SoMachineRecord.SM_ADDRESS_TYPE_BYTE:
+            case SoMachineRecord.SM_ADDRESS_TYPE_BIT:
                 newNumber = smAddress.getNumber() / 2;
                 break;
             default:
