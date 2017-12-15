@@ -115,7 +115,18 @@ public class LectusRecord extends Record {
     }
 
     private static int numberFromSoMachineAddress(SoMachineRecord.Address smAddress) {
-        return smAddress.getNumber() / 2;
+        int newNumber;
+        switch (smAddress.getType()) {
+            case SoMachineRecord.SM_ADDRESS_TYPE_DWORD:
+                newNumber = smAddress.getNumber() * 2;
+                break;
+            case SoMachineRecord.SM_ADDRESS_TYPE_BYTE:
+                newNumber = smAddress.getNumber() / 2;
+                break;
+            default:
+                newNumber = smAddress.getNumber();
+        }
+        return newNumber;
     }
 
     private static int digitFromSoMachineAddress(SoMachineRecord.Address smAddress) {
