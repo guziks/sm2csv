@@ -120,6 +120,7 @@ public class SoMachineRecord extends Record {
             mIsDigital = mDigitalMatcher.matches();
             mIsAnalog = mAnalogMatcher.matches();
             if (mIsDigital) {
+                mType = mDigitalMatcher.group(1);
                 mNumber = Integer.parseInt(mDigitalMatcher.group(2));
                 mDigit = Integer.parseInt(mDigitalMatcher.group(3));
             } else if (mIsAnalog) {
