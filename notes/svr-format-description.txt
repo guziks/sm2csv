@@ -32,8 +32,10 @@ uint32: OPC UID length
 OPC UID
 00 00 00 00 00 00 00 00 00 00 59 40 00 00 00 00
 00 80 56 40 00 00 00 00 00 00 24 40 00 00 00 00
-00 00 00 00 01 00 00 00 30 00 00 00 00 00 00 f0
-69 f8 c0 00 00 00 00 f0 69 f8 c0
+00 00 00 00
+uint32: bytes count to read next
+several bytes
+00 00 00 00 00 00 f0 69 f8 c0 00 00 00 00 f0 69 f8 c0
 next variable
 
 ## End
