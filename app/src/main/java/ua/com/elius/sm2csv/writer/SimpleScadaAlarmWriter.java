@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SimpleScadaAlarmWriter {
 
@@ -31,14 +32,18 @@ public class SimpleScadaAlarmWriter {
     private DataOutput mOut;
     private int mIdShift;
     private AlarmConfig mAlarmConfig;
+    private Map<String,Integer> mVarIds;
 
-    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift, AlarmConfig alarmConfig) throws FileNotFoundException {
+    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift,
+                                  AlarmConfig alarmConfig, Map<String,Integer> varIds)
+            throws FileNotFoundException {
         mAlarmPrefixes = alarmPrefixes;
         mBufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
         mIdShift = idShift;
         mAlarmConfig = alarmConfig;
+        mVarIds = varIds;
     }
 
     public void write(List<SimpleScadaRecord> records) throws IOException {
@@ -50,7 +55,7 @@ public class SimpleScadaAlarmWriter {
         for (int i = 0; i < records.size(); i++) {
             if (records.get(i).isAlarm(mAlarmPrefixes)) {
                 writeMessage(i, // message ID equals tag ID
-                        "msg_" + records.get(i).getName(),
+                        records.get(i).getName(),
                         new SimpleScadaMessage(records.get(i))
                 );
             }
@@ -68,11 +73,13 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(messagesCount);
     }
 
-    private void writeMessage(int messageID, String name, SimpleScadaMessage message) throws IOException {
+    private void writeMessage(int messageID, String varName, SimpleScadaMessage message) throws IOException {
+        String msgTagName = "msg_" + varName;
         mOut.writeInt(messageID);
-        mOut.writeInt(name.length());
-        mOut.write(name.getBytes());
-        mOut.writeInt(messageID + mIdShift);
+        mOut.writeInt(msgTagName.length());
+        mOut.write(msgTagName.getBytes());
+        int tagId = mVarIds.getOrDefault(varName, messageID + mIdShift);
+        mOut.writeInt(tagId);
         mOut.writeInt(0);
         writeStrangeCounter();
         mOut.writeShort(0);

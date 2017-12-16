@@ -12,9 +12,7 @@ import ua.com.elius.sm2csv.writer.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 
@@ -266,6 +264,15 @@ public class Main {
             }
         }
 
+        // read variable IDs
+        Map<String,Integer> varIds = new HashMap<>();
+        try {
+            SimpleScadaVarReader varReader = new SimpleScadaVarReader(specWorkDir.value(opts).toPath());
+            varIds = varReader.read();
+        } catch (IOException e) {
+            System.out.println("WARNING: Unable to read SimpleScada variables file, messages file may not be correct");
+        }
+
         // write alarms
         SimpleScadaAlarmWriter alarmWriter = null;
         try {
@@ -273,7 +280,8 @@ public class Main {
                     specWorkDir.value(opts).toPath(),
                     specAlarmPrefixes.values(opts),
                     specSimpleScadaIdShift.value(opts),
-                    alarmConfig);
+                    alarmConfig,
+                    varIds);
             alarmWriter.write(newRecords);
         } catch (FileNotFoundException e) {
             System.out.println("SimpleScada alarm file can not be opened");
