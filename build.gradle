@@ -8,8 +8,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'gradle.plugin.edu.sc.seis.gradle:launch4j:1.5.1'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'gradle.plugin.edu.sc.seis.gradle:launch4j:2.4.3'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
     }
 }
 
