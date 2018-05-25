@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SoMachineReader {
+public class SoMachineDirReader {
     private List<SoMachineRecord> mRecords;
     private String mExtension;
     private Path mPath;
@@ -34,9 +34,9 @@ public class SoMachineReader {
         this.mPath = path;
     }
 
-    private SoMachineReader() {}
+    private SoMachineDirReader() {}
 
-    public SoMachineReader read() {
+    public SoMachineDirReader read() {
         mRecords = new ArrayList<>();
         Pattern blockCommentBeginPattern = Pattern.compile("\\(\\*");
         Pattern blockCommentEndPattern = Pattern.compile("\\*\\)");
@@ -85,7 +85,7 @@ public class SoMachineReader {
     }
 
     public static class Builder {
-        SoMachineReader reader = new SoMachineReader();
+        SoMachineDirReader reader = new SoMachineDirReader();
 
         public Builder path(Path path) {
             reader.setPath(path);
@@ -96,7 +96,7 @@ public class SoMachineReader {
             return this;
         }
 
-        public SoMachineReader build() {
+        public SoMachineDirReader build() {
             return reader;
         }
     }

@@ -76,7 +76,7 @@ public class Main {
      * @return list of {@link SoMachineRecord}
      */
     private static List<SoMachineRecord> readSoMachineRecords() {
-        List<SoMachineRecord> smRecords = new SoMachineReader.Builder()
+        List<SoMachineRecord> smRecords = new SoMachineDirReader.Builder()
                 .path(specWorkDir.value(opts).toPath())
                 .extension(specExtention.value(opts))
                 .build()
