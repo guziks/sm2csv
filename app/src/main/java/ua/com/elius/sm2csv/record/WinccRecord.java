@@ -101,7 +101,7 @@ public class WinccRecord extends Record {
     private static String fromSoMachineAddress(String type, int number) {
         int newNumber;
         switch (type) {
-            case SoMachineRecord.SM_ADDRESS_TYPE_DWORD:
+            case SoMachineRecord.ADDRESS_TYPE_DWORD:
                 newNumber = number * 2;
                 break;
             default:
