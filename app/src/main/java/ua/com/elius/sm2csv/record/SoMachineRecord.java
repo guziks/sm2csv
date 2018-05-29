@@ -139,20 +139,40 @@ public class SoMachineRecord extends Record {
             return mIsDigital;
         }
 
+        public void setDigital(boolean digital) {
+            mIsDigital = digital;
+        }
+
         public boolean isAnalog() {
             return mIsAnalog;
+        }
+
+        public void setAnalog(boolean analog) {
+            mIsAnalog = analog;
         }
 
         public String getType() {
             return mType;
         }
 
+        public void setType(String type) {
+            mType = type;
+        }
+
         public int getNumber() {
             return mNumber;
         }
 
+        public void setNumber(int number) {
+            mNumber = number;
+        }
+
         public int getDigit() {
             return mDigit;
+        }
+
+        public void setDigit(int digit) {
+            mDigit = digit;
         }
     }
 }

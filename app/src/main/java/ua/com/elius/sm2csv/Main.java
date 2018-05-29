@@ -26,6 +26,7 @@ public class Main {
     private static final String OPTION_ALARM_PREFIXES = "p";
     private static final String OPTION_TARGETS = "t";
     private static final String OPTION_ALARM_CONFIG = "alarm-config";
+    private static final String OPTION_SYMBOL_CONFIG = "f";
 
     private static final String TARGET_EASYBUILDER = "easybuilder";
     private static final String TARGET_WINCC = "wincc";
@@ -47,6 +48,7 @@ public class Main {
     private static OptionSpec<String> specTargets;
     private static OptionSpec<Integer> specSimpleScadaIdShift;
     private static OptionSpec<File> specAlarmConfig;
+    private static OptionSpec<File> specSymbolConfig;
 
     public static void main(String[] args) {
         parseArgs(args);
@@ -76,15 +78,31 @@ public class Main {
      * @return list of {@link SoMachineRecord}
      */
     private static List<SoMachineRecord> readSoMachineRecords() {
-        List<SoMachineRecord> smRecords = new SoMachineDirReader.Builder()
+        List<SoMachineRecord> smRecords = new ArrayList<SoMachineRecord>();
+
+        List<SoMachineRecord> dirRecords = new SoMachineDirReader.Builder()
                 .path(specWorkDir.value(opts).toPath())
                 .extension(specExtention.value(opts))
                 .build()
                 .read()
                 .getRecords();
+        smRecords.addAll(dirRecords);
+
+        File symbolConfig = specSymbolConfig.value(opts);
+        if (symbolConfig.exists()) {
+            SoMachineXmlReader xmlReader = new SoMachineXmlReader(symbolConfig);
+            List<SoMachineRecord> xmlRecords = null;
+            try {
+                xmlRecords = xmlReader.read();
+            } catch (IOException e) {
+                System.out.println("Failed to read SoMachine symbol config file");;
+            }
+            if (xmlRecords != null) {
+                smRecords.addAll(xmlRecords);
+            }
+        }
 
         smRecords.sort(Comparator.comparing(SoMachineRecord::getName));
-
         return smRecords;
     }
 
@@ -448,6 +466,14 @@ public class Main {
                 .withRequiredArg()
                 .describedAs("file")
                 .ofType(File.class);
+
+        specSymbolConfig = parser.acceptsAll(asList(
+                OPTION_SYMBOL_CONFIG, "symbol-config"),
+                "Symbol configuration XML file")
+                .withRequiredArg()
+                .describedAs("file")
+                .ofType(File.class)
+                .defaultsTo(new File("tags.xml"));
 
         opts = parser.parse(args);
 
