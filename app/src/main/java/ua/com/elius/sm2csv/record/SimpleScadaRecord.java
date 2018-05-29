@@ -7,9 +7,17 @@ import java.util.List;
 public class SimpleScadaRecord extends Record {
 
     public static final String DATA_TYPE_BOOLEAN = "Boolean";
+    public static final String DATA_TYPE_BYTE = "Byte";
+    public static final String DATA_TYPE_WORD = "Word";
+    public static final String DATA_TYPE_SHORTINT = "ShortInt";
     public static final String DATA_TYPE_SMALLINT = "SmallInt";
     public static final String DATA_TYPE_INTEGER = "Integer";
+    public static final String DATA_TYPE_LONGWORD = "LongWord";
+    public static final String DATA_TYPE_INT64 = "Int64";
     public static final String DATA_TYPE_SINGLE = "Single";
+    public static final String DATA_TYPE_DOUBLE = "Double";
+    public static final String DATA_TYPE_DATETIME = "DateTime";
+    public static final String DATA_TYPE_STRING = "String";
 
     public static final String GROUP_DEFAULT = "Main";
 

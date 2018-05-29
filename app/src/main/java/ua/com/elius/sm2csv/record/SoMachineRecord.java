@@ -8,10 +8,26 @@ import java.util.regex.Pattern;
 public class SoMachineRecord extends Record {
 
     public static final String DATA_TYPE_BOOL = "BOOL";
+    public static final String DATA_TYPE_BYTE = "BYTE";
     public static final String DATA_TYPE_WORD = "WORD";
+    public static final String DATA_TYPE_DWORD = "DWORD";
+    public static final String DATA_TYPE_LWORD = "LWORD";
+    public static final String DATA_TYPE_SINT = "SINT";
+    public static final String DATA_TYPE_USINT = "USINT";
     public static final String DATA_TYPE_INT = "INT";
+    public static final String DATA_TYPE_UINT = "UINT";
     public static final String DATA_TYPE_DINT = "DINT";
+    public static final String DATA_TYPE_UDINT = "UDINT";
+    public static final String DATA_TYPE_LINT = "LINT";
+    public static final String DATA_TYPE_ULINT = "ULINT";
     public static final String DATA_TYPE_REAL = "REAL";
+    public static final String DATA_TYPE_LREAL = "LREAL";
+    public static final String DATA_TYPE_STRING = "STRING(35)";
+    public static final String DATA_TYPE_WSTRING = "WSTRING(35)";
+    public static final String DATA_TYPE_TIME = "TIME";
+    public static final String DATA_TYPE_LTIME = "LTIME";
+    public static final String DATA_TYPE_DATE = "DATE";
+    public static final String DATA_TYPE_DATE_AND_TIME = "DATE_AND_TIME";
 
     public static final String ADDRESS_TYPE_BIT = "%MX";
     public static final String ADDRESS_TYPE_BYTE = "%MB";
