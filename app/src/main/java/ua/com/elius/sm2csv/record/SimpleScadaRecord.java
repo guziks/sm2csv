@@ -58,10 +58,26 @@ public class SimpleScadaRecord extends Record {
     static {
         sFromSoMachineType = new HashMap<>();
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, );
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALLINT);
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LWORD, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_SINT, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_USINT, );
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_INT, DATA_TYPE_SMALLINT);
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UINT, );
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DINT, DATA_TYPE_INTEGER);
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UDINT, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LINT, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_ULINT, );
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_REAL, DATA_TYPE_SINGLE);
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LREAL, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_STRING, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WSTRING, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LTIME, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE, );
+//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE_AND_TIME, );
     }
 
     public String getTagGroup() {
