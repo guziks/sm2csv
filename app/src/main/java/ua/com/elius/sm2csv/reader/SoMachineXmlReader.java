@@ -31,6 +31,7 @@ public class SoMachineXmlReader {
                 new Xml.Builder().build().adapter(Symbolconfiguration.class);
 
         FileInputStream inputStream = new FileInputStream(mSymbolConfig);
+        inputStream.skip(3); // skip UTF-8 BOM
         Symbolconfiguration config = xmlAdapter.fromXml(inputStream, StandardCharsets.UTF_8.toString());
 
         mTypeMap = new HashMap<>();
