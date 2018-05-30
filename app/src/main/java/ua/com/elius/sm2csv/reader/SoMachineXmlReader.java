@@ -31,7 +31,7 @@ public class SoMachineXmlReader {
                 new Xml.Builder().build().adapter(Symbolconfiguration.class);
 
         FileInputStream inputStream = new FileInputStream(mSymbolConfig);
-        inputStream.skip(3); // skip UTF-8 BOM
+        skipBom(inputStream);
         Symbolconfiguration config = xmlAdapter.fromXml(inputStream, StandardCharsets.UTF_8.toString());
 
         mTypeMap = new HashMap<>();
@@ -95,5 +95,17 @@ public class SoMachineXmlReader {
         address.setNumber(address.getNumber() + addressShift);
 
         mRecords.add(record);
+    }
+
+    private void skipBom(FileInputStream inputStream) throws IOException {
+        byte[] bomRead = new byte[3];
+        byte[] utf8Bom = {(byte) 0xEF, (byte)0xBB, (byte)0xBF};
+        inputStream.read(bomRead);
+        for (int i = 0; i < 3; i++) {
+            if (bomRead[i] != utf8Bom[i]) {
+                inputStream.skip(-3);
+                break;
+            }
+        }
     }
 }
