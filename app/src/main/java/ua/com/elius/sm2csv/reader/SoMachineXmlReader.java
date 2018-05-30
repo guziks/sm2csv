@@ -3,6 +3,8 @@ package ua.com.elius.sm2csv.reader;
 import me.tatarka.parsnip.Xml;
 import me.tatarka.parsnip.XmlAdapter;
 import ua.com.elius.sm2csv.model.symbolconfig.*;
+import ua.com.elius.sm2csv.model.symbolconfig.node.VarNode;
+import ua.com.elius.sm2csv.model.symbolconfig.type.*;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
 
 import java.io.File;

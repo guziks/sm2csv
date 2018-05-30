@@ -1,4 +1,4 @@
-package ua.com.elius.sm2csv.model.symbolconfig;
+package ua.com.elius.sm2csv.model.symbolconfig.type;
 
 public class ArrayDim {
 
