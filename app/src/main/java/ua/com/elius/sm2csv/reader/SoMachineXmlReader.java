@@ -37,11 +37,7 @@ public class SoMachineXmlReader {
 
         for (VarNode var : config.nodeList.appNode.gvlNode.varNode) {
             Type type = mTypeMap.get(var.type);
-            String comment = "";
-            if (var.comment != null) {
-                comment = var.comment.text;
-            }
-            addVar(var.name, comment, var.directaddress, type, "", "", 0);
+            addVar(var.name, var.comment, var.directaddress, type, "", "", 0);
         }
 
         return mRecords;

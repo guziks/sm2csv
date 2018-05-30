@@ -1,6 +1,7 @@
 package ua.com.elius.sm2csv.model.symbolconfig.node;
 
 import me.tatarka.parsnip.annotations.SerializedName;
+import me.tatarka.parsnip.annotations.Tag;
 
 public class VarNode {
 
@@ -9,6 +10,7 @@ public class VarNode {
     public String access;
     public String directaddress;
 
+    @Tag
     @SerializedName("Comment")
-    public Comment comment;
+    public String comment;
 }
