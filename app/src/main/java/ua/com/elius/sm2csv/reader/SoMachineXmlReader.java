@@ -2,14 +2,15 @@ package ua.com.elius.sm2csv.reader;
 
 import me.tatarka.parsnip.Xml;
 import me.tatarka.parsnip.XmlAdapter;
-import ua.com.elius.sm2csv.model.symbolconfig.*;
+import ua.com.elius.sm2csv.model.symbolconfig.Symbolconfiguration;
 import ua.com.elius.sm2csv.model.symbolconfig.node.VarNode;
 import ua.com.elius.sm2csv.model.symbolconfig.type.*;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,9 @@ public class SoMachineXmlReader {
     public List<SoMachineRecord> read() throws IOException {
         XmlAdapter<Symbolconfiguration> xmlAdapter =
                 new Xml.Builder().build().adapter(Symbolconfiguration.class);
-        Symbolconfiguration config = xmlAdapter.fromXml(new FileReader(mSymbolConfig));
+
+        FileInputStream inputStream = new FileInputStream(mSymbolConfig);
+        Symbolconfiguration config = xmlAdapter.fromXml(inputStream, StandardCharsets.UTF_8.toString());
 
         mTypeMap = new HashMap<>();
         for (TypeSimple type : config.typeList.typeSimple) mTypeMap.put(type.name, type);
