@@ -5,6 +5,7 @@ import ua.com.elius.sm2csv.writer.SimpleScadaAssignmentWriter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SimpleScadaAssignmentReader {
             return null;
         }
 
-        for (String line : FileUtils.readLines(mInputFile)) {
+        for (String line : FileUtils.readLines(mInputFile, StandardCharsets.UTF_8)) {
             Matcher matcher = VAR_PATTERN.matcher(line);
             if (matcher.matches()) {
                 uncommentedVars.add(matcher.group(1));
