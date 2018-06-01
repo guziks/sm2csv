@@ -7,27 +7,28 @@ import java.util.regex.Pattern;
 
 public class SoMachineRecord extends Record {
 
-    public static final String DATA_TYPE_BOOL = "BOOL";
-    public static final String DATA_TYPE_BYTE = "BYTE";
-    public static final String DATA_TYPE_WORD = "WORD";
-    public static final String DATA_TYPE_DWORD = "DWORD";
-    public static final String DATA_TYPE_LWORD = "LWORD";
-    public static final String DATA_TYPE_SINT = "SINT";
-    public static final String DATA_TYPE_USINT = "USINT";
-    public static final String DATA_TYPE_INT = "INT";
-    public static final String DATA_TYPE_UINT = "UINT";
-    public static final String DATA_TYPE_DINT = "DINT";
-    public static final String DATA_TYPE_UDINT = "UDINT";
-    public static final String DATA_TYPE_LINT = "LINT";
-    public static final String DATA_TYPE_ULINT = "ULINT";
-    public static final String DATA_TYPE_REAL = "REAL";
-    public static final String DATA_TYPE_LREAL = "LREAL";
-    public static final String DATA_TYPE_STRING = "STRING(35)";
-    public static final String DATA_TYPE_WSTRING = "WSTRING(35)";
-    public static final String DATA_TYPE_TIME = "TIME";
-    public static final String DATA_TYPE_LTIME = "LTIME";
-    public static final String DATA_TYPE_DATE = "DATE";
-    public static final String DATA_TYPE_DATE_AND_TIME = "DATE_AND_TIME";
+    public static final String DATA_TYPE_BOOL = "BOOL"; // 1 bytes
+    public static final String DATA_TYPE_BYTE = "BYTE"; // 1 bytes
+    public static final String DATA_TYPE_WORD = "WORD"; // 2 bytes
+    public static final String DATA_TYPE_DWORD = "DWORD"; // 4 bytes
+    public static final String DATA_TYPE_LWORD = "LWORD"; // 8 bytes
+    public static final String DATA_TYPE_SINT = "SINT"; // 1 bytes
+    public static final String DATA_TYPE_USINT = "USINT"; // 1 bytes
+    public static final String DATA_TYPE_INT = "INT"; // 2 bytes
+    public static final String DATA_TYPE_UINT = "UINT"; // 2 bytes
+    public static final String DATA_TYPE_DINT = "DINT"; // 4 bytes
+    public static final String DATA_TYPE_UDINT = "UDINT"; // 4 bytes
+    public static final String DATA_TYPE_LINT = "LINT"; // 8 bytes
+    public static final String DATA_TYPE_ULINT = "ULINT"; // 8 bytes
+    public static final String DATA_TYPE_REAL = "REAL"; // 4 bytes
+    public static final String DATA_TYPE_LREAL = "LREAL"; // 8 bytes
+    public static final String DATA_TYPE_STRING = "STRING(35)"; // 36 bytes
+    public static final String DATA_TYPE_WSTRING = "WSTRING(35)"; // 72 bytes
+    public static final String DATA_TYPE_TIME = "TIME"; // 4 bytes
+    public static final String DATA_TYPE_LTIME = "LTIME"; // 8 bytes
+    public static final String DATA_TYPE_DATE = "DATE"; // 4 bytes
+    public static final String DATA_TYPE_DATE_AND_TIME = "DATE_AND_TIME"; // 4 bytes
+    public static final String DATA_TYPE_TIME_OF_DAY = "TIME_OF_DAY"; // 4 bytes
 
     public static final String ADDRESS_TYPE_BIT = "%MX";
     public static final String ADDRESS_TYPE_BYTE = "%MB";
