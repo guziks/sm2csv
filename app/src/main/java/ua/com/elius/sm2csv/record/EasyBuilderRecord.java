@@ -57,10 +57,10 @@ public class EasyBuilderRecord extends Record {
         if (smAddress != null) {
             if (smAddress.isDigital()) {
                 builder.addressType(EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG);
-                builder.address(fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
+                builder.address(formatAddress(smAddress.getNumber(), smAddress.getDigit()));
             } else if (smAddress.isAnalog()) {
                 builder.addressType(EB_ADDRESS_TYPE_ANALOG);
-                builder.address(fromSoMachineAddress(smAddress.getType(), smAddress.getNumber()));
+                builder.address(formatAddress(smAddress.getNumber()));
             } else {
                 throw new UnsupportedAddressException(smAddress.toString());
             }
@@ -71,27 +71,12 @@ public class EasyBuilderRecord extends Record {
         return builder.build();
     }
 
-    private static String fromSoMachineAddress(int number, int digit) {
-        int newNumber = number / 2;
-        int newDigit;
-        if (number % 2 == 0) {
-            newDigit = digit;
-        } else {
-            newDigit = digit + 8;
-        }
-        return newNumber + String.format("%02d", newDigit);
+    private static String formatAddress(int number, int digit) {
+        return number + String.format("%02d", digit);
     }
 
-    private static String fromSoMachineAddress(String type, int number) {
-        int newNumber;
-        switch (type) {
-            case SoMachineRecord.ADDRESS_TYPE_DWORD:
-                newNumber = number * 2;
-                break;
-            default:
-                newNumber = number;
-        }
-        return Integer.toString(newNumber);
+    private static String formatAddress(int number) {
+        return Integer.toString(number);
     }
 
     public List<String> toList() {

@@ -71,11 +71,11 @@ public class WinccRecord extends Record {
         SoMachineRecord.Address smAddress = smRec.getAddress();
         if (smAddress != null) {
             if (smAddress.isDigital()) {
-                builder.address(ADDRESS_TYPE_DIGITAL_IN_ANALOG + fromSoMachineAddress(smAddress.getNumber(), smAddress.getDigit()));
+                builder.address(ADDRESS_TYPE_DIGITAL_IN_ANALOG + smAddress.getNumber() + "." + smAddress.getDigit());
                 builder.type(TYPE_DIGITAL);
                 builder.length(TYPE_LENGTH_DIGITAL);
             } else if (smAddress.isAnalog()) {
-                builder.address(ADDRESS_TYPE_ANALOG + fromSoMachineAddress(smAddress.getType(), smAddress.getNumber()));
+                builder.address(ADDRESS_TYPE_ANALOG + smAddress.getNumber());
                 builder.type(TYPE_REAL); // TODO support other types like double word
                 builder.length(TYPE_LENGTH_REAL);
                 builder.format(FORMAT_FLOAT_TO_FLOAT);
@@ -85,29 +85,6 @@ public class WinccRecord extends Record {
         }
 
         return builder.build();
-    }
-
-    private static String fromSoMachineAddress(int number, int digit) {
-        int newNumber = number / 2;
-        int newDigit;
-        if (number % 2 == 0) {
-            newDigit = digit;
-        } else {
-            newDigit = digit + 8;
-        }
-        return newNumber + "." + newDigit;
-    }
-
-    private static String fromSoMachineAddress(String type, int number) {
-        int newNumber;
-        switch (type) {
-            case SoMachineRecord.ADDRESS_TYPE_DWORD:
-                newNumber = number * 2;
-                break;
-            default:
-                newNumber = number;
-        }
-        return Integer.toString(newNumber);
     }
 
     public static class Builder {

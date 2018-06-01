@@ -87,10 +87,10 @@ public class LectusRecord extends Record {
             rec.setDataType(sFromSoMachineType.get(smRec.getType()));
         }
 
-        rec.setAddressNumber(numberFromSoMachineAddress(smRec.getAddress()));
+        rec.setAddressNumber(smRec.getAddress().getNumber());
 
         if (rec.isDigital()) {
-            rec.setAddressDigit(digitFromSoMachineAddress(smRec.getAddress()));
+            rec.setAddressDigit(smRec.getAddress().getDigit() + 1);
         }
 
         rec.setComment(smRec.getComment());
@@ -128,28 +128,5 @@ public class LectusRecord extends Record {
 
     private boolean isDigital() {
         return mDataType == DATA_TYPE_BOOLEAN;
-    }
-
-    private static int numberFromSoMachineAddress(SoMachineRecord.Address smAddress) {
-        int newNumber;
-        switch (smAddress.getType()) {
-            case SoMachineRecord.ADDRESS_TYPE_DWORD:
-                newNumber = smAddress.getNumber() * 2;
-                break;
-            case SoMachineRecord.ADDRESS_TYPE_BIT:
-                newNumber = smAddress.getNumber() / 2;
-                break;
-            default:
-                newNumber = smAddress.getNumber();
-        }
-        return newNumber;
-    }
-
-    private static int digitFromSoMachineAddress(SoMachineRecord.Address smAddress) {
-        if (smAddress.getNumber() % 2 == 0) {
-            return smAddress.getDigit() + 1;
-        } else {
-            return smAddress.getDigit() + 9;
-        }
     }
 }

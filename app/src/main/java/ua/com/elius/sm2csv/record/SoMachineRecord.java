@@ -121,34 +121,62 @@ public class SoMachineRecord extends Record {
         private static final Pattern DIGITAL_ADDRESS_PATTERN = Pattern.compile("^(%\\D+)(\\d+)\\.(\\d+)$");
         private static final Pattern ANALOG_ADDRESS_PATTERN = Pattern.compile("^(%\\D+)(\\d+)$");
 
-        private String mAddress;
         private boolean mIsDigital;
         private boolean mIsAnalog;
         private String mType;
         private int mNumber;
         private int mDigit;
 
-        private Matcher mDigitalMatcher;
-        private Matcher mAnalogMatcher;
+        public Address() {}
 
         public Address(String address) {
-            mAddress = address;
-            mDigitalMatcher = DIGITAL_ADDRESS_PATTERN.matcher(mAddress);
-            mAnalogMatcher = ANALOG_ADDRESS_PATTERN.matcher(mAddress);
-            mIsDigital = mDigitalMatcher.matches();
-            mIsAnalog = mAnalogMatcher.matches();
+            Matcher digitalMatcher = DIGITAL_ADDRESS_PATTERN.matcher(address);
+            Matcher analogMatcher = ANALOG_ADDRESS_PATTERN.matcher(address);
+            mIsDigital = digitalMatcher.matches();
+            mIsAnalog = analogMatcher.matches();
             if (mIsDigital) {
-                mType = mDigitalMatcher.group(1);
-                mNumber = Integer.parseInt(mDigitalMatcher.group(2));
-                mDigit = Integer.parseInt(mDigitalMatcher.group(3));
+                mType = digitalMatcher.group(1);
+                mNumber = Integer.parseInt(digitalMatcher.group(2));
+                mDigit = Integer.parseInt(digitalMatcher.group(3));
             } else if (mIsAnalog) {
-                mType = mAnalogMatcher.group(1);
-                mNumber = Integer.parseInt(mAnalogMatcher.group(2));
+                mType = analogMatcher.group(1);
+                mNumber = Integer.parseInt(analogMatcher.group(2));
+            }
+
+            // convert numbers to common units (2 byte words)
+            switch (mType) {
+                case ADDRESS_TYPE_BIT:
+                case ADDRESS_TYPE_BYTE:
+                    if (mNumber % 2 != 0) {
+                        mDigit = (mDigit + 8);
+                    }
+                    mNumber = mNumber / 2;
+                    break;
+                case ADDRESS_TYPE_DWORD:
+                    mNumber = mNumber * 2;
+                    break;
+                case ADDRESS_TYPE_LONG:
+                    mNumber = mNumber * 4;
+                    break;
             }
         }
 
-        public String toString() {
-            return mType + ":" + mAddress;
+        public Address shifted(int shiftBytes) {
+            Address address = new Address();
+            address.setDigital(mIsDigital);
+            address.setAnalog(mIsAnalog);
+            address.setType(mType);
+
+            // mNumber is measured in words (2 bytes)
+            address.setNumber(mNumber + shiftBytes / 2);
+
+            if (shiftBytes % 2 == 0) {
+                address.setDigit(mDigit);
+            } else {
+                address.setDigit(mDigit + 8);
+            }
+
+            return address;
         }
 
         public boolean isDigital() {
@@ -157,6 +185,7 @@ public class SoMachineRecord extends Record {
 
         public void setDigital(boolean digital) {
             mIsDigital = digital;
+            mIsAnalog = !digital;
         }
 
         public boolean isAnalog() {
@@ -165,6 +194,7 @@ public class SoMachineRecord extends Record {
 
         public void setAnalog(boolean analog) {
             mIsAnalog = analog;
+            mIsDigital = !analog;
         }
 
         public String getType() {
