@@ -17,6 +17,8 @@ import java.util.List;
 
 public class SoMachineXmlReader {
 
+    public static final String TYPECLASS_BOOL = "Bool";
+
     private File mSymbolConfig;
     private List<SoMachineRecord> mRecords;
     private HashMap<String, Type> mTypeMap;
@@ -41,18 +43,21 @@ public class SoMachineXmlReader {
 
         for (VarNode var : config.nodeList.appNode.gvlNode.varNode) {
             Type type = mTypeMap.get(var.type);
-            addVar(var.name, var.comment, var.directaddress, type, "", "", 0);
+            SoMachineRecord.Address address = new SoMachineRecord.Address(var.directaddress);
+            addVar(var.name, var.comment, address, type, "", "", 0);
         }
 
         return mRecords;
     }
 
-    private void addVar(String name, String comment, String directaddress, Type type, String namePrefix, String commentPrefix, int addressshift) {
+    private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
+                        String namePrefix, String commentPrefix, int addressShift) {
         final String NAME_DIV = "_"; // divider for nested names
         final String COMMENT_DIV = " | "; // divider for nested comments
 
         if (type instanceof TypeSimple) {
-            addPrimitive(name, comment, directaddress, (TypeSimple) type, namePrefix, commentPrefix, addressshift);
+            SoMachineRecord.Address addressShifted = address.shifted(addressShift);
+            addPrimitive(name, comment, addressShifted, (TypeSimple) type, namePrefix, commentPrefix);
         } else if (type instanceof TypeArray) {
             int arrayLength = ((TypeArray) type).arrayDim.maxrange;
             int arraySizeBytes = ((TypeArray) type).size;
@@ -60,25 +65,26 @@ public class SoMachineXmlReader {
             Type elementType = mTypeMap.get(((TypeArray) type).basetype);
             for (int i = 0; i < arrayLength; i++) {
                 // here 'i + 1' is just to start element names from 1
-                addVar(Integer.toString(i + 1), comment, directaddress, elementType,
+                addVar(Integer.toString(i + 1), comment, address, elementType,
                         namePrefix + name + NAME_DIV,
                         commentPrefix + name + COMMENT_DIV,
-                        addressshift + i * elementSize);
+                        addressShift + i * elementSize);
             }
         } else if (type instanceof TypeUserDef) {
             for (UserDefElement element : ((TypeUserDef) type).userDefElement) {
                 Type elementType = mTypeMap.get(element.type);
-                addVar(element.iecname, comment, directaddress, elementType,
+                addVar(element.iecname, comment, address, elementType,
                         namePrefix + name + NAME_DIV,
                         commentPrefix + name + COMMENT_DIV,
-                        addressshift + element.byteoffset);
+                        addressShift + element.byteoffset);
             }
         } else {
             // TODO Maybe throw exception
         }
     }
 
-    private void addPrimitive(String name, String comment, String directaddress, TypeSimple type, String namePrefix, String commentPrefix, int addressShift) {
+    private void addPrimitive(String name, String comment, SoMachineRecord.Address address,
+                              TypeSimple type, String namePrefix, String commentPrefix) {
         SoMachineRecord.Builder builder = new SoMachineRecord.Builder();
 
         builder.name(namePrefix + name);
@@ -86,20 +92,20 @@ public class SoMachineXmlReader {
             builder.comment(commentPrefix + comment);
         }
         builder.type(type.iecname);
-        builder.address(directaddress);
 
         SoMachineRecord record = builder.build();
 
-        SoMachineRecord.Address address;
-        address = record.getAddress();
-        address.setNumber(address.getNumber() + addressShift);
+        if (TYPECLASS_BOOL.equals(type.typeclass)) {
+            address.setDigital(true);
+        }
+        record.setAddress(address);
 
         mRecords.add(record);
     }
 
     private void skipBom(FileInputStream inputStream) throws IOException {
         byte[] bomRead = new byte[3];
-        byte[] utf8Bom = {(byte) 0xEF, (byte)0xBB, (byte)0xBF};
+        byte[] utf8Bom = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
         inputStream.read(bomRead);
         for (int i = 0; i < 3; i++) {
             if (bomRead[i] != utf8Bom[i]) {
