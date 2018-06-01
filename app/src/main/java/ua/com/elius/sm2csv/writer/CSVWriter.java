@@ -51,7 +51,7 @@ public class CSVWriter {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
-            System.out.println(mOutputFileName + " not found");
+            System.out.println("ERROR: File " + mOutputFileName + " can not be opened");
         }
 
         if (writer == null) {
@@ -74,7 +74,9 @@ public class CSVWriter {
 
     void write(List<String> record) {
         try {
-            mPrinter.printRecord(record);
+            if (mPrinter != null) {
+                mPrinter.printRecord(record);
+            }
         } catch (IOException e) {
             System.out.println("Failed to write " + mTargetSoftwareName + " " + mTargetTypeName + " record");
         }
@@ -82,7 +84,9 @@ public class CSVWriter {
 
     public void close() {
         try {
-            mPrinter.close();
+            if (mPrinter != null) {
+                mPrinter.close();
+            }
             mOpened = false;
         } catch (IOException e) {
             System.out.println("Failed to close " + mTargetSoftwareName + " " + mTargetTypeName + " file");
