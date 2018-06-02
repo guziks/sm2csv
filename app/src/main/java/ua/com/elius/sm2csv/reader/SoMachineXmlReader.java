@@ -73,10 +73,12 @@ public class SoMachineXmlReader {
         } else if (type instanceof TypeUserDef) {
             for (UserDefElement element : ((TypeUserDef) type).userDefElement) {
                 Type elementType = mTypeMap.get(element.type);
+                // unions have byteoffset = -1
+                int byteoffset = element.byteoffset < 0 ? 0 : element.byteoffset;
                 addVar(element.iecname, comment, address, elementType,
                         namePrefix + name + NAME_DIV,
                         commentPrefix + name + COMMENT_DIV,
-                        addressShift + element.byteoffset);
+                        addressShift + byteoffset);
             }
         } else {
             // TODO Maybe throw exception
