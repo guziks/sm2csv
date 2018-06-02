@@ -48,10 +48,11 @@ public class LectusRecord extends Record {
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LREAL, DATA_TYPE_DOUBLE_FLOAT);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_STRING, DATA_TYPE_STRING);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WSTRING, DATA_TYPE_STRING);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME, DATA_TYPE_DATE);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LTIME, DATA_TYPE_DATE);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE, DATA_TYPE_DATE);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE_AND_TIME, DATA_TYPE_DATE);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LTIME, DATA_TYPE_BIG_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE_AND_TIME, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME_OF_DAY, DATA_TYPE_INTEGER);
     }
 
     public int getDataType() {
