@@ -6,18 +6,18 @@ import java.util.List;
 
 public class SimpleScadaRecord extends Record {
 
-    public static final String DATA_TYPE_BOOLEAN = "Boolean";
-    public static final String DATA_TYPE_BYTE = "Byte";
-    public static final String DATA_TYPE_WORD = "Word";
-    public static final String DATA_TYPE_SHORTINT = "ShortInt";
-    public static final String DATA_TYPE_SMALLINT = "SmallInt";
-    public static final String DATA_TYPE_INTEGER = "Integer";
-    public static final String DATA_TYPE_LONGWORD = "LongWord";
-    public static final String DATA_TYPE_INT64 = "Int64";
-    public static final String DATA_TYPE_SINGLE = "Single";
-    public static final String DATA_TYPE_DOUBLE = "Double";
-    public static final String DATA_TYPE_DATETIME = "DateTime";
-    public static final String DATA_TYPE_STRING = "String";
+    public static final String DATA_TYPE_BOOLEAN = "Boolean"; // 1 bit
+    public static final String DATA_TYPE_BYTE = "Byte"; // 1 bytes
+    public static final String DATA_TYPE_WORD = "Word"; // 2 bytes
+    public static final String DATA_TYPE_SHORTINT = "ShortInt"; // 1 bytes, signed
+    public static final String DATA_TYPE_SMALLINT = "SmallInt"; // 2 bytes, signed
+    public static final String DATA_TYPE_INTEGER = "Integer"; // 4 bytes, signed
+    public static final String DATA_TYPE_LONGWORD = "LongWord"; // 4 bytes
+    public static final String DATA_TYPE_INT64 = "Int64"; // 8 bytes, signed
+    public static final String DATA_TYPE_SINGLE = "Single"; // 4 bytes
+    public static final String DATA_TYPE_DOUBLE = "Double"; // 8 bytes
+    public static final String DATA_TYPE_DATETIME = "DateTime"; // 8 bytes
+    public static final String DATA_TYPE_STRING = "String"; //  bytes
 
     public static final String GROUP_DEFAULT = "Main";
 
@@ -58,26 +58,27 @@ public class SimpleScadaRecord extends Record {
     static {
         sFromSoMachineType = new HashMap<>();
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, );
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALLINT);
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LWORD, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_SINT, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_USINT, );
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, DATA_TYPE_BYTE);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALLINT); // TODO maybe change to DATA_TYPE_WORD
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, DATA_TYPE_LONGWORD);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LWORD, DATA_TYPE_INT64);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_SINT, DATA_TYPE_SHORTINT);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_USINT, DATA_TYPE_BYTE);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_INT, DATA_TYPE_SMALLINT);
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UINT, );
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UINT, DATA_TYPE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DINT, DATA_TYPE_INTEGER);
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UDINT, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LINT, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_ULINT, );
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UDINT, DATA_TYPE_LONGWORD);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LINT, DATA_TYPE_INT64);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_ULINT, DATA_TYPE_INT64);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_REAL, DATA_TYPE_SINGLE);
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LREAL, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_STRING, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WSTRING, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LTIME, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE, );
-//        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE_AND_TIME, );
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LREAL, DATA_TYPE_DOUBLE);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_STRING, DATA_TYPE_STRING);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WSTRING, DATA_TYPE_STRING);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LTIME, DATA_TYPE_INT64);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DATE_AND_TIME, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_TIME_OF_DAY, DATA_TYPE_INTEGER);
     }
 
     public String getTagGroup() {
