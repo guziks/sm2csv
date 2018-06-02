@@ -44,20 +44,25 @@ public class SoMachineXmlReader {
         for (VarNode var : config.nodeList.appNode.gvlNode.varNode) {
             Type type = mTypeMap.get(var.type);
             SoMachineRecord.Address address = new SoMachineRecord.Address(var.directaddress);
-            addVar(var.name, var.comment, address, type, "", "", 0);
+            addVar(var.name, var.comment, address, type, "", 0);
         }
 
         return mRecords;
     }
 
     private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
-                        String namePrefix, String commentPrefix, int addressShift) {
+                        String namePrefix, int addressShift) {
         final String NAME_DIV = "_"; // divider for nested names
         final String COMMENT_DIV = " | "; // divider for nested comments
 
+        if (comment == null) {
+            comment = "";
+        }
+        comment = comment.trim();
+
         if (type instanceof TypeSimple) {
             SoMachineRecord.Address addressShifted = address.shifted(addressShift);
-            addPrimitive(name, comment, addressShifted, (TypeSimple) type, namePrefix, commentPrefix);
+            addPrimitive(name, comment, addressShifted, (TypeSimple) type, namePrefix);
         } else if (type instanceof TypeArray) {
             int arrayLength = ((TypeArray) type).arrayDim.maxrange;
             int arraySizeBytes = ((TypeArray) type).size;
@@ -67,17 +72,20 @@ public class SoMachineXmlReader {
                 // here 'i + 1' is just to start element names from 1
                 addVar(Integer.toString(i + 1), comment, address, elementType,
                         namePrefix + name + NAME_DIV,
-                        commentPrefix + name + COMMENT_DIV,
                         addressShift + i * elementSize);
             }
         } else if (type instanceof TypeUserDef) {
-            for (UserDefElement element : ((TypeUserDef) type).userDefElement) {
+            TypeUserDef thisType = (TypeUserDef) type;
+            for (UserDefElement element : thisType.userDefElement) {
+                String elementComment = "";
+                if (element.comment != null) {
+                    elementComment = comment + COMMENT_DIV + element.comment.trim();
+                }
                 Type elementType = mTypeMap.get(element.type);
                 // unions have byteoffset = -1
                 int byteoffset = element.byteoffset < 0 ? 0 : element.byteoffset;
-                addVar(element.iecname, comment, address, elementType,
+                addVar(element.iecname, elementComment, address, elementType,
                         namePrefix + name + NAME_DIV,
-                        commentPrefix + name + COMMENT_DIV,
                         addressShift + byteoffset);
             }
         } else {
@@ -86,13 +94,11 @@ public class SoMachineXmlReader {
     }
 
     private void addPrimitive(String name, String comment, SoMachineRecord.Address address,
-                              TypeSimple type, String namePrefix, String commentPrefix) {
+                              TypeSimple type, String namePrefix) {
         SoMachineRecord.Builder builder = new SoMachineRecord.Builder();
 
         builder.name(namePrefix + name);
-        if (comment != null) {
-            builder.comment(commentPrefix + comment);
-        }
+        builder.comment(comment);
         builder.type(type.iecname);
 
         SoMachineRecord record = builder.build();
