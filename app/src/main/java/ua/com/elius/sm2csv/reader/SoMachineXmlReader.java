@@ -18,6 +18,7 @@ import java.util.List;
 public class SoMachineXmlReader {
 
     public static final String TYPECLASS_BOOL = "Bool";
+    public static final String TYPECLASS_ENUM = "Enum";
 
     private File mSymbolConfig;
     private List<SoMachineRecord> mRecords;
@@ -76,17 +77,21 @@ public class SoMachineXmlReader {
             }
         } else if (type instanceof TypeUserDef) {
             TypeUserDef thisType = (TypeUserDef) type;
-            for (UserDefElement element : thisType.userDefElement) {
-                String elementComment = "";
-                if (element.comment != null) {
-                    elementComment = comment + COMMENT_DIV + element.comment.trim();
+            if (TYPECLASS_ENUM.equals(thisType.typeclass)) {
+                addVar(name, comment, address, mTypeMap.get(thisType.basetype), namePrefix, addressShift);
+            } else {
+                for (UserDefElement element : thisType.userDefElement) {
+                    String elementComment = "";
+                    if (element.comment != null) {
+                        elementComment = comment + COMMENT_DIV + element.comment.trim();
+                    }
+                    Type elementType = mTypeMap.get(element.type);
+                    // unions have byteoffset = -1
+                    int byteoffset = element.byteoffset < 0 ? 0 : element.byteoffset;
+                    addVar(element.iecname, elementComment, address, elementType,
+                            namePrefix + name + NAME_DIV,
+                            addressShift + byteoffset);
                 }
-                Type elementType = mTypeMap.get(element.type);
-                // unions have byteoffset = -1
-                int byteoffset = element.byteoffset < 0 ? 0 : element.byteoffset;
-                addVar(element.iecname, elementComment, address, elementType,
-                        namePrefix + name + NAME_DIV,
-                        addressShift + byteoffset);
             }
         } else {
             // TODO Maybe throw exception

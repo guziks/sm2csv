@@ -12,6 +12,7 @@ public class TypeUserDef extends Type {
     public int nativesize;
     public String typeclass;
     public String iecname;
+    public String basetype;
 
     @SerializedName("UserDefElement")
     public List<UserDefElement> userDefElement;
