@@ -95,6 +95,9 @@ public class SimpleScadaAlarmWriter {
 
     private void writeState(int stateID, String comment, int triggerValue, int alarmType) throws IOException {
         mOut.writeInt(stateID);
+        if (comment == null) {
+            comment = " ";
+        }
         byte[] commentBytes = comment.getBytes(StandardCharsets.UTF_8);
         mOut.writeInt(commentBytes.length);
         mOut.write(commentBytes);
