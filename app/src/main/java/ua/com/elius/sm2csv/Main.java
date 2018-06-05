@@ -4,6 +4,8 @@ import com.esotericsoftware.yamlbeans.YamlException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import ua.com.elius.sm2csv.alarm.AlarmInfo;
+import ua.com.elius.sm2csv.model.alarmconfig.*;
 import ua.com.elius.sm2csv.reader.*;
 import ua.com.elius.sm2csv.reader.AlarmConfigReader.AlarmConfigException;
 import ua.com.elius.sm2csv.record.*;
@@ -55,8 +57,10 @@ public class Main {
         checkWorkDir();
 
         List<SoMachineRecord> smRecords = readSoMachineRecords();
-
         checkIfRecordsFound(smRecords);
+
+        AlarmConfig alarmConfig = readAlarmConfig();
+        Map<String,AlarmInfo> alarmInfoMap = createAlarmInfoMap(alarmConfig, smRecords);
 
         if (haveTarget(TARGET_EASYBUILDER)) {
             writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
@@ -65,7 +69,7 @@ public class Main {
             writeWinccTables(convertToWinccRecords(smRecords));
         }
         if (haveTarget(TARGET_SIMPLESCADA)) {
-            writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords));
+            writeSimpleScadaTables(convertToSimpleScadaRecords(smRecords), alarmInfoMap);
         }
         if (haveTarget(TARGET_LECTUS)) {
             writeLectusTables(convertToLectusRecords(smRecords));
@@ -104,6 +108,57 @@ public class Main {
 
         smRecords.sort(Comparator.comparing(SoMachineRecord::getName));
         return smRecords;
+    }
+
+    /**
+     * Reads alarm configuration file
+     *
+     * @return Alarm configuration object
+     */
+    private static AlarmConfig readAlarmConfig() {
+        AlarmConfig config = null;
+        if (opts.has(OPTION_ALARM_CONFIG)) {
+            try {
+                AlarmConfigReader configReader = new AlarmConfigReader(specAlarmConfig.value(opts));
+                config = configReader.read();
+            } catch (FileNotFoundException e) {
+                System.out.println("ERROR: Alarm config file can not be opened, using default");;
+            } catch (YamlException e) {
+                System.out.println("ERROR: Alarm config is not correct, using default");;
+            } catch (AlarmConfigException e) {
+                System.out.println("ERROR: Alarm config logic is not correct, using default");;
+            }
+        }
+        // default config
+        if (config == null) {
+            config = new AlarmConfig();
+            config.digital = new HashMap<>();
+            config.digital.put("f_", new Digital(Severity.high));
+            config.digital.put("break_", new Digital(Severity.high));
+            config.numeric = new HashMap<>();
+            List<Message> messages = new ArrayList<>();
+            messages.add(new Message(2, Severity.high, ""));
+            config.numeric.put("sta_", new Numeric(messages));
+        }
+        return config;
+    }
+
+    /**
+     * Creates alarm information map
+     * <p>
+     * This map can be used to get alarm information by tag name
+     *
+     * @param config Alarm configuration
+     * @param records SoMachine records list
+     * @return Tag name to AlarmInfo map
+     */
+    private static Map<String,AlarmInfo> createAlarmInfoMap(AlarmConfig config, List<SoMachineRecord> records) {
+        Map<String,AlarmInfo> map = new HashMap<>();
+        for (SoMachineRecord record : records) {
+            AlarmInfo info = new AlarmInfo(config, record.getName(), record.getAddress().isDigital());
+            map.put(record.getName(), info);
+        }
+        return map;
     }
 
     /**
@@ -237,8 +292,9 @@ public class Main {
      * Top level action to write SimpleScada targeted files
      *
      * @param newRecords SimpleScada records list
+     * @param alarmInfo Map of tag names to {@link AlarmInfo}
      */
-    private static void writeSimpleScadaTables(List<SimpleScadaRecord> newRecords) {
+    private static void writeSimpleScadaTables(List<SimpleScadaRecord> newRecords, Map<String,AlarmInfo> alarmInfo) {
         // read existing file
         SimpleScadaTagReader tagReader = new SimpleScadaTagReader(specWorkDir.value(opts).toPath());
         List<SimpleScadaRecord> existRecords = null;
@@ -267,21 +323,6 @@ public class Main {
         }
         tagWriter.close();
 
-        // prepare alarm config
-        AlarmConfig alarmConfig = new AlarmConfig();
-        if (opts.has(OPTION_ALARM_CONFIG)) {
-            try {
-                AlarmConfigReader alarmConfigReader = new AlarmConfigReader(specAlarmConfig.value(opts));
-                alarmConfig = alarmConfigReader.read();
-            } catch (FileNotFoundException e) {
-                System.out.println("Alarm config file not found, using default");;
-            } catch (YamlException e) {
-                System.out.println("Alarm config is not correct YAML file, using default");;
-            } catch (AlarmConfigException e) {
-                System.out.println("Alarm config logic is not correct, using default");;
-            }
-        }
-
         // read variable IDs
         Map<String,Integer> varIds = new HashMap<>();
         try {
@@ -298,7 +339,7 @@ public class Main {
                     specWorkDir.value(opts).toPath(),
                     specAlarmPrefixes.values(opts),
                     specSimpleScadaIdShift.value(opts),
-                    alarmConfig,
+                    alarmInfo,
                     varIds);
             alarmWriter.write(newRecords);
         } catch (FileNotFoundException e) {

@@ -17,6 +17,9 @@ import java.util.List;
 
 public class SoMachineXmlReader {
 
+    public static final String NAME_DIV = "_"; // divider for nested names
+    public static final String COMMENT_DIV = " | "; // divider for nested comments
+
     public static final String TYPECLASS_BOOL = "Bool";
     public static final String TYPECLASS_ENUM = "Enum";
 
@@ -53,9 +56,6 @@ public class SoMachineXmlReader {
 
     private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
                         String namePrefix, int addressShift) {
-        final String NAME_DIV = "_"; // divider for nested names
-        final String COMMENT_DIV = " | "; // divider for nested comments
-
         if (comment == null) {
             comment = "";
         }

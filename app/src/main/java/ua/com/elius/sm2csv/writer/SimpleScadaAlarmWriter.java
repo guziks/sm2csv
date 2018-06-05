@@ -1,6 +1,9 @@
 package ua.com.elius.sm2csv.writer;
 
 import com.google.common.io.LittleEndianDataOutputStream;
+import ua.com.elius.sm2csv.alarm.AlarmInfo;
+import ua.com.elius.sm2csv.model.alarmconfig.Severity;
+import ua.com.elius.sm2csv.reader.SoMachineXmlReader;
 import ua.com.elius.sm2csv.record.SimpleScadaRecord;
 
 import java.io.*;
@@ -31,29 +34,29 @@ public class SimpleScadaAlarmWriter {
     private BufferedOutputStream mBufferedOutputStream;
     private DataOutput mOut;
     private int mIdShift;
-    private AlarmConfig mAlarmConfig;
+    private Map<String,AlarmInfo> mAlarmInfo;
     private Map<String,Integer> mVarIds;
 
     public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift,
-                                  AlarmConfig alarmConfig, Map<String,Integer> varIds)
+                                  Map<String,AlarmInfo> alarmInfo, Map<String,Integer> varIds)
             throws FileNotFoundException {
         mAlarmPrefixes = alarmPrefixes;
         mBufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
         mIdShift = idShift;
-        mAlarmConfig = alarmConfig;
+        mAlarmInfo = alarmInfo;
         mVarIds = varIds;
     }
 
     public void write(List<SimpleScadaRecord> records) throws IOException {
-        int messagesCount = (int) records.stream()
-                .filter(r -> r.isAlarm(mAlarmPrefixes))
+        int messagesCount = (int) mAlarmInfo.values().stream()
+                .filter(info -> info.isAlarm())
                 .count();
         writeHeader(messagesCount);
         // iterating over not filtered list because we need original indexes
         for (int i = 0; i < records.size(); i++) {
-            if (records.get(i).isAlarm(mAlarmPrefixes)) {
+            if (mAlarmInfo.get(records.get(i).getName()).isAlarm()) {
                 writeMessage(i, // message ID equals tag ID
                         records.get(i).getName(),
                         new SimpleScadaMessage(records.get(i))
@@ -142,20 +145,20 @@ public class SimpleScadaAlarmWriter {
             if (record.isDigital()) {
                 mTriggerType = TRIGGER_TYPE_VALUE;
                 mStates.add(new SimpleScadaMessageState(1, baseComment,
-                        alarmTypeFrom(mAlarmConfig.getDigitalSeverity()), 1));
+                        alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(0)), 1));
             } else { // if record is analog
-                if (mAlarmConfig.size() == 1) {
+                if (mAlarmInfo.get(record.getName()).getMessages().size() == 1) {
                     mTriggerType = TRIGGER_TYPE_VALUE;
                     mStates.add(new SimpleScadaMessageState(1, baseComment,
-                            alarmTypeFrom(mAlarmConfig.getSeverity(0)),
-                            mAlarmConfig.getTrigger(0)));
+                            alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(0)),
+                            mAlarmInfo.get(record.getName()).getTriggers().get(0)));
                 } else { // > 1; it can not be 0 according to rules
                     mTriggerType = TRIGGER_TYPE_BIT;
-                    for (int i = 0; i < mAlarmConfig.size(); i++) {
+                    for (int i = 0; i < mAlarmInfo.get(record.getName()).getMessages().size(); i++) {
                         mStates.add(new SimpleScadaMessageState(i + 1, // ID starts with 1
-                                mAlarmConfig.getPrefix(i) + baseComment,
-                                alarmTypeFrom(mAlarmConfig.getSeverity(i)),
-                                mAlarmConfig.getTrigger(i))
+                                baseComment + SoMachineXmlReader.COMMENT_DIV + mAlarmInfo.get(record.getName()).getMessages().get(i),
+                                alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(i)),
+                                mAlarmInfo.get(record.getName()).getTriggers().get(i))
                         );
                     }
                 }
@@ -174,13 +177,13 @@ public class SimpleScadaAlarmWriter {
             return mStates;
         }
 
-        private int alarmTypeFrom(String severity) {
+        private int alarmTypeFrom(Severity severity) {
             switch (severity) {
-                case AlarmConfig.SEVERITY_HIGH:
+                case high:
                     return ALARM_TYPE_ALARM;
-                case AlarmConfig.SEVERITY_MID:
+                case mid:
                     return ALARM_TYPE_WARNING;
-                case AlarmConfig.SEVERITY_LOW:
+                case low:
                     return ALARM_TYPE_MESSAGE;
                 default:
                     return ALARM_TYPE_ALARM;
