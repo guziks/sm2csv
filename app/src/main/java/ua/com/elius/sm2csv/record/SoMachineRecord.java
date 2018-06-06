@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class SoMachineRecord extends Record {
 
+    public static final String DATA_TYPE_BIT = "BIT";
     public static final String DATA_TYPE_BOOL = "BOOL"; // 1 bytes
     public static final String DATA_TYPE_BYTE = "BYTE"; // 1 bytes
     public static final String DATA_TYPE_WORD = "WORD"; // 2 bytes
@@ -22,8 +23,8 @@ public class SoMachineRecord extends Record {
     public static final String DATA_TYPE_ULINT = "ULINT"; // 8 bytes
     public static final String DATA_TYPE_REAL = "REAL"; // 4 bytes
     public static final String DATA_TYPE_LREAL = "LREAL"; // 8 bytes
-    public static final String DATA_TYPE_STRING = "STRING(35)"; // 36 bytes
-    public static final String DATA_TYPE_WSTRING = "WSTRING(35)"; // 72 bytes
+    public static final String DATA_TYPE_STRING = "STRING"; // (size + 1) bytes
+    public static final String DATA_TYPE_WSTRING = "WSTRING"; // 2(size + 1) bytes
     public static final String DATA_TYPE_TIME = "TIME"; // 4 bytes
     public static final String DATA_TYPE_LTIME = "LTIME"; // 8 bytes
     public static final String DATA_TYPE_DATE = "DATE"; // 4 bytes

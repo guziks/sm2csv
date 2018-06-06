@@ -22,6 +22,8 @@ public class SoMachineXmlReader {
 
     public static final String TYPECLASS_BOOL = "Bool";
     public static final String TYPECLASS_ENUM = "Enum";
+    public static final String TYPECLASS_STRING = "String";
+    public static final String TYPECLASS_WSTRING = "WString";
 
     private File mSymbolConfig;
     private List<SoMachineRecord> mRecords;
@@ -104,7 +106,17 @@ public class SoMachineXmlReader {
 
         builder.name(namePrefix + name);
         builder.comment(comment);
-        builder.type(type.iecname);
+
+        String recordType = type.iecname;
+        // 'STRING...', 'WSTRING...' iec names are dynamic (depend on size)
+        // so just using corresponding constants
+        switch (type.typeclass) {
+            case TYPECLASS_STRING:
+                recordType = SoMachineRecord.DATA_TYPE_STRING; break;
+            case TYPECLASS_WSTRING:
+                recordType = SoMachineRecord.DATA_TYPE_WSTRING; break;
+        }
+        builder.type(recordType);
 
         SoMachineRecord record = builder.build();
 
