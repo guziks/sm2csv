@@ -156,8 +156,10 @@ public class Main {
     private static Map<String,AlarmInfo> createAlarmInfoMap(AlarmConfig config, List<SoMachineRecord> records) {
         Map<String,AlarmInfo> map = new HashMap<>();
         for (SoMachineRecord record : records) {
-            AlarmInfo info = new AlarmInfo(config, record.getName(), record.getAddress().isDigital());
-            map.put(record.getName(), info);
+            if (record.isExported()) {
+                AlarmInfo info = new AlarmInfo(config, record.getName(), record.getAddress().isDigital());
+                map.put(record.getName(), info);
+            }
         }
         return map;
     }
