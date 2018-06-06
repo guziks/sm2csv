@@ -64,7 +64,7 @@ public class Main {
         Map<String,AlarmInfo> alarmInfoMap = createAlarmInfoMap(alarmConfig, smRecords);
 
         if (haveTarget(TARGET_EASYBUILDER)) {
-            writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords));
+            writeEasyBuilderTables(convertToEasyBuilderRecords(smRecords), alarmInfoMap);
         }
         if (haveTarget(TARGET_WINCC)) {
             writeWinccTables(convertToWinccRecords(smRecords));
@@ -254,7 +254,7 @@ public class Main {
      *
      * @param ebRecords EasyBuilder records list
      */
-    private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords) {
+    private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords, Map<String,AlarmInfo> alarmInfo) {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter(specWorkDir.value(opts).toPath());
         EasyBuilderAlarmWriter alarmWriter = new EasyBuilderAlarmWriter(specWorkDir.value(opts).toPath());
 
@@ -262,8 +262,10 @@ public class Main {
 
         for (EasyBuilderRecord ebRec : ebRecords) {
             tagWriter.write(ebRec);
-            if (ebRec.isAlarm(specAlarmPrefixes.values(opts))) {
-                alarmWriter.write(ebRec);
+
+            AlarmInfo info = alarmInfo.get(ebRec.getName());
+            if (info.isAlarm()) {
+                alarmWriter.write(ebRec, info);
             }
         }
 

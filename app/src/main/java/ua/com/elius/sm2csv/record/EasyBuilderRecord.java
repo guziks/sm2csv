@@ -71,7 +71,7 @@ public class EasyBuilderRecord extends Record {
         return builder.build();
     }
 
-    private static String formatAddress(int number, int digit) {
+    public static String formatAddress(int number, int digit) {
         return number + String.format("%02d", digit);
     }
 
