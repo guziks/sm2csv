@@ -134,12 +134,12 @@ public class Main {
         if (config == null) {
             config = new AlarmConfig();
             config.digital = new HashMap<>();
-            config.digital.put("f_", new Digital(Severity.high));
-            config.digital.put("break_", new Digital(Severity.high));
+            config.digital.put("^f_", new Digital(Severity.high));
+            config.digital.put("^break_", new Digital(Severity.high));
             config.numeric = new HashMap<>();
             List<Message> messages = new ArrayList<>();
             messages.add(new Message(2, Severity.high, ""));
-            config.numeric.put("sta_", new Numeric(messages));
+            config.numeric.put("^sta_", new Numeric(messages));
         }
         return config;
     }
