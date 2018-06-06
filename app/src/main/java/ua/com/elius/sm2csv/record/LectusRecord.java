@@ -31,6 +31,7 @@ public class LectusRecord extends Record {
 
     static {
         sFromSoMachineType = new HashMap<>();
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BIT, DATA_TYPE_BOOLEAN);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, DATA_TYPE_BYTE);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALL_INTEGER); // TODO maybe change to DATA_TYPE_WORD
