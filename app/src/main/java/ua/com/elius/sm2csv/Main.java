@@ -118,17 +118,17 @@ public class Main {
      */
     private static AlarmConfig readAlarmConfig() {
         AlarmConfig config = null;
-        if (opts.has(OPTION_ALARM_CONFIG)) {
-            try {
-                AlarmConfigReader configReader = new AlarmConfigReader(specAlarmConfig.value(opts));
-                config = configReader.read();
-            } catch (FileNotFoundException e) {
-                System.out.println("ERROR: Alarm config file can not be opened, using default");;
-            } catch (YamlException e) {
-                System.out.println("ERROR: Alarm config is not correct, using default");;
-            } catch (AlarmConfigException e) {
-                System.out.println("ERROR: Alarm config logic is not correct, using default");;
+        try {
+            AlarmConfigReader configReader = new AlarmConfigReader(specAlarmConfig.value(opts));
+            config = configReader.read();
+        } catch (FileNotFoundException e) {
+            if (opts.has(OPTION_ALARM_CONFIG)) {
+                System.out.println("WARNING: Alarm config file can not be opened, using default");;
             }
+        } catch (YamlException e) {
+            System.out.println("WARNING: Alarm config is not correct, using default");;
+        } catch (AlarmConfigException e) {
+            System.out.println("WARNING: Alarm config logic is not correct, using default");;
         }
         // default config
         if (config == null) {
@@ -507,7 +507,8 @@ public class Main {
                 "Alarm states configuration file")
                 .withRequiredArg()
                 .describedAs("file")
-                .ofType(File.class);
+                .ofType(File.class)
+                .defaultsTo(new File("alarm-config.yaml"));
 
         specSymbolConfig = parser.acceptsAll(asList(
                 OPTION_SYMBOL_CONFIG, "symbol-config"),
