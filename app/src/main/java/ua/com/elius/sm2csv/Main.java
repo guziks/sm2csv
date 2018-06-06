@@ -338,7 +338,6 @@ public class Main {
         try {
             alarmWriter = new SimpleScadaAlarmWriter(
                     specWorkDir.value(opts).toPath(),
-                    specAlarmPrefixes.values(opts),
                     specSimpleScadaIdShift.value(opts),
                     alarmInfo,
                     varIds);

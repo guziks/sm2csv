@@ -30,17 +30,15 @@ public class SimpleScadaAlarmWriter {
      */
     private static final int TRIGGER_TYPE_BIT = 1;
 
-    private List<String> mAlarmPrefixes;
     private BufferedOutputStream mBufferedOutputStream;
     private DataOutput mOut;
     private int mIdShift;
     private Map<String,AlarmInfo> mAlarmInfo;
     private Map<String,Integer> mVarIds;
 
-    public SimpleScadaAlarmWriter(Path outputPath, List<String> alarmPrefixes, int idShift,
+    public SimpleScadaAlarmWriter(Path outputPath, int idShift,
                                   Map<String,AlarmInfo> alarmInfo, Map<String,Integer> varIds)
             throws FileNotFoundException {
-        mAlarmPrefixes = alarmPrefixes;
         mBufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(outputPath.resolve(OUTPUT_FILE_NAME).toFile()));
         mOut = new LittleEndianDataOutputStream(mBufferedOutputStream);
@@ -142,23 +140,25 @@ public class SimpleScadaAlarmWriter {
             String baseComment = record.getComment();
             mStates = new ArrayList<>();
 
+            AlarmInfo alarmInfo = mAlarmInfo.get(record.getName());
+
             if (record.isDigital()) {
                 mTriggerType = TRIGGER_TYPE_VALUE;
                 mStates.add(new SimpleScadaMessageState(1, baseComment,
-                        alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(0)), 1));
+                        alarmTypeFrom(alarmInfo.getSeverities().get(0)), 1));
             } else { // if record is analog
-                if (mAlarmInfo.get(record.getName()).getMessages().size() == 1) {
+                if (alarmInfo.getMessages().size() == 1) {
                     mTriggerType = TRIGGER_TYPE_VALUE;
                     mStates.add(new SimpleScadaMessageState(1, baseComment,
-                            alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(0)),
-                            mAlarmInfo.get(record.getName()).getTriggers().get(0)));
+                            alarmTypeFrom(alarmInfo.getSeverities().get(0)),
+                            alarmInfo.getTriggers().get(0)));
                 } else { // > 1; it can not be 0 according to rules
                     mTriggerType = TRIGGER_TYPE_BIT;
-                    for (int i = 0; i < mAlarmInfo.get(record.getName()).getMessages().size(); i++) {
+                    for (int i = 0; i < alarmInfo.getMessages().size(); i++) {
                         mStates.add(new SimpleScadaMessageState(i + 1, // ID starts with 1
-                                baseComment + SoMachineXmlReader.COMMENT_DIV + mAlarmInfo.get(record.getName()).getMessages().get(i),
-                                alarmTypeFrom(mAlarmInfo.get(record.getName()).getSeverities().get(i)),
-                                mAlarmInfo.get(record.getName()).getTriggers().get(i))
+                                baseComment + SoMachineXmlReader.COMMENT_DIV + alarmInfo.getMessages().get(i),
+                                alarmTypeFrom(alarmInfo.getSeverities().get(i)),
+                                alarmInfo.getTriggers().get(i))
                         );
                     }
                 }
