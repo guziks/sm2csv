@@ -1,6 +1,7 @@
 package ua.com.elius.sm2csv;
 
 import com.esotericsoftware.yamlbeans.YamlException;
+import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -516,15 +517,22 @@ public class Main {
                 .ofType(File.class)
                 .defaultsTo(new File("tags.xml"));
 
-        opts = parser.parse(args);
+        try {
+            opts = parser.parse(args);
+        } catch (OptionException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+            try {
+                parser.printHelpOn(System.out);
+            } catch (IOException e1) {}
+            System.exit(EXIT_ERROR);
+        }
 
         if (opts.has(OPTION_HELP)) {
             try {
                 parser.printHelpOn(System.out);
                 System.exit(EXIT_OK);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
     }
 
