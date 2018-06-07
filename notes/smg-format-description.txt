@@ -27,8 +27,8 @@ uint32: state ID starting with 1
 uint32: state comment length
 state comment
 uint8: 0 - alarm, 1 - warning, 2 - message
-uint32: value to trigger on (or bit number if trigger is bit inside word)
-FF FF FF FF
+float64: low limit of value to trigger on (or bit number if trigger is bit inside word)
+float64: high limit of value to trigger on (or -1 to disable range)
 uint8: 0 - sound off; 1 - sound on
 uint8: 0 - invert off; 1 - invert on
 uint8: 0 - unaknowledged list off; 1 - unaknowledged list on

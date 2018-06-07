@@ -94,7 +94,7 @@ public class SimpleScadaAlarmWriter {
         }
     }
 
-    private void writeState(int stateID, String comment, int triggerValue, int alarmType) throws IOException {
+    private void writeState(int stateID, String comment, double triggerValue, int alarmType) throws IOException {
         mOut.writeInt(stateID);
         if (comment == null) {
             comment = " ";
@@ -103,8 +103,8 @@ public class SimpleScadaAlarmWriter {
         mOut.writeInt(commentBytes.length);
         mOut.write(commentBytes);
         mOut.write(alarmType);
-        mOut.writeInt(triggerValue); // value or bit number to trigger on
-        mOut.writeInt(0xFFFFFFFF);
+        mOut.writeDouble(triggerValue); // value or bit number to trigger on
+        mOut.writeDouble(-1); // disable ranges
         mOut.write(1); // sound on
         mOut.write(0); // invert off
         mOut.write(1); // unaknowledged list on
@@ -195,7 +195,7 @@ public class SimpleScadaAlarmWriter {
         private int mID;
         private String mComment;
         private int mAlarmType;
-        private int mTriggerValue;
+        private double mTriggerValue;
 
         public SimpleScadaMessageState(int ID, String comment, int alarmType, int triggerValue) {
             mID = ID;
@@ -216,7 +216,7 @@ public class SimpleScadaAlarmWriter {
             return mAlarmType;
         }
 
-        public int getTriggerValue() {
+        public double getTriggerValue() {
             return mTriggerValue;
         }
     }
