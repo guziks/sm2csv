@@ -34,7 +34,7 @@ public class LectusRecord extends Record {
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BIT, DATA_TYPE_BOOLEAN);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, DATA_TYPE_BYTE);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_SMALL_INTEGER); // TODO maybe change to DATA_TYPE_WORD
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, DATA_TYPE_DOUBLE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LWORD, DATA_TYPE_QUADE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_SINT, DATA_TYPE_SHORT_INTEGER);
