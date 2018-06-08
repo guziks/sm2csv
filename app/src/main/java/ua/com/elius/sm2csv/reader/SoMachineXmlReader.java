@@ -115,6 +115,8 @@ public class SoMachineXmlReader {
                 recordType = SoMachineRecord.DATA_TYPE_STRING; break;
             case TYPECLASS_WSTRING:
                 recordType = SoMachineRecord.DATA_TYPE_WSTRING; break;
+            case TYPECLASS_ENUM:
+                recordType = guessEnumType(type.size); break;
         }
         builder.type(recordType);
 
@@ -126,6 +128,16 @@ public class SoMachineXmlReader {
         record.setAddress(address);
 
         mRecords.add(record);
+    }
+
+    private String guessEnumType(int size) {
+        switch (size) {
+            case 1: return SoMachineRecord.DATA_TYPE_SINT;
+            case 2: return SoMachineRecord.DATA_TYPE_INT;
+            case 4: return SoMachineRecord.DATA_TYPE_DINT;
+            case 8: return SoMachineRecord.DATA_TYPE_LINT;
+            default: return SoMachineRecord.DATA_TYPE_INT;
+        }
     }
 
     private void skipBom(FileInputStream inputStream) throws IOException {
