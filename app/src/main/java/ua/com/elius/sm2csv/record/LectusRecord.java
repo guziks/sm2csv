@@ -38,13 +38,13 @@ public class LectusRecord extends Record {
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, DATA_TYPE_DOUBLE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LWORD, DATA_TYPE_QUADE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_SINT, DATA_TYPE_SHORT_INTEGER);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_USINT, DATA_TYPE_SHORT_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_USINT, DATA_TYPE_BYTE);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_INT, DATA_TYPE_SMALL_INTEGER);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UINT, DATA_TYPE_SMALL_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UINT, DATA_TYPE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DINT, DATA_TYPE_INTEGER);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UDINT, DATA_TYPE_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_UDINT, DATA_TYPE_DOUBLE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LINT, DATA_TYPE_BIG_INTEGER);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_ULINT, DATA_TYPE_BIG_INTEGER);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_ULINT, DATA_TYPE_QUADE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_REAL, DATA_TYPE_SINGLE_FLOAT);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_LREAL, DATA_TYPE_DOUBLE_FLOAT);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_STRING, DATA_TYPE_STRING);
