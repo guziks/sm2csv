@@ -27,6 +27,7 @@ public class LectusTagWriter extends CSVWriter {
             {"Modbus","101","8","Описание узла"},
             {"Modbus","5003","18","Адрес переменной"},
             {"Modbus","5041","17","Номер бита"},
+            {"Modbus","5006","18","Значимые биты данных"},
             {""},
             {"ITEMS"},
             {"OwnerItemID","Name","Plugin","Flag","AccessRights","AccessChange","DataType","EUType","EUInfo","PropertyID","PropertyValue","PropertyID","PropertyValue","..."},

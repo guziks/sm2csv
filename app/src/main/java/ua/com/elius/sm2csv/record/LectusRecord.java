@@ -26,13 +26,14 @@ public class LectusRecord extends Record {
     private String mComment;
     private int mAddressNumber;
     private int mAddressDigit;
+    private boolean mIsDigital;
 
     private static HashMap<String, Integer> sFromSoMachineType;
 
     static {
         sFromSoMachineType = new HashMap<>();
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BIT, DATA_TYPE_BOOLEAN);
-        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_BOOLEAN);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BIT, DATA_TYPE_WORD);
+        sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BOOL, DATA_TYPE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_BYTE, DATA_TYPE_BYTE);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_WORD, DATA_TYPE_WORD);
         sFromSoMachineType.put(SoMachineRecord.DATA_TYPE_DWORD, DATA_TYPE_DOUBLE_WORD);
@@ -88,11 +89,17 @@ public class LectusRecord extends Record {
         mAddressDigit = addressDigit;
     }
 
+    public void setDigital(boolean digital) {
+        mIsDigital = digital;
+    }
+
     public LectusRecord() {
     }
 
     public static LectusRecord of(SoMachineRecord smRec) {
         LectusRecord rec = new LectusRecord();
+
+        rec.setDigital(smRec.getAddress().isDigital());
 
         rec.setName(smRec.getName());
 
@@ -103,7 +110,7 @@ public class LectusRecord extends Record {
         rec.setAddressNumber(smRec.getAddress().getNumber());
 
         if (rec.isDigital()) {
-            rec.setAddressDigit(smRec.getAddress().getDigit() + 1);
+            rec.setAddressDigit(smRec.getAddress().getDigit() * 257);
         }
 
         rec.setComment(smRec.getComment());
@@ -132,7 +139,7 @@ public class LectusRecord extends Record {
         list.add("5003");
         list.add(String.valueOf(mAddressNumber));
         if (this.isDigital()) {
-            list.add("5041");
+            list.add("5006");
             list.add(String.valueOf(mAddressDigit));
         }
 
@@ -140,6 +147,6 @@ public class LectusRecord extends Record {
     }
 
     private boolean isDigital() {
-        return mDataType == DATA_TYPE_BOOLEAN;
+        return mIsDigital;
     }
 }
