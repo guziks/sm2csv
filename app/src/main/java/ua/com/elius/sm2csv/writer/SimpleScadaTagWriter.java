@@ -22,7 +22,7 @@ public class SimpleScadaTagWriter extends CSVWriter {
 
     public SimpleScadaTagWriter(Path outputPath) {
         super(getCSVFormat(),
-                outputPath, FILE_NAME, FILE_ENCODING,
+                outputPath, FILE_NAME, FILE_ENCODING, false,
                 CSVWriter.TARGET_TAG_SIMPLESCADA, CSVWriter.TARGET_TAG_TAG);
     }
 

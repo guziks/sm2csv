@@ -40,7 +40,7 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
 
     public EasyBuilderAlarmWriter(Path outputPath) {
         super(CSVFormat.EXCEL,
-                outputPath, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING,
+                outputPath, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING, false,
                 CSVWriter.TARGET_TAG_EASYBUILDER, CSVWriter.TARGET_TAG_ALARM);
     }
 
