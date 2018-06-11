@@ -1,0 +1,18 @@
+digital:
+  "^varBoo":
+    severity: high
+numeric:
+  "Int$":
+    messages:
+      - trigger: 2
+        message: ""
+        severity: high
+  "_r":
+    messages:
+      - trigger: 3
+        message: "alarma"
+        severity: high
+      - trigger: 4
+        message: "warn"
+        severity: mid
+
