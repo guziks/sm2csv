@@ -9,8 +9,8 @@ import static java.util.Arrays.asList;
 
 public class VijeoDesignerWriter extends CSVWriter {
 
-    private static final String OUTPUT_FILE_NAME = "vijeo-designer-vars.csv";
-    private static final String OUTPUT_FILE_ENCODING = "UTF-16LE";
+    public static final String FILE_NAME = "vijeo-designer-vars.csv";
+    public static final String FILE_ENCODING = "UTF-16LE";
 
     private static final String[][] HEADERS = {
             {"'5.1.0","Vijeo-Designer 6.2.4 CSV output"},
@@ -18,8 +18,8 @@ public class VijeoDesignerWriter extends CSVWriter {
     };
 
     public VijeoDesignerWriter(Path outputPath) {
-        super(CSVFormat.EXCEL.withDelimiter(';').withQuote(null),
-                outputPath, OUTPUT_FILE_NAME, OUTPUT_FILE_ENCODING, true,
+        super(getCSVFormat(),
+                outputPath, FILE_NAME, FILE_ENCODING, true,
                 CSVWriter.TARGET_TAG_VIJEODESIGNER, CSVWriter.TARGET_TAG_TAG);
     }
 
@@ -32,5 +32,9 @@ public class VijeoDesignerWriter extends CSVWriter {
 
     public void write(VijeoDesignerRecord record) {
         write(record.toList());
+    }
+
+    public static CSVFormat getCSVFormat() {
+        return CSVFormat.EXCEL.withDelimiter(';').withQuote(null);
     }
 }

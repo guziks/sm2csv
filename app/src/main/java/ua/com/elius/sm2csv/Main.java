@@ -436,6 +436,28 @@ public class Main {
      * @param vdRecords VijeoDesigner records
      */
     private static void writeVijeoDesignerTables(List<VijeoDesignerRecord> vdRecords) {
+        // read existing file
+        VijeoDesignerReader reader = new VijeoDesignerReader(specWorkDir.value(opts).toPath());
+        List<VijeoDesignerRecord> existingRecords = null;
+        try {
+            existingRecords = reader.read();
+        } catch (IOException e) {
+            System.out.println("Failed to read existing VijeoDesigner vars, skip update");
+            return;
+        }
+
+        // merge
+        if (existingRecords != null) {
+            for (VijeoDesignerRecord nRec : vdRecords) {
+                for (VijeoDesignerRecord eRec : existingRecords) {
+                    if (eRec.getName().equals(nRec.getName())) {
+                        nRec.merge(eRec);
+                    }
+                }
+            }
+        }
+
+        // write vars
         VijeoDesignerWriter writer = new VijeoDesignerWriter(specWorkDir.value(opts).toPath());
 
         for (VijeoDesignerRecord vdRec : vdRecords) {

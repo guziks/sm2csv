@@ -548,4 +548,53 @@ public class VijeoDesignerRecord {
 
         return list;
     }
+
+    /**
+     * Merges with other VijeoDesigner record
+     * <p>
+     * Takes most fields from other record but keeps
+     * mName, mDataType, mDescription, mAlarm, mAlarmMessage,
+     * mDeviceAddress, mBitNumber, mDataFormat, mSigned, mDataLength
+     * from this one
+     *
+     * @param eRec other record to merge with
+     */
+    public void merge(VijeoDesignerRecord eRec) {
+        mType = eRec.getType();
+        mDataSource = eRec.getDataSource();
+        mDimension = eRec.getDimension();
+        mInitialValue = eRec.getInitialValue();
+        mNumofBytes = eRec.getNumofBytes();
+        mDataSharing = eRec.getDataSharing();
+        mLanguage1ID = eRec.getLanguage1ID();
+        mAlarmType = eRec.getAlarmType();
+        mTriggerCondition = eRec.getTriggerCondition();
+        mDeadband = eRec.getDeadband();
+        mTarget = eRec.getTarget();
+        mAlarmLimits = eRec.getAlarmLimits();
+        mMinor = eRec.getMinor();
+        mMajor = eRec.getMajor();
+        mAlarmGroup = eRec.getAlarmGroup();
+        mSeverity = eRec.getSeverity(); // TODO keep
+        mVibrationPattern = eRec.getVibrationPattern();
+        mVibrationTime = eRec.getVibrationTime();
+        mSoundFile = eRec.getSoundFile();
+        mPlayMode = eRec.getPlayMode();
+        mScanGroup = eRec.getScanGroup();
+        mOffsetBitNo = eRec.getOffsetBitNo();
+        mBitWidth = eRec.getBitWidth();
+        mInputRange = eRec.getInputRange();
+        mMin = eRec.getMin();
+        mMax = eRec.getMax();
+        mDataScaling = eRec.getDataScaling();
+        mRawMin = eRec.getRawMin();
+        mRawMax = eRec.getRawMax();
+        mScaledMin = eRec.getScaledMin();
+        mScaledMax = eRec.getScaledMax();
+        mIndirectEnabled = eRec.getIndirectEnabled();
+        mIndirectAddress = eRec.getIndirectAddress();
+        mRetentive = eRec.getRetentive();
+        mLoggingGroup = eRec.getLoggingGroup();
+        mLogUserOperationsOnVariable = eRec.getLogUserOperationsOnVariable();
+    }
 }
