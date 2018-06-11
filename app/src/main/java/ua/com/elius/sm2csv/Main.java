@@ -35,6 +35,7 @@ public class Main {
     private static final String TARGET_WINCC = "wincc";
     private static final String TARGET_SIMPLESCADA = "simplescada";
     private static final String TARGET_LECTUS = "lectus";
+    private static final String TARGET_VIJEODESIGNER = "vijeodesigner";
 
     private static final int EXIT_OK = 0;
     private static final int EXIT_ERROR = 1;
@@ -74,6 +75,9 @@ public class Main {
         }
         if (haveTarget(TARGET_LECTUS)) {
             writeLectusTables(convertToLectusRecords(smRecords));
+        }
+        if (haveTarget(TARGET_VIJEODESIGNER)) {
+            writeVijeoDesignerTables(convertToVijeoDesignerRecords(smRecords, alarmInfoMap));
         }
     }
 
@@ -175,7 +179,7 @@ public class Main {
         for (SoMachineRecord smRec : smRecords) {
             try {
                 EasyBuilderRecord ebRec = EasyBuilderRecord.of(smRec);
-                if (opts.has(OPTION_INCLUDE_ALL)) {
+                if (opts.has(OPTION_INCLUDE_ALL)) { // TODO move to top level
                     patchWithFakeAddress(ebRec, smRec);
                 }
                 ebRec.setPlcName(specPlcName.value(opts));
@@ -250,9 +254,37 @@ public class Main {
     }
 
     /**
+     * Converts SoMachine records to VijeoDesigner records
+     *
+     * @param smRecords SoMachine records
+     * @param alarmInfo Map of tag names to {@link AlarmInfo}
+     * @return VijeoDesigner records
+     */
+    private static List<VijeoDesignerRecord> convertToVijeoDesignerRecords(List<SoMachineRecord> smRecords, Map<String,AlarmInfo> alarmInfo) {
+        List<VijeoDesignerRecord> vdRecords = new ArrayList<>();
+        for (SoMachineRecord smRec : smRecords) {
+            if (smRec.isExported()) {
+                AlarmInfo info = alarmInfo.get(smRec.getName());
+                VijeoDesignerRecord rec = null;
+                try {
+                    rec = VijeoDesignerRecord.of(smRec, info);
+                    vdRecords.add(rec);
+                } catch (TypeMapException e) {
+                    System.out.println("WARNING: Vijeo Designer: " + e.getMessage() + " type is not supported");
+                } catch (LongNameException e) {
+                    System.out.println("WARNING: Vijeo Designer: '" + e.getMessage() + "' name is too long (max=32)");
+                }
+            }
+        }
+
+        return vdRecords;
+    }
+
+    /**
      * Top level action to write EasyBuilder targeted files
      *
      * @param ebRecords EasyBuilder records list
+     * @param alarmInfo Map of tag names to {@link AlarmInfo}
      */
     private static void writeEasyBuilderTables(List<EasyBuilderRecord> ebRecords, Map<String,AlarmInfo> alarmInfo) {
         EasyBuilderTagWriter tagWriter = new EasyBuilderTagWriter(specWorkDir.value(opts).toPath());
@@ -399,6 +431,21 @@ public class Main {
     }
 
     /**
+     * Top level action to write VijeoDesigner targeted files
+     *
+     * @param vdRecords VijeoDesigner records
+     */
+    private static void writeVijeoDesignerTables(List<VijeoDesignerRecord> vdRecords) {
+        VijeoDesignerWriter writer = new VijeoDesignerWriter(specWorkDir.value(opts).toPath());
+
+        for (VijeoDesignerRecord vdRec : vdRecords) {
+            writer.write(vdRec);
+        }
+
+        writer.close();
+    }
+
+    /**
      * Write dummy tags
      * <p>
      * These are convenience tags to use as placeholders in HMI
@@ -495,7 +542,7 @@ public class Main {
                 .withRequiredArg()
                 .describedAs("t,t,...")
                 .withValuesSeparatedBy(',')
-                .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA, TARGET_LECTUS);
+                .defaultsTo(TARGET_EASYBUILDER, TARGET_WINCC, TARGET_SIMPLESCADA, TARGET_LECTUS, TARGET_VIJEODESIGNER);
 
         specSimpleScadaIdShift = parser.accepts(
                 "simplescada-id-shift",
