@@ -101,7 +101,7 @@ public class EasyBuilderAlarmWriter extends CSVWriter {
         }
         switch (severity) {
             case high:
-                replaceAll(t, ID_PRIORITY, PRIORITY_MID); // TODO change to HIGH
+                replaceAll(t, ID_PRIORITY, PRIORITY_HIGH);
                 replaceAll(t, ID_COLOR, COLOR_RED);
                 break;
             case mid:
