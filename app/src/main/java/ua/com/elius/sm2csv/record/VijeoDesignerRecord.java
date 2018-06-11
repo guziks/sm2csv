@@ -1,6 +1,7 @@
 package ua.com.elius.sm2csv.record;
 
 import ua.com.elius.sm2csv.alarm.AlarmInfo;
+import ua.com.elius.sm2csv.model.alarmconfig.Severity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -484,7 +485,7 @@ public class VijeoDesignerRecord {
             rec.setAlarm("Enable");
             rec.setAlarmMessage(smRec.getComment());
             rec.setAlarmGroup("AlarmGroup1");
-            rec.setSeverity("1"); // TODO choose severity
+            rec.setSeverity(chooseSeverity(alarmInfo.getSeverities().get(0)));
         }
 
         rec.setDeviceAddress("%MW" + smRec.getAddress().getNumber());
@@ -554,7 +555,8 @@ public class VijeoDesignerRecord {
      * <p>
      * Takes most fields from other record but keeps
      * mName, mDataType, mDescription, mAlarm, mAlarmMessage,
-     * mDeviceAddress, mBitNumber, mDataFormat, mSigned, mDataLength
+     * mDeviceAddress, mBitNumber, mDataFormat, mSigned, mDataLength,
+     * mSeverity
      * from this one
      *
      * @param eRec other record to merge with
@@ -575,7 +577,6 @@ public class VijeoDesignerRecord {
         mMinor = eRec.getMinor();
         mMajor = eRec.getMajor();
         mAlarmGroup = eRec.getAlarmGroup();
-        mSeverity = eRec.getSeverity(); // TODO keep
         mVibrationPattern = eRec.getVibrationPattern();
         mVibrationTime = eRec.getVibrationTime();
         mSoundFile = eRec.getSoundFile();
@@ -596,5 +597,18 @@ public class VijeoDesignerRecord {
         mRetentive = eRec.getRetentive();
         mLoggingGroup = eRec.getLoggingGroup();
         mLogUserOperationsOnVariable = eRec.getLogUserOperationsOnVariable();
+    }
+
+    private static String chooseSeverity(Severity severity) {
+        switch (severity) {
+            case high:
+                return "3";
+            case mid:
+                return "2";
+            case low:
+                return "1";
+            default:
+                return "3";
+        }
     }
 }
