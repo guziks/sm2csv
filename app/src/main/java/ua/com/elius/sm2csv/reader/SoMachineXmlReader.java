@@ -34,7 +34,7 @@ public class SoMachineXmlReader {
         mRecords = new ArrayList<>();
     }
 
-    public List<SoMachineRecord> read() throws IOException {
+    public List<SoMachineRecord> read() throws IOException, UnsupportedTypeNode {
         XmlAdapter<Symbolconfiguration> xmlAdapter =
                 new Xml.Builder().build().adapter(Symbolconfiguration.class);
 
@@ -57,7 +57,7 @@ public class SoMachineXmlReader {
     }
 
     private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
-                        String namePrefix, int addressShift) {
+                        String namePrefix, int addressShift) throws UnsupportedTypeNode {
         if (comment == null) {
             comment = "";
         }
@@ -96,7 +96,7 @@ public class SoMachineXmlReader {
                 }
             }
         } else {
-            // TODO Maybe throw exception
+            throw new UnsupportedTypeNode(type.getClass().getName());
         }
     }
 
@@ -149,6 +149,12 @@ public class SoMachineXmlReader {
                 inputStream.skip(-3);
                 break;
             }
+        }
+    }
+
+    public class UnsupportedTypeNode extends Throwable {
+        public UnsupportedTypeNode(String message) {
+            super(message);
         }
     }
 }

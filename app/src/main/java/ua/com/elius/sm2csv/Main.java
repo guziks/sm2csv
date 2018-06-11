@@ -105,6 +105,8 @@ public class Main {
                 xmlRecords = xmlReader.read();
             } catch (IOException e) {
                 System.out.println("Failed to read SoMachine symbol config file");;
+            } catch (SoMachineXmlReader.UnsupportedTypeNode unsupportedTypeNode) {
+                System.out.println("WARNING: SoMachineXmlReader: unsupported TypeNode found");
             }
             if (xmlRecords != null) {
                 smRecords.addAll(xmlRecords);
