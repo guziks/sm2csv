@@ -129,7 +129,9 @@ public class MainTest {
             copyCase(casePath);
 
             String dir = getCaseWorkPath(casePath).toString();
-            Main.main(new String[]{"-d", dir});
+            Main.main(new String[]{"-d", dir,
+                    "-f", dir + "/tags.xml",
+                    "--alarm-config", dir + "/alarm-config.yaml"});
 
             String[] outFileNames = getCaseOutPath(casePath).toFile().list();
             if (outFileNames != null) {

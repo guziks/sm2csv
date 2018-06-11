@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
+  <Header>
+    <Version>3.5.3.50</Version>
+    <SymbolConfigObject version="3.5.3.50" />
+    <ProjectInfo name="testExport" devicename="MyController" appname="Application" />
+  </Header>
+  <TypeList>
+    <TypeSimple name="T_BIT_X_0" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" bitoffset="0" />
+    <TypeSimple name="T_BIT_X_1" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" bitoffset="1" />
+    <TypeSimple name="T_BIT_X_3" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" bitoffset="3" />
+    <TypeSimple name="T_BYTE" size="1" swapsize="1" typeclass="Byte" iecname="BYTE" />
+    <TypeSimple name="T_WORD" size="2" swapsize="2" typeclass="Word" iecname="WORD" />
+    <TypeSimple name="T_DWORD" size="4" swapsize="4" typeclass="DWord" iecname="DWORD" />
+    <TypeSimple name="T_LWORD" size="8" swapsize="8" typeclass="LWord" iecname="LWORD" />
+    <TypeSimple name="T_SINT" size="1" swapsize="1" typeclass="SInt" iecname="SINT" />
+    <TypeSimple name="T_USINT" size="1" swapsize="1" typeclass="USInt" iecname="USINT" />
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
+    <TypeSimple name="T_DINT" size="4" swapsize="4" typeclass="DInt" iecname="DINT" />
+    <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
+    <TypeSimple name="T_LINT" size="8" swapsize="8" typeclass="LInt" iecname="LINT" />
+    <TypeSimple name="T_ULINT" size="8" swapsize="8" typeclass="ULInt" iecname="ULINT" />
+    <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
+    <TypeSimple name="T_LREAL" size="8" swapsize="8" typeclass="LReal" iecname="LREAL" />
+    <TypeSimple name="T_STRING_35_" size="36" swapsize="0" typeclass="String" iecname="STRING(35)" />
+    <TypeSimple name="T_WSTRING_35_" size="72" swapsize="2" typeclass="WString" iecname="WSTRING(35)" />
+    <TypeSimple name="T_TIME" size="4" swapsize="4" typeclass="Time" iecname="TIME" />
+    <TypeSimple name="T_LTIME" size="8" swapsize="8" typeclass="LTime" iecname="LTIME" />
+    <TypeSimple name="T_DATE" size="4" swapsize="4" typeclass="Date" iecname="DATE" />
+    <TypeSimple name="T_DATE_AND_TIME" size="4" swapsize="4" typeclass="DateAndTime" iecname="DATE_AND_TIME" />
+    <TypeSimple name="T_TIME_OF_DAY" size="4" swapsize="4" typeclass="TimeOfDay" iecname="TIME_OF_DAY" />
+    <TypeArray name="T_ARRAY__1__10__OF_INT" size="20" nativesize="20" typeclass="Array" iecname="ARRAY [1..10] OF INT" basetype="T_INT">
+      <ArrayDim minrange="1" maxrange="10" />
+    </TypeArray>
+    <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
+    <TypeArray name="T_ARRAY__1__10__OF_BOOL" size="10" nativesize="10" typeclass="Array" iecname="ARRAY [1..10] OF BOOL" basetype="T_BOOL">
+      <ArrayDim minrange="1" maxrange="10" />
+    </TypeArray>
+    <TypeUserDef name="T_dutStructure" size="24" nativesize="24" typeclass="Userdef" iecname="dutStructure">
+      <UserDefElement type="T_INT" iecname="i1" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="b1" byteoffset="2" />
+      <UserDefElement type="T_DINT" iecname="di1" byteoffset="4" />
+      <UserDefElement type="T_REAL" iecname="r1" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="b2" byteoffset="12" />
+      <UserDefElement type="T_TIME" iecname="t1" byteoffset="16" />
+      <UserDefElement type="T_REAL" iecname="r2" byteoffset="20" />
+    </TypeUserDef>
+    <TypeSimple name="T_DUTENUM" size="2" swapsize="2" typeclass="Enum" iecname="DUTENUM" />
+    <TypeUserDef name="T_dut2w" size="4" nativesize="4" typeclass="Userdef" iecname="dut2w">
+      <UserDefElement type="T_WORD" iecname="low" byteoffset="0" />
+      <UserDefElement type="T_WORD" iecname="high" byteoffset="2" />
+    </TypeUserDef>
+    <TypeUserDef name="T_dutUnion" size="4" nativesize="4" typeclass="Userdef" iecname="dutUnion">
+      <UserDefElement type="T_dut2w" iecname="w" byteoffset="0" />
+      <UserDefElement type="T_REAL" iecname="f" byteoffset="4" />
+    </TypeUserDef>
+    <TypeSimple name="T_STRING_8_" size="9" swapsize="0" typeclass="String" iecname="STRING(8)" />
+    <TypeArray name="T_ARRAY__1__8__OF_dut2w" size="32" nativesize="32" typeclass="Array" iecname="ARRAY [1..8] OF dut2w" basetype="T_dut2w">
+      <ArrayDim minrange="1" maxrange="8" />
+    </TypeArray>
+    <TypeUserDef name="T_dutStructureComplex" size="64" nativesize="64" typeclass="Userdef" iecname="dutStructureComplex">
+      <UserDefElement type="T_REAL" iecname="r1" byteoffset="0" />
+      <UserDefElement type="T_LREAL" iecname="lr1" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="b1" byteoffset="16" />
+      <UserDefElement type="T_STRING_8_" iecname="s1" byteoffset="17" />
+      <UserDefElement type="T_dut2w" iecname="str1" byteoffset="26" />
+      <UserDefElement type="T_ARRAY__1__8__OF_dut2w" iecname="arrStr1" byteoffset="30" />
+    </TypeUserDef>
+    <TypeUserDef name="T_dutSt1" size="12" nativesize="12" typeclass="Userdef" iecname="dutSt1">
+      <UserDefElement type="T_INT" iecname="i1" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="b1" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="b2" byteoffset="3" />
+      <UserDefElement type="T_REAL" iecname="r1" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="b3" byteoffset="8" />
+    </TypeUserDef>
+    <TypeUserDef name="T_dutSt2" size="24" nativesize="24" typeclass="Userdef" iecname="dutSt2">
+      <UserDefElement type="T_dutSt1" iecname="st1_1" byteoffset="0" />
+      <UserDefElement type="T_dutSt1" iecname="st1_2" byteoffset="12" />
+    </TypeUserDef>
+    <TypeArray name="T_ARRAY__1__4__OF_dutSt2" size="96" nativesize="96" typeclass="Array" iecname="ARRAY [1..4] OF dutSt2" basetype="T_dutSt2">
+      <ArrayDim minrange="1" maxrange="4" />
+    </TypeArray>
+    <TypeUserDef name="T_dutSt3" size="112" nativesize="112" typeclass="Userdef" iecname="dutSt3">
+      <UserDefElement type="T_ARRAY__1__4__OF_dutSt2" iecname="arrSt2" byteoffset="0" />
+      <UserDefElement type="T_INT" iecname="i2" byteoffset="96" />
+      <UserDefElement type="T_dutSt1" iecname="st1" byteoffset="100" />
+    </TypeUserDef>
+  </TypeList>
+  <NodeList>
+    <Node name="Application">
+      <Node name="GVL">
+        <Node name="varArrBoolAlias" type="T_ARRAY__1__10__OF_BOOL" access="ReadWrite" directaddress="%MB0">
+          <Comment> Array of 10 BOOL via Alias</Comment>
+        </Node>
+        <Node name="varArrInt" type="T_ARRAY__1__10__OF_INT" access="ReadWrite" directaddress="%MB0">
+          <Comment> Array of 10 Int</Comment>
+        </Node>
+        <Node name="varArrIntAlias" type="T_ARRAY__1__10__OF_INT" access="ReadWrite" directaddress="%MB0">
+          <Comment> Array of 10 Int via Alias</Comment>
+        </Node>
+        <Node name="varBool" type="T_BIT_X_0" access="ReadWrite" directaddress="%MX0.0">
+          <Comment> BOOL True(1) False(0) 8 bit</Comment>
+        </Node>
+        <Node name="varBool1" type="T_BIT_X_1" access="ReadWrite" directaddress="%MX0.1" />
+        <Node name="varBool3" type="T_BIT_X_3" access="ReadWrite" directaddress="%MX0.3" />
+        <Node name="varByte" type="T_BYTE" access="ReadWrite" directaddress="%MB0">
+          <Comment> BYTE  0  255  8 bit</Comment>
+        </Node>
+        <Node name="varDate" type="T_DATE" access="ReadWrite" directaddress="%MB0">
+          <Comment> DATE  DWORD  containing time span in seconds since 01.01.1970, 00:00 clock</Comment>
+        </Node>
+        <Node name="varDateAndTime" type="T_DATE_AND_TIME" access="ReadWrite" directaddress="%MB0">
+          <Comment> DATE_AND_TIME  DWORD  containing the time span in seconds since 01.01.1970, 00:00 clock</Comment>
+        </Node>
+        <Node name="varDInt" type="T_DINT" access="ReadWrite" directaddress="%MD0">
+          <Comment> DINT  –2,147,483,648  2,147,483,647  32 bit</Comment>
+        </Node>
+        <Node name="varDWord" type="T_DWORD" access="ReadWrite" directaddress="%MD0">
+          <Comment> DWORD  0  4,294,967,295  32 bit</Comment>
+        </Node>
+        <Node name="varEnum" type="T_DUTENUM" access="ReadWrite" directaddress="%MB0">
+          <Comment> Simple enumeration</Comment>
+        </Node>
+        <Node name="varInt" type="T_INT" access="ReadWrite" directaddress="%MW0">
+          <Comment> INT  –32,768  32,767  16 bit</Comment>
+        </Node>
+        <Node name="varLInt" type="T_LINT" access="ReadWrite" directaddress="%MB0">
+          <Comment> LINT  –263  263-1  64 bit</Comment>
+        </Node>
+        <Node name="varLReal" type="T_LREAL" access="ReadWrite" directaddress="%MB0">
+          <Comment> Value range FOR LREAL 2.2250738585072014E-308...1.7976931348623158E+308</Comment>
+        </Node>
+        <Node name="varLTime" type="T_LTIME" access="ReadWrite" directaddress="%MB0">
+          <Comment> LTIME  LWORD  in msec</Comment>
+        </Node>
+        <Node name="varLWord" type="T_LWORD" access="ReadWrite" directaddress="%MB0">
+          <Comment> LWORD  0  264-1  64 BIT</Comment>
+        </Node>
+        <Node name="varReal" type="T_REAL" access="ReadWrite" directaddress="%MB0">
+          <Comment> Value range FOR REAL 1.401E-45...3.403E+38</Comment>
+        </Node>
+        <Node name="varSInt" type="T_SINT" access="ReadWrite" directaddress="%MB0">
+          <Comment> SINT  –128  127  8 bit</Comment>
+        </Node>
+        <Node name="varString" type="T_STRING_35_" access="ReadWrite" directaddress="%MB0">
+          <Comment> String The memory space needed for a variable of type STRING is 1 byte per character + 1 additional byte. This means, the STRING[80] declaration needs 81 bytes. </Comment>
+        </Node>
+        <Node name="varStructure" type="T_dutStructure" access="ReadWrite" directaddress="%MB0">
+          <Comment> Simple structure</Comment>
+        </Node>
+        <Node name="varStructureComplex" type="T_dutStructureComplex" access="ReadWrite" directaddress="%MB0">
+          <Comment> Complex structure</Comment>
+        </Node>
+        <Node name="varStructureLevel3" type="T_dutSt3" access="ReadWrite" directaddress="%MB0">
+          <Comment> Complex structure with 3 level</Comment>
+        </Node>
+        <Node name="varTime" type="T_TIME" access="ReadWrite" directaddress="%MB0">
+          <Comment> TIME  DWORD  in msec</Comment>
+        </Node>
+        <Node name="varTimeOfDay" type="T_TIME_OF_DAY" access="ReadWrite" directaddress="%MB0">
+          <Comment> TIME_OF_DAY  DWORD  in msec from 12:00 AM</Comment>
+        </Node>
+        <Node name="varUDInt" type="T_UDINT" access="ReadWrite" directaddress="%MD0">
+          <Comment> UDINT  0  4,294,967,295  32 bit</Comment>
+        </Node>
+        <Node name="varUInt" type="T_UINT" access="ReadWrite" directaddress="%MW0">
+          <Comment> UINT  0  65,535  16 bit</Comment>
+        </Node>
+        <Node name="varULInt" type="T_ULINT" access="ReadWrite" directaddress="%MB0">
+          <Comment> ULINT  0  264-1  64 bit</Comment>
+        </Node>
+        <Node name="varUnion" type="T_dutUnion" access="ReadWrite" directaddress="%MB0">
+          <Comment> Simple union</Comment>
+        </Node>
+        <Node name="varUSInt" type="T_USINT" access="ReadWrite" directaddress="%MB0">
+          <Comment> USINT  0  255  8 bit</Comment>
+        </Node>
+        <Node name="varWord" type="T_WORD" access="ReadWrite" directaddress="%MW0">
+          <Comment> WORD  0  65,535  16 bit</Comment>
+        </Node>
+        <Node name="varWString" type="T_WSTRING_35_" access="ReadWrite" directaddress="%MB0">
+          <Comment> It differs from the standard STRING type (ASCII) by interpretation in Unicode format, and needing 2 bytes for each character and 2 bytes extra memory space </Comment>
+        </Node>
+      </Node>
+    </Node>
+  </NodeList>
+</Symbolconfiguration>
