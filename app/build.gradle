@@ -30,6 +30,7 @@ jar {
 }
 
 def staticBinaryDestination = file("$rootDir/sbin")
+def launcherDir = file("$rootDir/launcher")
 
 shadowJar {
     baseName = rootProject.name
@@ -52,6 +53,8 @@ task sbin(type: Copy, dependsOn: 'createExe', group: 'build') {
     from (project.tasks.createExe.outputs) {
         include '*.exe'
     }
+    from (launcherDir)
+
     into staticBinaryDestination
 }
 
