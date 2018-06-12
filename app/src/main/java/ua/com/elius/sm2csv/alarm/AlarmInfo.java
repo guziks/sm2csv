@@ -18,7 +18,7 @@ public class AlarmInfo {
     private boolean mIsAlarm = false;
 
     public AlarmInfo(AlarmConfig config, String name, boolean isDigital) {
-        if (isDigital) {
+        if (isDigital && config.digital != null) {
             for (String pattern : config.digital.keySet()) {
                 Matcher matcher = Pattern.compile(pattern).matcher(name);
                 if (matcher.find()) {
@@ -28,7 +28,7 @@ public class AlarmInfo {
                     return;
                 }
             }
-        } else {
+        } else if (config.numeric != null) {
             for (String pattern : config.numeric.keySet()) {
                 Matcher matcher = Pattern.compile(pattern).matcher(name);
                 if (matcher.find()) {
