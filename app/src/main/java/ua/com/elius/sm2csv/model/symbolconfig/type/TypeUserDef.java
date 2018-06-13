@@ -7,11 +7,7 @@ import java.util.List;
 
 public class TypeUserDef extends Type {
 
-    public String name;
-    public int size;
     public int nativesize;
-    public String typeclass;
-    public String iecname;
     public String basetype;
 
     @SerializedName("UserDefElement")
