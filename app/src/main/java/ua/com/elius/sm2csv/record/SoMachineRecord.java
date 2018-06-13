@@ -31,11 +31,11 @@ public class SoMachineRecord extends Record {
     public static final String DATA_TYPE_DATE_AND_TIME = "DATE_AND_TIME"; // 4 bytes
     public static final String DATA_TYPE_TIME_OF_DAY = "TIME_OF_DAY"; // 4 bytes
 
-    public static final String ADDRESS_TYPE_BIT = "%MX";
-    public static final String ADDRESS_TYPE_BYTE = "%MB";
-    public static final String ADDRESS_TYPE_WORD = "%MW";
-    public static final String ADDRESS_TYPE_DWORD = "%MD";
-    public static final String ADDRESS_TYPE_LONG = "%ML";
+    public static final String ADDRESS_TYPE_MX = "%MX";
+    public static final String ADDRESS_TYPE_MB = "%MB";
+    public static final String ADDRESS_TYPE_MW = "%MW";
+    public static final String ADDRESS_TYPE_MD = "%MD";
+    public static final String ADDRESS_TYPE_ML = "%ML";
 
     private String mComment;
     private Address mAddress;
@@ -147,17 +147,17 @@ public class SoMachineRecord extends Record {
 
             // convert numbers to common units (2 byte words)
             switch (mType) {
-                case ADDRESS_TYPE_BIT:
-                case ADDRESS_TYPE_BYTE:
+                case ADDRESS_TYPE_MX:
+                case ADDRESS_TYPE_MB:
                     if (mNumber % 2 != 0) {
                         mDigit = (mDigit + 8);
                     }
                     mNumber = mNumber / 2;
                     break;
-                case ADDRESS_TYPE_DWORD:
+                case ADDRESS_TYPE_MD:
                     mNumber = mNumber * 2;
                     break;
-                case ADDRESS_TYPE_LONG:
+                case ADDRESS_TYPE_ML:
                     mNumber = mNumber * 4;
                     break;
             }

@@ -54,30 +54,30 @@ public class SoMachineXmlReader {
 
     static {
         sAddressPatch = new HashMap<>();
-        sAddressPatch.put(TYPECLASS_BOOL, SoMachineRecord.ADDRESS_TYPE_BIT);
-        sAddressPatch.put(TYPECLASS_BYTE, SoMachineRecord.ADDRESS_TYPE_BYTE);
-        sAddressPatch.put(TYPECLASS_WORD, SoMachineRecord.ADDRESS_TYPE_WORD);
-        sAddressPatch.put(TYPECLASS_DWORD, SoMachineRecord.ADDRESS_TYPE_DWORD);
-        sAddressPatch.put(TYPECLASS_LWORD, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_SINT, SoMachineRecord.ADDRESS_TYPE_BYTE);
-        sAddressPatch.put(TYPECLASS_USINT, SoMachineRecord.ADDRESS_TYPE_BYTE);
-        sAddressPatch.put(TYPECLASS_INT, SoMachineRecord.ADDRESS_TYPE_WORD);
-        sAddressPatch.put(TYPECLASS_UINT, SoMachineRecord.ADDRESS_TYPE_WORD);
-        sAddressPatch.put(TYPECLASS_DINT, SoMachineRecord.ADDRESS_TYPE_DWORD);
-        sAddressPatch.put(TYPECLASS_UDINT, SoMachineRecord.ADDRESS_TYPE_DWORD);
-        sAddressPatch.put(TYPECLASS_LINT, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_ULINT, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_REAL, SoMachineRecord.ADDRESS_TYPE_DWORD);
-        sAddressPatch.put(TYPECLASS_LREAL, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_STRING, SoMachineRecord.ADDRESS_TYPE_BYTE);
-        sAddressPatch.put(TYPECLASS_WSTRING, SoMachineRecord.ADDRESS_TYPE_WORD);
-        sAddressPatch.put(TYPECLASS_TIME, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_LTIME, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_DATE, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_DATE_AND_TIME, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_TIME_OF_DAY, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_ENUM, SoMachineRecord.ADDRESS_TYPE_LONG);
-        sAddressPatch.put(TYPECLASS_USERDEF, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_BOOL, SoMachineRecord.ADDRESS_TYPE_MX);
+        sAddressPatch.put(TYPECLASS_BYTE, SoMachineRecord.ADDRESS_TYPE_MB);
+        sAddressPatch.put(TYPECLASS_WORD, SoMachineRecord.ADDRESS_TYPE_MW);
+        sAddressPatch.put(TYPECLASS_DWORD, SoMachineRecord.ADDRESS_TYPE_MD);
+        sAddressPatch.put(TYPECLASS_LWORD, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_SINT, SoMachineRecord.ADDRESS_TYPE_MB);
+        sAddressPatch.put(TYPECLASS_USINT, SoMachineRecord.ADDRESS_TYPE_MB);
+        sAddressPatch.put(TYPECLASS_INT, SoMachineRecord.ADDRESS_TYPE_MW);
+        sAddressPatch.put(TYPECLASS_UINT, SoMachineRecord.ADDRESS_TYPE_MW);
+        sAddressPatch.put(TYPECLASS_DINT, SoMachineRecord.ADDRESS_TYPE_MD);
+        sAddressPatch.put(TYPECLASS_UDINT, SoMachineRecord.ADDRESS_TYPE_MD);
+        sAddressPatch.put(TYPECLASS_LINT, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_ULINT, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_REAL, SoMachineRecord.ADDRESS_TYPE_MD);
+        sAddressPatch.put(TYPECLASS_LREAL, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_STRING, SoMachineRecord.ADDRESS_TYPE_MB);
+        sAddressPatch.put(TYPECLASS_WSTRING, SoMachineRecord.ADDRESS_TYPE_MW);
+        sAddressPatch.put(TYPECLASS_TIME, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_LTIME, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_DATE, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_DATE_AND_TIME, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_TIME_OF_DAY, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_ENUM, SoMachineRecord.ADDRESS_TYPE_ML);
+        sAddressPatch.put(TYPECLASS_USERDEF, SoMachineRecord.ADDRESS_TYPE_ML);
     }
 
     public SoMachineXmlReader(File symbolConfig) {
@@ -126,7 +126,7 @@ public class SoMachineXmlReader {
         } else {
             if (sAddressPatch.containsKey(type.typeclass)) {
                 patched = directaddress.replaceFirst(
-                        SoMachineRecord.ADDRESS_TYPE_BYTE, sAddressPatch.get(type.typeclass));
+                        SoMachineRecord.ADDRESS_TYPE_MB, sAddressPatch.get(type.typeclass));
             }
         }
         return patched;
