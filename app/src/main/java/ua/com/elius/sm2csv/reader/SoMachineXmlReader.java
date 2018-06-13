@@ -102,7 +102,8 @@ public class SoMachineXmlReader {
             Type type = mTypeMap.get(var.type);
             SoMachineRecord.Address address = new SoMachineRecord.Address(
                     patchedAddress(var.directaddress, type));
-            addVar(var.name, var.comment, address, type, "", 0);
+            String comment = prepareComment(var.comment);
+            addVar(var.name, comment, address, type, "", 0);
         }
 
         return mRecords;
@@ -114,8 +115,8 @@ public class SoMachineXmlReader {
      * SoMachine incorrectly puts "%MB" marker where other
      * markers are expected, so we replace them according to sAddressPatch map.
      *
-     * @param directaddress
-     * @param type
+     * @param directaddress Address to patch
+     * @param type Patch according to this type from sAddressPatch map
      * @return
      */
     private String patchedAddress(String directaddress, Type type) {
@@ -132,13 +133,25 @@ public class SoMachineXmlReader {
         return patched;
     }
 
-    private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
-                        String namePrefix, int addressShift) throws UnsupportedTypeNode {
+    /**
+     * Takes first line of the comment
+     *
+     * @param comment Comment to prepare
+     * @return Prepared comment
+     */
+    private static String prepareComment(String comment) {
         if (comment == null) {
             comment = "";
         }
-        comment = comment.trim();
+        int index = comment.indexOf('\n');
+        if (index > -1) {
+            comment = comment.substring(0, index);
+        }
+        return comment.trim();
+    }
 
+    private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
+                        String namePrefix, int addressShift) throws UnsupportedTypeNode {
         if (type instanceof TypeSimple) {
             SoMachineRecord.Address addressShifted = address.shifted(addressShift);
             addPrimitive(name, comment, addressShifted, (TypeSimple) type, namePrefix);
