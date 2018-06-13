@@ -21,13 +21,64 @@ public class SoMachineXmlReader {
     public static final String COMMENT_DIV = " | "; // divider for nested comments
 
     public static final String TYPECLASS_BOOL = "Bool";
-    public static final String TYPECLASS_ENUM = "Enum";
+    public static final String TYPECLASS_BYTE = "Byte";
+    public static final String TYPECLASS_WORD = "Word";
+    public static final String TYPECLASS_DWORD = "DWord";
+    public static final String TYPECLASS_LWORD = "LWord";
+    public static final String TYPECLASS_SINT = "SInt";
+    public static final String TYPECLASS_USINT = "USInt";
+    public static final String TYPECLASS_INT = "Int";
+    public static final String TYPECLASS_UINT = "UInt";
+    public static final String TYPECLASS_DINT = "DInt";
+    public static final String TYPECLASS_UDINT = "UDInt";
+    public static final String TYPECLASS_LINT = "LInt";
+    public static final String TYPECLASS_ULINT = "ULInt";
+    public static final String TYPECLASS_REAL = "Real";
+    public static final String TYPECLASS_LREAL = "LReal";
     public static final String TYPECLASS_STRING = "String";
     public static final String TYPECLASS_WSTRING = "WString";
+    public static final String TYPECLASS_TIME = "Time";
+    public static final String TYPECLASS_LTIME = "LTime";
+    public static final String TYPECLASS_DATE = "Date";
+    public static final String TYPECLASS_DATE_AND_TIME = "DateAndTime";
+    public static final String TYPECLASS_TIME_OF_DAY = "TimeOfDay";
+    public static final String TYPECLASS_ENUM = "Enum";
+    public static final String TYPECLASS_ARRAY = "Array";
+    public static final String TYPECLASS_USERDEF = "Userdef";
 
     private File mSymbolConfig;
     private List<SoMachineRecord> mRecords;
     private HashMap<String, Type> mTypeMap;
+
+    private static HashMap<String, String> sAddressPatch;
+
+    static {
+        sAddressPatch = new HashMap<>();
+        sAddressPatch.put(TYPECLASS_BOOL, SoMachineRecord.ADDRESS_TYPE_BIT);
+        sAddressPatch.put(TYPECLASS_BYTE, SoMachineRecord.ADDRESS_TYPE_BYTE);
+        sAddressPatch.put(TYPECLASS_WORD, SoMachineRecord.ADDRESS_TYPE_WORD);
+        sAddressPatch.put(TYPECLASS_DWORD, SoMachineRecord.ADDRESS_TYPE_DWORD);
+        sAddressPatch.put(TYPECLASS_LWORD, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_SINT, SoMachineRecord.ADDRESS_TYPE_BYTE);
+        sAddressPatch.put(TYPECLASS_USINT, SoMachineRecord.ADDRESS_TYPE_BYTE);
+        sAddressPatch.put(TYPECLASS_INT, SoMachineRecord.ADDRESS_TYPE_WORD);
+        sAddressPatch.put(TYPECLASS_UINT, SoMachineRecord.ADDRESS_TYPE_WORD);
+        sAddressPatch.put(TYPECLASS_DINT, SoMachineRecord.ADDRESS_TYPE_DWORD);
+        sAddressPatch.put(TYPECLASS_UDINT, SoMachineRecord.ADDRESS_TYPE_DWORD);
+        sAddressPatch.put(TYPECLASS_LINT, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_ULINT, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_REAL, SoMachineRecord.ADDRESS_TYPE_DWORD);
+        sAddressPatch.put(TYPECLASS_LREAL, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_STRING, SoMachineRecord.ADDRESS_TYPE_BYTE);
+        sAddressPatch.put(TYPECLASS_WSTRING, SoMachineRecord.ADDRESS_TYPE_WORD);
+        sAddressPatch.put(TYPECLASS_TIME, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_LTIME, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_DATE, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_DATE_AND_TIME, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_TIME_OF_DAY, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_ENUM, SoMachineRecord.ADDRESS_TYPE_LONG);
+        sAddressPatch.put(TYPECLASS_USERDEF, SoMachineRecord.ADDRESS_TYPE_LONG);
+    }
 
     public SoMachineXmlReader(File symbolConfig) {
         mSymbolConfig = symbolConfig;
@@ -49,11 +100,36 @@ public class SoMachineXmlReader {
 
         for (VarNode var : config.nodeList.appNode.gvlNode.varNode) {
             Type type = mTypeMap.get(var.type);
-            SoMachineRecord.Address address = new SoMachineRecord.Address(var.directaddress);
+            SoMachineRecord.Address address = new SoMachineRecord.Address(
+                    patchedAddress(var.directaddress, type));
             addVar(var.name, var.comment, address, type, "", 0);
         }
 
         return mRecords;
+    }
+
+    /**
+     * Fixes address markers
+     * <p>
+     * SoMachine incorrectly puts "%MB" marker where other
+     * markers are expected, so we replace them according to sAddressPatch map.
+     *
+     * @param directaddress
+     * @param type
+     * @return
+     */
+    private String patchedAddress(String directaddress, Type type) {
+        String patched = directaddress;
+        if (TYPECLASS_ARRAY.equals(type.typeclass)) {
+            String basetype = ((TypeArray) type).basetype;
+            patched = patchedAddress(directaddress, mTypeMap.get(basetype));
+        } else {
+            if (sAddressPatch.containsKey(type.typeclass)) {
+                patched = directaddress.replaceFirst(
+                        SoMachineRecord.ADDRESS_TYPE_BYTE, sAddressPatch.get(type.typeclass));
+            }
+        }
+        return patched;
     }
 
     private void addVar(String name, String comment, SoMachineRecord.Address address, Type type,
