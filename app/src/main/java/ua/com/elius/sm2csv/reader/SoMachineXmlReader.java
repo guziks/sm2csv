@@ -117,7 +117,7 @@ public class SoMachineXmlReader {
      *
      * @param directaddress Address to patch
      * @param type Patch according to this type from sAddressPatch map
-     * @return
+     * @return Patched address
      */
     private String patchedAddress(String directaddress, Type type) {
         String patched = directaddress;

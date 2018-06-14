@@ -505,11 +505,11 @@ public class Main {
         if (!smRec.isExported()) {
             switch (smRec.getType()) {
                 case "BOOL":
-                    ebRec.setAddressType(EasyBuilderRecord.EB_ADDRESS_TYPE_DIGITAL_IN_ANALOG);
+                    ebRec.setAddressType(EasyBuilderRecord.ADDRESS_TYPE_MW_BIT);
                     ebRec.setAddress("000");
                     break;
                 default:
-                    ebRec.setAddressType(EasyBuilderRecord.EB_ADDRESS_TYPE_ANALOG);
+                    ebRec.setAddressType(EasyBuilderRecord.ADDRESS_TYPE_MW);
                     ebRec.setAddress("0");
                     break;
             }
