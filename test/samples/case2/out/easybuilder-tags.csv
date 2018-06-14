@@ -1,212 +1,212 @@
-dummy_bit,plc,%MW_Bit,999900,,
-dummy_word,plc,%MW,9998,,
-a_ch_ok,plc,%MW_Bit,20005,Аналоговые каналы в норме,
-cmd_avo1,plc,%MW,10,,
-cmd_avo2,plc,%MW,12,,
-cmd_avo3,plc,%MW,14,,
-cmd_cooler1,plc,%MW,16,,
-cmd_cooler2,plc,%MW,18,,
-cmd_dry_ek3,plc,%MW,33,,
-cmd_dry_ek3a,plc,%MW,36,,
-cmd_dry_ek4,plc,%MW,39,,
-cmd_dry_ek5,plc,%MW,42,,
-cmd_dry_ek6,plc,%MW,45,,
-cmd_dry_ek7,plc,%MW,48,,
-cmd_dryer,plc,%MW,102,,
-cmd_ek1,plc,%MW,25,,
-cmd_ek2,plc,%MW,27,,
-cmd_ek8,plc,%MW,29,,
-cmd_ek9,plc,%MW,31,,
-cmd_ek_akk_gf,plc,%MW,60,,
-cmd_global,plc,%MW,3,"Командное слово управления 1 - пуск установки, 2 - останов установки, 3 - сброс аварий, 4 - сброс звука",
-cmd_lubr,plc,%MW,8,,
-cmd_main,plc,%MW,4,,
-cmd_oilheater,plc,%MW,22,,
-cmd_oilpump,plc,%MW,6,,
-cmd_pp,plc,%MW,105,,
-cmd_pp_ek10,plc,%MW,51,,
-cmd_pp_ek11,plc,%MW,54,,
-cmd_pp_ek12,plc,%MW,57,,
-cmd_vent,plc,%MW,20,,
-ctrl_power,plc,%MW_Bit,20010,Питание управления вкл.,
-dryer_ok,plc,%MW_Bit,20007,Готовность осушки,
-eks_ok,plc,%MW_Bit,20004,Клапана в исходном,
-init_auto,plc,%MW_Bit,20000,Готовность к пуску,
-level_oil,plc,%MW,448,Уровень масла,
-mechs_ok,plc,%MW_Bit,20003,Механизмы в исходном,
-mode,plc,%MW,0,"Режим работы: 1 - ручной, 2 - автоматический",
-mode_Tctrl,plc,%MW,107,,
-mode_dryer,plc,%MW,101,"Режим работы осушки: 0 - выключена, 1 - ручной режим, 2 - автоматический режим, 3- полу-автоматический режим",
-mode_pp,plc,%MW,104,"Режим работы панели приоритетов: 0 - вылючена, 1 - ручной режим, 2 - автоматический режим",
-no_active_faults,plc,%MW_Bit,20002,Нет активных аварий,
-no_sb_stop,plc,%MW_Bit,20009,Не нажаты кнопки стоп,
-p_1st,plc,%MW,412,Давление нагнетания 1 ступени,
-p_2st,plc,%MW,416,Давление нагнетания 2 ступени,
-p_3st,plc,%MW,420,Давление нагнетания 3 ступени,
-p_4st,plc,%MW,424,Давление нагнетания 4 ступени,
-p_5st,plc,%MW,428,Давление нагнетания 5 ступени,
-p_in,plc,%MW,400,Давдение на входе в компрессор,
-p_line1,plc,%MW,256,Давление газа на 1й линии,
-p_line2,plc,%MW,440,Давление газа на 2й линии,
-p_line3,plc,%MW,444,Давление газа на 3й линии,
-p_oil,plc,%MW,404,Давление масла,
-p_razrg,plc,%MW,408,Давление в разгрузочной емкости,
-p_reg,plc,%MW,432,Давление газа регенерации,
-pp_ok,plc,%MW_Bit,20008,Готовность панели приоритетов,
-primary_st,plc,%MW,1,"Основное состояние установки : 0 - стоп, 1 - пуск, 2 - работа, 3 - останов, 4 - авария, 5 - ожидание, 6 - остановлен",
-s_h_p_1st,plc,%MW,520,Высокое давление 1ст.,
-s_h_p_2st,plc,%MW,522,Высокое давление 2ст.,
-s_h_p_3st,plc,%MW,524,Высокое давление 3ст.,
-s_h_p_4st,plc,%MW,526,Высокое давление 4ст.,
-s_h_p_5st,plc,%MW,528,Высокое давление 5ст.,
-s_h_p_in,plc,%MW,514,Высокое давление на входе,
-s_h_p_oil,plc,%MW,518,Высокое давление масла,
-s_h_t_in,plc,%MW,496,Высокая температура на входе,
-s_h_t_oil,plc,%MW,494,Высокая температура масла,
-s_h_t_out_1st,plc,%MW,500,Высокая температура на выходе 1ст.,
-s_h_t_out_2st,plc,%MW,502,Высокая температура на выходе 2ст.,
-s_h_t_out_3st,plc,%MW,504,Высокая температура на выходе 3ст.,
-s_h_t_out_4st,plc,%MW,506,Высокая температура на выходе 4ст.,
-s_h_t_out_5st,plc,%MW,508,Высокая температура на выходе 5ст.,
-s_l_p_in,plc,%MW,512,Низкое давление на входе,
-s_l_p_oil,plc,%MW,516,Низкое давление масла,
-s_l_t_bk,plc,%MW,510,Низкая температура воздуха в БК,
-s_l_t_in,plc,%MW,498,Низкая температура на входе,
-s_l_t_oil,plc,%MW,492,Низкая температура масла,
-s_p_start_compressor,plc,%MW,488,Р пуска компрессора,
-s_p_stop_compressor,plc,%MW,490,Р останова компрессора,
-s_pp_a1,plc,%MW,534,Р окончания заправки А1,
-s_pp_a2,plc,%MW,536,Р окончания заправки А2,
-s_pp_a3,plc,%MW,538,Р окончания заправки А3,
-s_pp_direct,plc,%MW,530,Р прямой заправки,
-s_pp_start,plc,%MW,532,Р начала заправки Акк,
-scale_level_oil,plc,%MW,450,,
-scale_p_1st,plc,%MW,414,,
-scale_p_2st,plc,%MW,418,,
-scale_p_3st,plc,%MW,422,,
-scale_p_4st,plc,%MW,426,,
-scale_p_5st,plc,%MW,430,,
-scale_p_in,plc,%MW,402,Шкала давление на входе,
-scale_p_line1,plc,%MW,438,,
-scale_p_line2,plc,%MW,442,,
-scale_p_line3,plc,%MW,446,,
-scale_p_oil,plc,%MW,406,Шкала давление масла,
-scale_p_razgr,plc,%MW,410,Шкала давления в разгр. емкости,
-scale_p_reg,plc,%MW,434,,
-secondary_st,plc,%MW,2,"Вспомогательное состояние установки : 0 - нет готовности к пуску, 1 - готовность к пуску",
-sq_ek10,plc,%MW,53,Концевик,
-sq_ek11,plc,%MW,56,Концевик,
-sq_ek12,plc,%MW,59,Концевик,
-sq_ek3,plc,%MW,35,Концевик,
-sq_ek3a,plc,%MW,38,Концевик,
-sq_ek4,plc,%MW,41,Концевик,
-sq_ek5,plc,%MW,44,Концевик,
-sq_ek6,plc,%MW,47,Концевик,
-sq_ek7,plc,%MW,50,Концевик,
-sta_Tctrl,plc,%MW,108,Неисправность в работе регулятора Т по ступеням,
-sta_avo1,plc,%MW,11,Неисправность АВО1,
-sta_avo2,plc,%MW,13,Неисправность АВО2,
-sta_avo3,plc,%MW,15,Неисправность АВО3,
-sta_cooler1,plc,%MW,17,Неисправность обдува 1,
-sta_cooler2,plc,%MW,19,Неисправность обдува 2,
-sta_dry_ek3,plc,%MW,34,Неисправность ЭК3,
-sta_dry_ek3a,plc,%MW,37,Неисправность ЭК3а,
-sta_dry_ek4,plc,%MW,40,Неисправность ЭК4,
-sta_dry_ek5,plc,%MW,43,Неисправность ЭК5,
-sta_dry_ek6,plc,%MW,46,Неисправность ЭК6,
-sta_dry_ek7,plc,%MW,49,Неисправность ЭК7,
-sta_dry_oilheater,plc,%MW,24,Неисправность нагревателя масла осушки,
-sta_dryer,plc,%MW,103,Неисправность осушки,
-sta_ek1,plc,%MW,26,Неисправность ЭК1,
-sta_ek2,plc,%MW,28,Неисправность ЭК2,
-sta_ek8,plc,%MW,30,Неисправность ЭК8,
-sta_ek9,plc,%MW,32,Неисправность ЭК9,
-sta_ek_akk_gf,plc,%MW,61,Неисправность Сброса из аккумуляторов,
-sta_em_stop,plc,%MW,66,Аварийный останов,
-sta_em_stop_gf,plc,%MW,67,Аварийный останов со стравливанием газа,
-sta_fire,plc,%MW,62,ПОЖАР!!!,
-sta_fire_eq,plc,%MW,63,Неисправность пожарной сигнализации,
-sta_gas,plc,%MW,64,Загазованность,
-sta_gas_eq,plc,%MW,65,Неисправность газовой сигнализации,
-sta_h_p_1st,plc,%MW,123,Высокое давление 1ст.,
-sta_h_p_2st,plc,%MW,124,Высокое давление 2ст.,
-sta_h_p_3st,plc,%MW,125,Высокое давление 3ст.,
-sta_h_p_4st,plc,%MW,126,Высокое давление 4ст.,
-sta_h_p_5st,plc,%MW,127,Высокое давление 5ст.,
-sta_h_p_in,plc,%MW,120,Высокое давление на входе,
-sta_h_p_oil,plc,%MW,122,Высокое давление масла,
-sta_h_t_in,plc,%MW,111,Высокая температура на входе,
-sta_h_t_oil,plc,%MW,110,Высокая температура масла,
-sta_h_t_out_1st,plc,%MW,113,Высокая температура на выходе 1ст.,
-sta_h_t_out_2st,plc,%MW,114,Высокая температура на выходе 2ст.,
-sta_h_t_out_3st,plc,%MW,115,Высокая температура на выходе 3ст.,
-sta_h_t_out_4st,plc,%MW,116,Высокая температура на выходе 4ст.,
-sta_h_t_out_5st,plc,%MW,117,Высокая температура на выходе 5ст.,
-sta_l_p_in,plc,%MW,119,Низкое давление на входе,
-sta_l_p_oil,plc,%MW,121,Низкое давление масла,
-sta_l_t_bk,plc,%MW,118,Низкая температура воздуха в БК,
-sta_l_t_in,plc,%MW,112,Низкая температура на входе,
-sta_l_t_oil,plc,%MW,109,Низкая температура масла,
-sta_level_oil,plc,%MW,82,Обрыв канала Уровень масла,
-sta_lubr,plc,%MW,9,Неисправность лубрикатора,
-sta_main,plc,%MW,5,Неисправность главного двигателя,
-sta_oilheater,plc,%MW,23,Неисправность нагревателя масла,
-sta_oilpump,plc,%MW,7,Неисправность маслонасоса,
-sta_p_1st,plc,%MW,73,Обрыв канала Р1ст.,
-sta_p_2st,plc,%MW,74,Обрыв канала Р2ст.,
-sta_p_3st,plc,%MW,75,Обрыв канала Р3ст.,
-sta_p_4st,plc,%MW,76,Обрыв канала Р4ст.,
-sta_p_5st,plc,%MW,77,Обрыв канала Р5ст.,
-sta_p_in,plc,%MW,70,Обрыв канала Рвх,
-sta_p_line1,plc,%MW,79,Обрыв канала Р1линии,
-sta_p_line2,plc,%MW,80,Обрыв канала Р2линии,
-sta_p_line3,plc,%MW,81,Обрыв канала Р3линии,
-sta_p_oil,plc,%MW,71,Обрыв канала Рмасла,
-sta_p_razgr,plc,%MW,72,Обрыв канала Рразгр,
-sta_p_reg,plc,%MW,78,Обрыв канала Ррег,
-sta_power24,plc,%MW,68,Нет питания 24В,
-sta_pp,plc,%MW,106,Неисправность панели приоритетов,
-sta_pp_ek10,plc,%MW,52,Неисправность ЭК10,
-sta_pp_ek11,plc,%MW,55,Неисправность ЭК11,
-sta_pp_ek12,plc,%MW,58,Неисправность ЭК12,
-sta_t_bk,plc,%MW,86,Обрыв канала Т в БК,
-sta_t_cr,plc,%MW,92,Обрыв канала Т в щитовой,
-sta_t_dry,plc,%MW,94,Обрыв канала Т воздуха в осушке,
-sta_t_dry_oil,plc,%MW,93,Обрыв канала Т масла в маслонагревателе,
-sta_t_in,plc,%MW,83,Обрыв канала Т на входе,
-sta_t_in_2st,plc,%MW,87,Обрыв канала Т на входе 2ст.,
-sta_t_in_3st,plc,%MW,89,Обрыв канала Т на входе 3ст.,
-sta_t_in_4st,plc,%MW,91,Обрыв канала Т на входе 4ст.,
-sta_t_in_5st,plc,%MW,96,Обрыв канала Т на входе 5ст.,
-sta_t_oil,plc,%MW,85,Обрыв канала Т масала,
-sta_t_out,plc,%MW,98,Обрыв канала Т на выходе,
-sta_t_out_1st,plc,%MW,84,Обрыв канала Т на выходе 1ст.,
-sta_t_out_2st,plc,%MW,88,Обрыв канала Т на выходе 2ст.,
-sta_t_out_3st,plc,%MW,90,обрыв канала Т на выходе 3ст.,
-sta_t_out_4st,plc,%MW,95,Обрыв канала Т на выходе 4ст.,
-sta_t_out_5st,plc,%MW,97,Обрыв канала Т на выходе 5ст.,
-sta_t_reg_in,plc,%MW,99,Обрыв канала Т регенерации до Адс.,
-sta_t_reg_out,plc,%MW,100,Обрыв канала Т регенерации после Адс.,
-sta_vent,plc,%MW,21,Неисправность вентиляции,
-sta_vibr,plc,%MW,69,Аварийная вибрация,
-station_stop,plc,%MW_Bit,20001,Останов станции,
-t_bk,plc,%MW,458,Т в БК,
-t_ch_ok,plc,%MW_Bit,20006,Температурные каналы в норме,
-t_cr,plc,%MW,470,Т в щитовой,
-t_dry,plc,%MW,474,Т воздуха в осушке,
-t_dry_oil,plc,%MW,472,Т масла в маслонагревателе,
-t_in,plc,%MW,452,Т на входе,
-t_in_2st,plc,%MW,460,Т на входе 2ст.,
-t_in_3st,plc,%MW,464,Т на входе 3ст.,
-t_in_4st,plc,%MW,468,Т на входе 4ст.,
-t_in_5st,plc,%MW,478,Т на входе 5ст.,
-t_oil,plc,%MW,456,Т масла,
-t_out,plc,%MW,482,Т на выходе,
-t_out_1st,plc,%MW,454,Т на выходе 1ст.,
-t_out_2st,plc,%MW,462,Т на выходе 2ст.,
-t_out_3st,plc,%MW,466,Т на выходе 3ст.,
-t_out_4st,plc,%MW,476,Т на выходе 4ст.,
-t_out_5st,plc,%MW,480,Т на выходе 5ст.,
-t_reg_in,plc,%MW,484,Т регенерации до Адс.,
-t_reg_out,plc,%MW,486,Т регенерации после Адс.,
-vibration_ok,plc,%MW_Bit,20011,Датчик вибрации,
+dummy_bit,plc,%MW_Bit,999900,,Undesignated
+dummy_word,plc,%MW,9998,,Undesignated
+a_ch_ok,plc,%MW_Bit,20005,Аналоговые каналы в норме,Undesignated
+cmd_avo1,plc,%MW,10,,16-bit Unsigned
+cmd_avo2,plc,%MW,12,,16-bit Unsigned
+cmd_avo3,plc,%MW,14,,16-bit Unsigned
+cmd_cooler1,plc,%MW,16,,16-bit Unsigned
+cmd_cooler2,plc,%MW,18,,16-bit Unsigned
+cmd_dry_ek3,plc,%MW,33,,16-bit Unsigned
+cmd_dry_ek3a,plc,%MW,36,,16-bit Unsigned
+cmd_dry_ek4,plc,%MW,39,,16-bit Unsigned
+cmd_dry_ek5,plc,%MW,42,,16-bit Unsigned
+cmd_dry_ek6,plc,%MW,45,,16-bit Unsigned
+cmd_dry_ek7,plc,%MW,48,,16-bit Unsigned
+cmd_dryer,plc,%MW,102,,16-bit Unsigned
+cmd_ek1,plc,%MW,25,,16-bit Unsigned
+cmd_ek2,plc,%MW,27,,16-bit Unsigned
+cmd_ek8,plc,%MW,29,,16-bit Unsigned
+cmd_ek9,plc,%MW,31,,16-bit Unsigned
+cmd_ek_akk_gf,plc,%MW,60,,16-bit Unsigned
+cmd_global,plc,%MW,3,"Командное слово управления 1 - пуск установки, 2 - останов установки, 3 - сброс аварий, 4 - сброс звука",16-bit Unsigned
+cmd_lubr,plc,%MW,8,,16-bit Unsigned
+cmd_main,plc,%MW,4,,16-bit Unsigned
+cmd_oilheater,plc,%MW,22,,16-bit Unsigned
+cmd_oilpump,plc,%MW,6,,16-bit Unsigned
+cmd_pp,plc,%MW,105,,16-bit Unsigned
+cmd_pp_ek10,plc,%MW,51,,16-bit Unsigned
+cmd_pp_ek11,plc,%MW,54,,16-bit Unsigned
+cmd_pp_ek12,plc,%MW,57,,16-bit Unsigned
+cmd_vent,plc,%MW,20,,16-bit Unsigned
+ctrl_power,plc,%MW_Bit,20010,Питание управления вкл.,Undesignated
+dryer_ok,plc,%MW_Bit,20007,Готовность осушки,Undesignated
+eks_ok,plc,%MW_Bit,20004,Клапана в исходном,Undesignated
+init_auto,plc,%MW_Bit,20000,Готовность к пуску,Undesignated
+level_oil,plc,%MW,448,Уровень масла,32-bit Float
+mechs_ok,plc,%MW_Bit,20003,Механизмы в исходном,Undesignated
+mode,plc,%MW,0,"Режим работы: 1 - ручной, 2 - автоматический",16-bit Unsigned
+mode_Tctrl,plc,%MW,107,,16-bit Unsigned
+mode_dryer,plc,%MW,101,"Режим работы осушки: 0 - выключена, 1 - ручной режим, 2 - автоматический режим, 3- полу-автоматический режим",16-bit Unsigned
+mode_pp,plc,%MW,104,"Режим работы панели приоритетов: 0 - вылючена, 1 - ручной режим, 2 - автоматический режим",16-bit Unsigned
+no_active_faults,plc,%MW_Bit,20002,Нет активных аварий,Undesignated
+no_sb_stop,plc,%MW_Bit,20009,Не нажаты кнопки стоп,Undesignated
+p_1st,plc,%MW,412,Давление нагнетания 1 ступени,32-bit Float
+p_2st,plc,%MW,416,Давление нагнетания 2 ступени,32-bit Float
+p_3st,plc,%MW,420,Давление нагнетания 3 ступени,32-bit Float
+p_4st,plc,%MW,424,Давление нагнетания 4 ступени,32-bit Float
+p_5st,plc,%MW,428,Давление нагнетания 5 ступени,32-bit Float
+p_in,plc,%MW,400,Давдение на входе в компрессор,32-bit Float
+p_line1,plc,%MW,256,Давление газа на 1й линии,32-bit Float
+p_line2,plc,%MW,440,Давление газа на 2й линии,32-bit Float
+p_line3,plc,%MW,444,Давление газа на 3й линии,32-bit Float
+p_oil,plc,%MW,404,Давление масла,32-bit Float
+p_razrg,plc,%MW,408,Давление в разгрузочной емкости,32-bit Float
+p_reg,plc,%MW,432,Давление газа регенерации,32-bit Float
+pp_ok,plc,%MW_Bit,20008,Готовность панели приоритетов,Undesignated
+primary_st,plc,%MW,1,"Основное состояние установки : 0 - стоп, 1 - пуск, 2 - работа, 3 - останов, 4 - авария, 5 - ожидание, 6 - остановлен",16-bit Unsigned
+s_h_p_1st,plc,%MW,520,Высокое давление 1ст.,32-bit Float
+s_h_p_2st,plc,%MW,522,Высокое давление 2ст.,32-bit Float
+s_h_p_3st,plc,%MW,524,Высокое давление 3ст.,32-bit Float
+s_h_p_4st,plc,%MW,526,Высокое давление 4ст.,32-bit Float
+s_h_p_5st,plc,%MW,528,Высокое давление 5ст.,32-bit Float
+s_h_p_in,plc,%MW,514,Высокое давление на входе,32-bit Float
+s_h_p_oil,plc,%MW,518,Высокое давление масла,32-bit Float
+s_h_t_in,plc,%MW,496,Высокая температура на входе,32-bit Float
+s_h_t_oil,plc,%MW,494,Высокая температура масла,32-bit Float
+s_h_t_out_1st,plc,%MW,500,Высокая температура на выходе 1ст.,32-bit Float
+s_h_t_out_2st,plc,%MW,502,Высокая температура на выходе 2ст.,32-bit Float
+s_h_t_out_3st,plc,%MW,504,Высокая температура на выходе 3ст.,32-bit Float
+s_h_t_out_4st,plc,%MW,506,Высокая температура на выходе 4ст.,32-bit Float
+s_h_t_out_5st,plc,%MW,508,Высокая температура на выходе 5ст.,32-bit Float
+s_l_p_in,plc,%MW,512,Низкое давление на входе,32-bit Float
+s_l_p_oil,plc,%MW,516,Низкое давление масла,32-bit Float
+s_l_t_bk,plc,%MW,510,Низкая температура воздуха в БК,32-bit Float
+s_l_t_in,plc,%MW,498,Низкая температура на входе,32-bit Float
+s_l_t_oil,plc,%MW,492,Низкая температура масла,32-bit Float
+s_p_start_compressor,plc,%MW,488,Р пуска компрессора,32-bit Float
+s_p_stop_compressor,plc,%MW,490,Р останова компрессора,32-bit Float
+s_pp_a1,plc,%MW,534,Р окончания заправки А1,32-bit Float
+s_pp_a2,plc,%MW,536,Р окончания заправки А2,32-bit Float
+s_pp_a3,plc,%MW,538,Р окончания заправки А3,32-bit Float
+s_pp_direct,plc,%MW,530,Р прямой заправки,32-bit Float
+s_pp_start,plc,%MW,532,Р начала заправки Акк,32-bit Float
+scale_level_oil,plc,%MW,450,,32-bit Float
+scale_p_1st,plc,%MW,414,,32-bit Float
+scale_p_2st,plc,%MW,418,,32-bit Float
+scale_p_3st,plc,%MW,422,,32-bit Float
+scale_p_4st,plc,%MW,426,,32-bit Float
+scale_p_5st,plc,%MW,430,,32-bit Float
+scale_p_in,plc,%MW,402,Шкала давление на входе,32-bit Float
+scale_p_line1,plc,%MW,438,,32-bit Float
+scale_p_line2,plc,%MW,442,,32-bit Float
+scale_p_line3,plc,%MW,446,,32-bit Float
+scale_p_oil,plc,%MW,406,Шкала давление масла,32-bit Float
+scale_p_razgr,plc,%MW,410,Шкала давления в разгр. емкости,32-bit Float
+scale_p_reg,plc,%MW,434,,32-bit Float
+secondary_st,plc,%MW,2,"Вспомогательное состояние установки : 0 - нет готовности к пуску, 1 - готовность к пуску",16-bit Unsigned
+sq_ek10,plc,%MW,53,Концевик,16-bit Unsigned
+sq_ek11,plc,%MW,56,Концевик,16-bit Unsigned
+sq_ek12,plc,%MW,59,Концевик,16-bit Unsigned
+sq_ek3,plc,%MW,35,Концевик,16-bit Unsigned
+sq_ek3a,plc,%MW,38,Концевик,16-bit Unsigned
+sq_ek4,plc,%MW,41,Концевик,16-bit Unsigned
+sq_ek5,plc,%MW,44,Концевик,16-bit Unsigned
+sq_ek6,plc,%MW,47,Концевик,16-bit Unsigned
+sq_ek7,plc,%MW,50,Концевик,16-bit Unsigned
+sta_Tctrl,plc,%MW,108,Неисправность в работе регулятора Т по ступеням,16-bit Unsigned
+sta_avo1,plc,%MW,11,Неисправность АВО1,16-bit Unsigned
+sta_avo2,plc,%MW,13,Неисправность АВО2,16-bit Unsigned
+sta_avo3,plc,%MW,15,Неисправность АВО3,16-bit Unsigned
+sta_cooler1,plc,%MW,17,Неисправность обдува 1,16-bit Unsigned
+sta_cooler2,plc,%MW,19,Неисправность обдува 2,16-bit Unsigned
+sta_dry_ek3,plc,%MW,34,Неисправность ЭК3,16-bit Unsigned
+sta_dry_ek3a,plc,%MW,37,Неисправность ЭК3а,16-bit Unsigned
+sta_dry_ek4,plc,%MW,40,Неисправность ЭК4,16-bit Unsigned
+sta_dry_ek5,plc,%MW,43,Неисправность ЭК5,16-bit Unsigned
+sta_dry_ek6,plc,%MW,46,Неисправность ЭК6,16-bit Unsigned
+sta_dry_ek7,plc,%MW,49,Неисправность ЭК7,16-bit Unsigned
+sta_dry_oilheater,plc,%MW,24,Неисправность нагревателя масла осушки,16-bit Unsigned
+sta_dryer,plc,%MW,103,Неисправность осушки,16-bit Unsigned
+sta_ek1,plc,%MW,26,Неисправность ЭК1,16-bit Unsigned
+sta_ek2,plc,%MW,28,Неисправность ЭК2,16-bit Unsigned
+sta_ek8,plc,%MW,30,Неисправность ЭК8,16-bit Unsigned
+sta_ek9,plc,%MW,32,Неисправность ЭК9,16-bit Unsigned
+sta_ek_akk_gf,plc,%MW,61,Неисправность Сброса из аккумуляторов,16-bit Unsigned
+sta_em_stop,plc,%MW,66,Аварийный останов,16-bit Unsigned
+sta_em_stop_gf,plc,%MW,67,Аварийный останов со стравливанием газа,16-bit Unsigned
+sta_fire,plc,%MW,62,ПОЖАР!!!,16-bit Unsigned
+sta_fire_eq,plc,%MW,63,Неисправность пожарной сигнализации,16-bit Unsigned
+sta_gas,plc,%MW,64,Загазованность,16-bit Unsigned
+sta_gas_eq,plc,%MW,65,Неисправность газовой сигнализации,16-bit Unsigned
+sta_h_p_1st,plc,%MW,123,Высокое давление 1ст.,16-bit Unsigned
+sta_h_p_2st,plc,%MW,124,Высокое давление 2ст.,16-bit Unsigned
+sta_h_p_3st,plc,%MW,125,Высокое давление 3ст.,16-bit Unsigned
+sta_h_p_4st,plc,%MW,126,Высокое давление 4ст.,16-bit Unsigned
+sta_h_p_5st,plc,%MW,127,Высокое давление 5ст.,16-bit Unsigned
+sta_h_p_in,plc,%MW,120,Высокое давление на входе,16-bit Unsigned
+sta_h_p_oil,plc,%MW,122,Высокое давление масла,16-bit Unsigned
+sta_h_t_in,plc,%MW,111,Высокая температура на входе,16-bit Unsigned
+sta_h_t_oil,plc,%MW,110,Высокая температура масла,16-bit Unsigned
+sta_h_t_out_1st,plc,%MW,113,Высокая температура на выходе 1ст.,16-bit Unsigned
+sta_h_t_out_2st,plc,%MW,114,Высокая температура на выходе 2ст.,16-bit Unsigned
+sta_h_t_out_3st,plc,%MW,115,Высокая температура на выходе 3ст.,16-bit Unsigned
+sta_h_t_out_4st,plc,%MW,116,Высокая температура на выходе 4ст.,16-bit Unsigned
+sta_h_t_out_5st,plc,%MW,117,Высокая температура на выходе 5ст.,16-bit Unsigned
+sta_l_p_in,plc,%MW,119,Низкое давление на входе,16-bit Unsigned
+sta_l_p_oil,plc,%MW,121,Низкое давление масла,16-bit Unsigned
+sta_l_t_bk,plc,%MW,118,Низкая температура воздуха в БК,16-bit Unsigned
+sta_l_t_in,plc,%MW,112,Низкая температура на входе,16-bit Unsigned
+sta_l_t_oil,plc,%MW,109,Низкая температура масла,16-bit Unsigned
+sta_level_oil,plc,%MW,82,Обрыв канала Уровень масла,16-bit Unsigned
+sta_lubr,plc,%MW,9,Неисправность лубрикатора,16-bit Unsigned
+sta_main,plc,%MW,5,Неисправность главного двигателя,16-bit Unsigned
+sta_oilheater,plc,%MW,23,Неисправность нагревателя масла,16-bit Unsigned
+sta_oilpump,plc,%MW,7,Неисправность маслонасоса,16-bit Unsigned
+sta_p_1st,plc,%MW,73,Обрыв канала Р1ст.,16-bit Unsigned
+sta_p_2st,plc,%MW,74,Обрыв канала Р2ст.,16-bit Unsigned
+sta_p_3st,plc,%MW,75,Обрыв канала Р3ст.,16-bit Unsigned
+sta_p_4st,plc,%MW,76,Обрыв канала Р4ст.,16-bit Unsigned
+sta_p_5st,plc,%MW,77,Обрыв канала Р5ст.,16-bit Unsigned
+sta_p_in,plc,%MW,70,Обрыв канала Рвх,16-bit Unsigned
+sta_p_line1,plc,%MW,79,Обрыв канала Р1линии,16-bit Unsigned
+sta_p_line2,plc,%MW,80,Обрыв канала Р2линии,16-bit Unsigned
+sta_p_line3,plc,%MW,81,Обрыв канала Р3линии,16-bit Unsigned
+sta_p_oil,plc,%MW,71,Обрыв канала Рмасла,16-bit Unsigned
+sta_p_razgr,plc,%MW,72,Обрыв канала Рразгр,16-bit Unsigned
+sta_p_reg,plc,%MW,78,Обрыв канала Ррег,16-bit Unsigned
+sta_power24,plc,%MW,68,Нет питания 24В,16-bit Unsigned
+sta_pp,plc,%MW,106,Неисправность панели приоритетов,16-bit Unsigned
+sta_pp_ek10,plc,%MW,52,Неисправность ЭК10,16-bit Unsigned
+sta_pp_ek11,plc,%MW,55,Неисправность ЭК11,16-bit Unsigned
+sta_pp_ek12,plc,%MW,58,Неисправность ЭК12,16-bit Unsigned
+sta_t_bk,plc,%MW,86,Обрыв канала Т в БК,16-bit Unsigned
+sta_t_cr,plc,%MW,92,Обрыв канала Т в щитовой,16-bit Unsigned
+sta_t_dry,plc,%MW,94,Обрыв канала Т воздуха в осушке,16-bit Unsigned
+sta_t_dry_oil,plc,%MW,93,Обрыв канала Т масла в маслонагревателе,16-bit Unsigned
+sta_t_in,plc,%MW,83,Обрыв канала Т на входе,16-bit Unsigned
+sta_t_in_2st,plc,%MW,87,Обрыв канала Т на входе 2ст.,16-bit Unsigned
+sta_t_in_3st,plc,%MW,89,Обрыв канала Т на входе 3ст.,16-bit Unsigned
+sta_t_in_4st,plc,%MW,91,Обрыв канала Т на входе 4ст.,16-bit Unsigned
+sta_t_in_5st,plc,%MW,96,Обрыв канала Т на входе 5ст.,16-bit Unsigned
+sta_t_oil,plc,%MW,85,Обрыв канала Т масала,16-bit Unsigned
+sta_t_out,plc,%MW,98,Обрыв канала Т на выходе,16-bit Unsigned
+sta_t_out_1st,plc,%MW,84,Обрыв канала Т на выходе 1ст.,16-bit Unsigned
+sta_t_out_2st,plc,%MW,88,Обрыв канала Т на выходе 2ст.,16-bit Unsigned
+sta_t_out_3st,plc,%MW,90,обрыв канала Т на выходе 3ст.,16-bit Unsigned
+sta_t_out_4st,plc,%MW,95,Обрыв канала Т на выходе 4ст.,16-bit Unsigned
+sta_t_out_5st,plc,%MW,97,Обрыв канала Т на выходе 5ст.,16-bit Unsigned
+sta_t_reg_in,plc,%MW,99,Обрыв канала Т регенерации до Адс.,16-bit Unsigned
+sta_t_reg_out,plc,%MW,100,Обрыв канала Т регенерации после Адс.,16-bit Unsigned
+sta_vent,plc,%MW,21,Неисправность вентиляции,16-bit Unsigned
+sta_vibr,plc,%MW,69,Аварийная вибрация,16-bit Unsigned
+station_stop,plc,%MW_Bit,20001,Останов станции,Undesignated
+t_bk,plc,%MW,458,Т в БК,32-bit Float
+t_ch_ok,plc,%MW_Bit,20006,Температурные каналы в норме,Undesignated
+t_cr,plc,%MW,470,Т в щитовой,32-bit Float
+t_dry,plc,%MW,474,Т воздуха в осушке,32-bit Float
+t_dry_oil,plc,%MW,472,Т масла в маслонагревателе,32-bit Float
+t_in,plc,%MW,452,Т на входе,32-bit Float
+t_in_2st,plc,%MW,460,Т на входе 2ст.,32-bit Float
+t_in_3st,plc,%MW,464,Т на входе 3ст.,32-bit Float
+t_in_4st,plc,%MW,468,Т на входе 4ст.,32-bit Float
+t_in_5st,plc,%MW,478,Т на входе 5ст.,32-bit Float
+t_oil,plc,%MW,456,Т масла,32-bit Float
+t_out,plc,%MW,482,Т на выходе,32-bit Float
+t_out_1st,plc,%MW,454,Т на выходе 1ст.,32-bit Float
+t_out_2st,plc,%MW,462,Т на выходе 2ст.,32-bit Float
+t_out_3st,plc,%MW,466,Т на выходе 3ст.,32-bit Float
+t_out_4st,plc,%MW,476,Т на выходе 4ст.,32-bit Float
+t_out_5st,plc,%MW,480,Т на выходе 5ст.,32-bit Float
+t_reg_in,plc,%MW,484,Т регенерации до Адс.,32-bit Float
+t_reg_out,plc,%MW,486,Т регенерации после Адс.,32-bit Float
+vibration_ok,plc,%MW_Bit,20011,Датчик вибрации,Undesignated
