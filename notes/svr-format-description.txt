@@ -1,14 +1,19 @@
 ## header
 uint32: next variable ID (used by IDE)
 00 00 00 00
-02 00 00 00
-03 00 00 00
-2e 2e 5c 46
-00 00 00 00 00 00 00 00 00 00 00
+uint32: groups count
+
+groups
+
+## group
 uint32: group name length
 group name
 47 00 00 00
 uint32: variables in group count
+variables
+uint32: subgroups count
+subgroups
+next group
 
 ## variable
 uint32: variable name length
@@ -37,7 +42,3 @@ uint32: bytes count to read next
 several bytes
 00 00 00 00 00 00 f0 69 f8 c0 00 00 00 00 f0 69 f8 c0
 next variable
-
-## End
-00 00 00 00: end of file
-

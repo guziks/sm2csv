@@ -34,9 +34,9 @@ public class SimpleScadaVarReader {
 
     public Map<String, Integer> read() throws IOException {
 
-        int varCount = readHeader();
-        for (int i = 0; i < varCount; i++) {
-            readVar();
+        int groupsCount = readHeader();
+        for (int i = 0; i < groupsCount; i++) {
+            readGroup();
         }
 
         return mMap;
@@ -44,14 +44,23 @@ public class SimpleScadaVarReader {
 
     private int readHeader() throws IOException {
 
-        skipBytesFully(31);
-        int groupNameLength = mIn.readInt();
-        byte[] groupNameBuffer = new byte[groupNameLength];
-        mIn.read(groupNameBuffer);
-        skipBytesFully(4);
-        int varCount = mIn.readInt();
+        skipBytesFully(8);
 
-        return varCount;
+        return mIn.readInt();
+    }
+
+    private void readGroup() throws IOException {
+
+        String groupName = readString();
+        skipBytesFully(4);
+        int varsCount = mIn.readInt();
+        for (int i = 0; i < varsCount; i++) {
+            readVar();
+        }
+        int subGroupsCount = mIn.readInt();
+        for (int i = 0; i < subGroupsCount; i++) {
+            readGroup();
+        }
     }
 
     private void readVar() throws IOException {
