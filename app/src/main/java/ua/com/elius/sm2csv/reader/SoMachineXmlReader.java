@@ -3,6 +3,7 @@ package ua.com.elius.sm2csv.reader;
 import me.tatarka.parsnip.Xml;
 import me.tatarka.parsnip.XmlAdapter;
 import ua.com.elius.sm2csv.model.symbolconfig.Symbolconfiguration;
+import ua.com.elius.sm2csv.model.symbolconfig.node.GvlNode;
 import ua.com.elius.sm2csv.model.symbolconfig.node.VarNode;
 import ua.com.elius.sm2csv.model.symbolconfig.type.*;
 import ua.com.elius.sm2csv.record.SoMachineRecord;
@@ -98,12 +99,17 @@ public class SoMachineXmlReader {
         for (TypeArray type : config.typeList.typeArray) mTypeMap.put(type.name, type);
         for (TypeUserDef type : config.typeList.typeUserDef) mTypeMap.put(type.name, type);
 
-        for (VarNode var : config.nodeList.appNode.gvlNode.varNode) {
-            Type type = mTypeMap.get(var.type);
-            SoMachineRecord.Address address = new SoMachineRecord.Address(
-                    patchedAddress(var.directaddress, type));
-            String comment = prepareComment(var.comment);
-            addVar(var.name, comment, address, type, "", 0);
+        for (GvlNode gvlNode : config.nodeList.appNode.gvlNodes) {
+            for (VarNode var : gvlNode.varNodes) {
+                if (var.directaddress == null) {
+                    continue;
+                }
+                Type type = mTypeMap.get(var.type);
+                SoMachineRecord.Address address = new SoMachineRecord.Address(
+                        patchedAddress(var.directaddress, type));
+                String comment = prepareComment(var.comment);
+                addVar(var.name, comment, address, type, "", 0);
+            }
         }
 
         return mRecords;

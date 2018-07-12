@@ -9,5 +9,5 @@ public class GvlNode {
     public String name;
 
     @SerializedName("Node")
-    public List<VarNode> varNode;
+    public List<VarNode> varNodes;
 }
