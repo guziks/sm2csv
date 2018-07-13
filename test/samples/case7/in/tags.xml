@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
+  <Header>
+    <Version>3.5.3.50</Version>
+    <SymbolConfigObject version="3.5.3.50" />
+    <ProjectInfo name="18.10.zernokompleks.gorodok.ua" devicename="MyController" appname="Application" />
+  </Header>
+  <TypeList>
+    <TypeSimple name="T_WORD" size="2" swapsize="2" typeclass="Word" iecname="WORD" />
+    <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
+    <TypeUserDef name="T_TTransporterFC" size="22" nativesize="22" typeclass="Userdef" iecname="TTransporterFC">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="cmdManOn" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltOn" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltOff" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="fltRotation" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="fltOverflow" byteoffset="9" />
+      <UserDefElement type="T_BOOL" iecname="fltConnection" byteoffset="10" />
+      <UserDefElement type="T_BOOL" iecname="fltFC" byteoffset="11" />
+      <UserDefElement type="T_INT" iecname="actualSpeed" byteoffset="12" />
+      <UserDefElement type="T_INT" iecname="cfgTargetSpeed" byteoffset="14" />
+      <UserDefElement type="T_UINT" iecname="cfgRotationTime" byteoffset="16" />
+      <UserDefElement type="T_UINT" iecname="cfgStartingTime" byteoffset="18" />
+      <UserDefElement type="T_UINT" iecname="cfgUnloadTime" byteoffset="20" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TTransporter" size="16" nativesize="16" typeclass="Userdef" iecname="TTransporter">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="cmdManOn" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltOn" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltOff" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="fltRotation" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="fltOverflow" byteoffset="9" />
+      <UserDefElement type="T_UINT" iecname="cfgRotationTime" byteoffset="10" />
+      <UserDefElement type="T_UINT" iecname="cfgStartingTime" byteoffset="12" />
+      <UserDefElement type="T_UINT" iecname="cfgUnloadTime" byteoffset="14" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TNoria" size="14" nativesize="14" typeclass="Userdef" iecname="TNoria">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="cmdManOn" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltOn" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltOff" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="fltDisplace" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="fltOverflow" byteoffset="9" />
+      <UserDefElement type="T_UINT" iecname="cfgStartingTime" byteoffset="10" />
+      <UserDefElement type="T_UINT" iecname="cfgUnloadTime" byteoffset="12" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TValve" size="12" nativesize="12" typeclass="Userdef" iecname="TValve">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="cmdManOpen" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cmdManClose" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltOpen" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="fltClose" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="fltPosition" byteoffset="9" />
+      <UserDefElement type="T_UINT" iecname="cfgMovingTime" byteoffset="10" />
+    </TypeUserDef>
+    <TypeSimple name="T_TDISTRIBUTORPOSITION" size="1" swapsize="1" typeclass="Enum" iecname="TDISTRIBUTORPOSITION" />
+    <TypeUserDef name="T_TDistributor" size="10" nativesize="10" typeclass="Userdef" iecname="TDistributor">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_TDISTRIBUTORPOSITION" iecname="manTarget" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltMoveToPos" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltPosition" byteoffset="7" />
+      <UserDefElement type="T_UINT" iecname="cfgMovingTime" byteoffset="8" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TValveManual" size="2" nativesize="2" typeclass="Userdef" iecname="TValveManual">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TSeparator" size="20" nativesize="20" typeclass="Userdef" iecname="TSeparator">
+      <UserDefElement type="T_WORD" iecname="status" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="cmdFltReset" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="cmdManOn" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="cfgAutoMode" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="fltNotReady" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="fltOn" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="fltOff" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="fltConnection" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="fltFC" byteoffset="9" />
+      <UserDefElement type="T_INT" iecname="actualSpeed" byteoffset="10" />
+      <UserDefElement type="T_INT" iecname="cfgTargetSpeed" byteoffset="12" />
+      <UserDefElement type="T_UINT" iecname="cfgStartupTime" byteoffset="14" />
+      <UserDefElement type="T_UINT" iecname="cfgStartingTime" byteoffset="16" />
+      <UserDefElement type="T_UINT" iecname="cfgUnloadTime" byteoffset="18" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TPathNode" size="14" nativesize="14" typeclass="Userdef" iecname="TPathNode">
+      <UserDefElement type="T_BOOL" iecname="ready" byteoffset="0" />
+      <UserDefElement type="T_BOOL" iecname="inWork" byteoffset="1" />
+      <UserDefElement type="T_BOOL" iecname="run" byteoffset="2" />
+      <UserDefElement type="T_BOOL" iecname="starting" byteoffset="3" />
+      <UserDefElement type="T_BOOL" iecname="stopping" byteoffset="4" />
+      <UserDefElement type="T_BOOL" iecname="pause" byteoffset="5" />
+      <UserDefElement type="T_BOOL" iecname="enabled" byteoffset="6" />
+      <UserDefElement type="T_BOOL" iecname="kPreRun" byteoffset="7" />
+      <UserDefElement type="T_BOOL" iecname="kRun" byteoffset="8" />
+      <UserDefElement type="T_BOOL" iecname="kEmStop" byteoffset="9" />
+      <UserDefElement type="T_UINT" iecname="workParam" byteoffset="10" />
+      <UserDefElement type="T_UINT" iecname="setId" byteoffset="12" />
+    </TypeUserDef>
+    <TypeArray name="T_ARRAY__0__39__OF_TPathNode" size="560" nativesize="560" typeclass="Array" iecname="ARRAY [0..39] OF TPathNode" basetype="T_TPathNode">
+      <ArrayDim minrange="0" maxrange="39" />
+    </TypeArray>
+  </TypeList>
+  <NodeList>
+    <Node name="Application">
+      <Node name="VARMECHS">
+        <Node name="mechE1" type="T_TNoria" access="ReadWrite" directaddress="%MB117">
+          <Comment> Норія E1</Comment>
+        </Node>
+        <Node name="mechE2" type="T_TNoria" access="ReadWrite" directaddress="%MB119">
+          <Comment> Норія E2</Comment>
+        </Node>
+        <Node name="mechE3" type="T_TNoria" access="ReadWrite" directaddress="%MB121">
+          <Comment> Норія E3</Comment>
+        </Node>
+        <Node name="mechE4" type="T_TNoria" access="ReadWrite" directaddress="%MB123">
+          <Comment> Норія E4</Comment>
+        </Node>
+        <Node name="mechKL1" type="T_TDistributor" access="ReadWrite" directaddress="%MB147">
+          <Comment> Клапан KL1</Comment>
+        </Node>
+        <Node name="mechKL2" type="T_TDistributor" access="ReadWrite" directaddress="%MB149">
+          <Comment> Клапан KL2</Comment>
+        </Node>
+        <Node name="mechKL3" type="T_TDistributor" access="ReadWrite" directaddress="%MB151">
+          <Comment> Клапан KL3</Comment>
+        </Node>
+        <Node name="mechKL4" type="T_TDistributor" access="ReadWrite" directaddress="%MB153">
+          <Comment> Клапан KL4</Comment>
+        </Node>
+        <Node name="mechKR1" type="T_TValveManual" access="ReadWrite" directaddress="%MB169">
+          <Comment> Засувка ZR15</Comment>
+        </Node>
+        <Node name="mechKR2" type="T_TValveManual" access="ReadWrite" directaddress="%MB170">
+          <Comment> Засувка ZR16</Comment>
+        </Node>
+        <Node name="mechKR3" type="T_TValveManual" access="ReadWrite" directaddress="%MB171">
+          <Comment> Засувка ZR17</Comment>
+        </Node>
+        <Node name="mechKR4" type="T_TValveManual" access="ReadWrite" directaddress="%MB172">
+          <Comment> Засувка ZR18</Comment>
+        </Node>
+        <Node name="mechKR5" type="T_TValveManual" access="ReadWrite" directaddress="%MB173">
+          <Comment> Засувка ZR19</Comment>
+        </Node>
+        <Node name="mechSeparator" type="T_TSeparator" access="ReadWrite" directaddress="%MB200">
+          <Comment> Сепаратор</Comment>
+        </Node>
+        <Node name="mechT1" type="T_TTransporterFC" access="ReadWrite" directaddress="%MB100">
+          <Comment> Транспортер T1</Comment>
+        </Node>
+        <Node name="mechT2" type="T_TTransporter" access="ReadWrite" directaddress="%MB103">
+          <Comment> Транспортер T2</Comment>
+        </Node>
+        <Node name="mechT3" type="T_TTransporter" access="ReadWrite" directaddress="%MB105">
+          <Comment> Транспортер T3</Comment>
+        </Node>
+        <Node name="mechT4" type="T_TTransporter" access="ReadWrite" directaddress="%MB107">
+          <Comment> Транспортер T4</Comment>
+        </Node>
+        <Node name="mechT5" type="T_TTransporter" access="ReadWrite" directaddress="%MB109">
+          <Comment> Транспортер T5</Comment>
+        </Node>
+        <Node name="mechT6" type="T_TTransporter" access="ReadWrite" directaddress="%MB111">
+          <Comment> Транспортер T6</Comment>
+        </Node>
+        <Node name="mechT7" type="T_TTransporter" access="ReadWrite" directaddress="%MB113">
+          <Comment> Транспортер T7</Comment>
+        </Node>
+        <Node name="mechT8" type="T_TTransporter" access="ReadWrite" directaddress="%MB115">
+          <Comment> Транспортер T8</Comment>
+        </Node>
+        <Node name="mechZE1" type="T_TValve" access="ReadWrite" directaddress="%MB125">
+          <Comment> Засувка ZE1</Comment>
+        </Node>
+        <Node name="mechZE10" type="T_TValve" access="ReadWrite" directaddress="%MB143">
+          <Comment> Засувка ZE10</Comment>
+        </Node>
+        <Node name="mechZE11" type="T_TValve" access="ReadWrite" directaddress="%MB145">
+          <Comment> Засувка ZE11</Comment>
+        </Node>
+        <Node name="mechZE2" type="T_TValve" access="ReadWrite" directaddress="%MB127">
+          <Comment> Засувка ZE2</Comment>
+        </Node>
+        <Node name="mechZE3" type="T_TValve" access="ReadWrite" directaddress="%MB129">
+          <Comment> Засувка ZE3</Comment>
+        </Node>
+        <Node name="mechZE4" type="T_TValve" access="ReadWrite" directaddress="%MB131">
+          <Comment> Засувка ZE4</Comment>
+        </Node>
+        <Node name="mechZE5" type="T_TValve" access="ReadWrite" directaddress="%MB133">
+          <Comment> Засувка ZE5</Comment>
+        </Node>
+        <Node name="mechZE6" type="T_TValve" access="ReadWrite" directaddress="%MB135">
+          <Comment> Засувка ZE6</Comment>
+        </Node>
+        <Node name="mechZE7" type="T_TValve" access="ReadWrite" directaddress="%MB137">
+          <Comment> Засувка ZE7</Comment>
+        </Node>
+        <Node name="mechZE8" type="T_TValve" access="ReadWrite" directaddress="%MB139">
+          <Comment> Засувка ZE8</Comment>
+        </Node>
+        <Node name="mechZE9" type="T_TValve" access="ReadWrite" directaddress="%MB141">
+          <Comment> Засувка ZE9</Comment>
+        </Node>
+        <Node name="mechZR1" type="T_TValveManual" access="ReadWrite" directaddress="%MB155">
+          <Comment> Засувка ZR1</Comment>
+        </Node>
+        <Node name="mechZR10" type="T_TValveManual" access="ReadWrite" directaddress="%MB164">
+          <Comment> Засувка ZR10</Comment>
+        </Node>
+        <Node name="mechZR11" type="T_TValveManual" access="ReadWrite" directaddress="%MB165">
+          <Comment> Засувка ZR11</Comment>
+        </Node>
+        <Node name="mechZR12" type="T_TValveManual" access="ReadWrite" directaddress="%MB166">
+          <Comment> Засувка ZR12</Comment>
+        </Node>
+        <Node name="mechZR13" type="T_TValveManual" access="ReadWrite" directaddress="%MB167">
+          <Comment> Засувка ZR13</Comment>
+        </Node>
+        <Node name="mechZR14" type="T_TValveManual" access="ReadWrite" directaddress="%MB168">
+          <Comment> Засувка ZR14</Comment>
+        </Node>
+        <Node name="mechZR2" type="T_TValveManual" access="ReadWrite" directaddress="%MB156">
+          <Comment> Засувка ZR2</Comment>
+        </Node>
+        <Node name="mechZR3" type="T_TValveManual" access="ReadWrite" directaddress="%MB157">
+          <Comment> Засувка ZR3</Comment>
+        </Node>
+        <Node name="mechZR4" type="T_TValveManual" access="ReadWrite" directaddress="%MB158">
+          <Comment> Засувка ZR4</Comment>
+        </Node>
+        <Node name="mechZR5" type="T_TValveManual" access="ReadWrite" directaddress="%MB159">
+          <Comment> Засувка ZR5</Comment>
+        </Node>
+        <Node name="mechZR6" type="T_TValveManual" access="ReadWrite" directaddress="%MB160">
+          <Comment> Засувка ZR6</Comment>
+        </Node>
+        <Node name="mechZR7" type="T_TValveManual" access="ReadWrite" directaddress="%MB161">
+          <Comment> Засувка ZR7</Comment>
+        </Node>
+        <Node name="mechZR8" type="T_TValveManual" access="ReadWrite" directaddress="%MB162">
+          <Comment> Засувка ZR8</Comment>
+        </Node>
+        <Node name="mechZR9" type="T_TValveManual" access="ReadWrite" directaddress="%MB163">
+          <Comment> Засувка ZR9</Comment>
+        </Node>
+      </Node>
+      <Node name="VARPATH">
+        <Node name="nodes" type="T_ARRAY__0__39__OF_TPathNode" access="ReadWrite">
+          <Comment> Елементи маршрутів</Comment>
+        </Node>
+      </Node>
+    </Node>
+  </NodeList>
+</Symbolconfiguration>
