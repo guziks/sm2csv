@@ -1,36 +1,36 @@
 dummy_bit,plc,%MW_Bit,999900,,Undesignated
 dummy_word,plc,%MW,9998,,Undesignated
 f_varBool,plc,%MW_Bit,000,BOOL True(1) False(0) 8 bit,Undesignated
-varArrBoolAlias_1,plc,%MW_Bit,000,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_10,plc,%MW_Bit,408,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_2,plc,%MW_Bit,008,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_3,plc,%MW_Bit,100,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_4,plc,%MW_Bit,108,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_5,plc,%MW_Bit,200,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_6,plc,%MW_Bit,208,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_7,plc,%MW_Bit,300,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_8,plc,%MW_Bit,308,Array of 10 BOOL via Alias,Undesignated
-varArrBoolAlias_9,plc,%MW_Bit,400,Array of 10 BOOL via Alias,Undesignated
-varArrIntAlias_1,plc,%MW,0,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_10,plc,%MW,9,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_2,plc,%MW,1,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_3,plc,%MW,2,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_4,plc,%MW,3,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_5,plc,%MW,4,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_6,plc,%MW,5,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_7,plc,%MW,6,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_8,plc,%MW,7,Array of 10 Int via Alias,16-bit Signed
-varArrIntAlias_9,plc,%MW,8,Array of 10 Int via Alias,16-bit Signed
-varArrInt_1,plc,%MW,0,Array of 10 Int,16-bit Signed
-varArrInt_10,plc,%MW,9,Array of 10 Int,16-bit Signed
-varArrInt_2,plc,%MW,1,Array of 10 Int,16-bit Signed
-varArrInt_3,plc,%MW,2,Array of 10 Int,16-bit Signed
-varArrInt_4,plc,%MW,3,Array of 10 Int,16-bit Signed
-varArrInt_5,plc,%MW,4,Array of 10 Int,16-bit Signed
-varArrInt_6,plc,%MW,5,Array of 10 Int,16-bit Signed
-varArrInt_7,plc,%MW,6,Array of 10 Int,16-bit Signed
-varArrInt_8,plc,%MW,7,Array of 10 Int,16-bit Signed
-varArrInt_9,plc,%MW,8,Array of 10 Int,16-bit Signed
+varArrBoolAlias_1,plc,%MW_Bit,008,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_10,plc,%MW_Bit,500,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_2,plc,%MW_Bit,100,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_3,plc,%MW_Bit,108,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_4,plc,%MW_Bit,200,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_5,plc,%MW_Bit,208,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_6,plc,%MW_Bit,300,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_7,plc,%MW_Bit,308,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_8,plc,%MW_Bit,400,Array of 10 BOOL via Alias,Undesignated
+varArrBoolAlias_9,plc,%MW_Bit,408,Array of 10 BOOL via Alias,Undesignated
+varArrIntAlias_1,plc,%MW,1,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_10,plc,%MW,10,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_2,plc,%MW,2,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_3,plc,%MW,3,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_4,plc,%MW,4,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_5,plc,%MW,5,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_6,plc,%MW,6,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_7,plc,%MW,7,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_8,plc,%MW,8,Array of 10 Int via Alias,16-bit Signed
+varArrIntAlias_9,plc,%MW,9,Array of 10 Int via Alias,16-bit Signed
+varArrInt_1,plc,%MW,1,Array of 10 Int,16-bit Signed
+varArrInt_10,plc,%MW,10,Array of 10 Int,16-bit Signed
+varArrInt_2,plc,%MW,2,Array of 10 Int,16-bit Signed
+varArrInt_3,plc,%MW,3,Array of 10 Int,16-bit Signed
+varArrInt_4,plc,%MW,4,Array of 10 Int,16-bit Signed
+varArrInt_5,plc,%MW,5,Array of 10 Int,16-bit Signed
+varArrInt_6,plc,%MW,6,Array of 10 Int,16-bit Signed
+varArrInt_7,plc,%MW,7,Array of 10 Int,16-bit Signed
+varArrInt_8,plc,%MW,8,Array of 10 Int,16-bit Signed
+varArrInt_9,plc,%MW,9,Array of 10 Int,16-bit Signed
 varBool1,plc,%MW_Bit,001,,Undesignated
 varBool3,plc,%MW_Bit,003,,Undesignated
 varByte,plc,%MW,0,BYTE  0  255  8 bit,Undesignated
@@ -47,60 +47,60 @@ varLWord,plc,%MW,0,LWORD  0  264-1  64 BIT,Undesignated
 varReal,plc,%MW,0,Value range FOR REAL 1.401E-45...3.403E+38,32-bit Float
 varSInt,plc,%MW,0,SINT  –128  127  8 bit,Undesignated
 varString,plc,%MW,0,"String The memory space needed for a variable of type STRING is 1 byte per character + 1 additional byte. This means, the ""STRING[80]"" declaration needs 81 bytes.",Undesignated
-varStructureComplex_arrStr1_1_high,plc,%MW,16,,16-bit Unsigned
-varStructureComplex_arrStr1_1_low,plc,%MW,15,,16-bit Unsigned
-varStructureComplex_arrStr1_2_high,plc,%MW,18,,16-bit Unsigned
-varStructureComplex_arrStr1_2_low,plc,%MW,17,,16-bit Unsigned
-varStructureComplex_arrStr1_3_high,plc,%MW,20,,16-bit Unsigned
-varStructureComplex_arrStr1_3_low,plc,%MW,19,,16-bit Unsigned
-varStructureComplex_arrStr1_4_high,plc,%MW,22,,16-bit Unsigned
-varStructureComplex_arrStr1_4_low,plc,%MW,21,,16-bit Unsigned
-varStructureComplex_arrStr1_5_high,plc,%MW,24,,16-bit Unsigned
-varStructureComplex_arrStr1_5_low,plc,%MW,23,,16-bit Unsigned
-varStructureComplex_arrStr1_6_high,plc,%MW,26,,16-bit Unsigned
-varStructureComplex_arrStr1_6_low,plc,%MW,25,,16-bit Unsigned
-varStructureComplex_arrStr1_7_high,plc,%MW,28,,16-bit Unsigned
-varStructureComplex_arrStr1_7_low,plc,%MW,27,,16-bit Unsigned
-varStructureComplex_arrStr1_8_high,plc,%MW,30,,16-bit Unsigned
-varStructureComplex_arrStr1_8_low,plc,%MW,29,,16-bit Unsigned
+varStructureComplex_arrStr1_1_high,plc,%MW,18,,16-bit Unsigned
+varStructureComplex_arrStr1_1_low,plc,%MW,17,,16-bit Unsigned
+varStructureComplex_arrStr1_2_high,plc,%MW,20,,16-bit Unsigned
+varStructureComplex_arrStr1_2_low,plc,%MW,19,,16-bit Unsigned
+varStructureComplex_arrStr1_3_high,plc,%MW,22,,16-bit Unsigned
+varStructureComplex_arrStr1_3_low,plc,%MW,21,,16-bit Unsigned
+varStructureComplex_arrStr1_4_high,plc,%MW,24,,16-bit Unsigned
+varStructureComplex_arrStr1_4_low,plc,%MW,23,,16-bit Unsigned
+varStructureComplex_arrStr1_5_high,plc,%MW,26,,16-bit Unsigned
+varStructureComplex_arrStr1_5_low,plc,%MW,25,,16-bit Unsigned
+varStructureComplex_arrStr1_6_high,plc,%MW,28,,16-bit Unsigned
+varStructureComplex_arrStr1_6_low,plc,%MW,27,,16-bit Unsigned
+varStructureComplex_arrStr1_7_high,plc,%MW,30,,16-bit Unsigned
+varStructureComplex_arrStr1_7_low,plc,%MW,29,,16-bit Unsigned
+varStructureComplex_arrStr1_8_high,plc,%MW,32,,16-bit Unsigned
+varStructureComplex_arrStr1_8_low,plc,%MW,31,,16-bit Unsigned
 varStructureComplex_b1,plc,%MW_Bit,800,,Undesignated
 varStructureComplex_lr1,plc,%MW,4,,Undesignated
 varStructureComplex_r1,plc,%MW,0,,32-bit Float
 varStructureComplex_s1,plc,%MW,8,,Undesignated
 varStructureComplex_str1_high,plc,%MW,14,,16-bit Unsigned
 varStructureComplex_str1_low,plc,%MW,13,,16-bit Unsigned
-varStructureLevel3_arrSt2_1_st1_1_b1,plc,%MW_Bit,100,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_1_st1_1_i1,plc,%MW,0,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_1_st1_1_i2,plc,%MW_Bit,400,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_1_st1_1_r1,plc,%MW,2,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_1_st1_2_b1,plc,%MW_Bit,700,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_1_st1_2_i1,plc,%MW,6,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_1_st1_2_i2,plc,%MW_Bit,1000,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_1_st1_2_r1,plc,%MW,8,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_2_st1_1_b1,plc,%MW_Bit,1300,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_2_st1_1_i1,plc,%MW,12,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_2_st1_1_i2,plc,%MW_Bit,1600,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_2_st1_1_r1,plc,%MW,14,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_2_st1_2_b1,plc,%MW_Bit,1900,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_2_st1_2_i1,plc,%MW,18,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_2_st1_2_i2,plc,%MW_Bit,2200,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_2_st1_2_r1,plc,%MW,20,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_3_st1_1_b1,plc,%MW_Bit,2500,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_3_st1_1_i1,plc,%MW,24,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_3_st1_1_i2,plc,%MW_Bit,2800,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_3_st1_1_r1,plc,%MW,26,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_3_st1_2_b1,plc,%MW_Bit,3100,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_3_st1_2_i1,plc,%MW,30,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_3_st1_2_i2,plc,%MW_Bit,3400,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_3_st1_2_r1,plc,%MW,32,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_4_st1_1_b1,plc,%MW_Bit,3700,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_4_st1_1_i1,plc,%MW,36,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_4_st1_1_i2,plc,%MW_Bit,4000,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_4_st1_1_r1,plc,%MW,38,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
-varStructureLevel3_arrSt2_4_st1_2_b1,plc,%MW_Bit,4300,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
-varStructureLevel3_arrSt2_4_st1_2_i1,plc,%MW,42,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
-varStructureLevel3_arrSt2_4_st1_2_i2,plc,%MW_Bit,4600,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
-varStructureLevel3_arrSt2_4_st1_2_r1,plc,%MW,44,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_1_st1_1_b1,plc,%MW_Bit,1300,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_1_st1_1_i1,plc,%MW,12,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_1_st1_1_i2,plc,%MW_Bit,1600,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_1_st1_1_r1,plc,%MW,14,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_1_st1_2_b1,plc,%MW_Bit,1900,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_1_st1_2_i1,plc,%MW,18,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_1_st1_2_i2,plc,%MW_Bit,2200,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_1_st1_2_r1,plc,%MW,20,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_2_st1_1_b1,plc,%MW_Bit,2500,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_2_st1_1_i1,plc,%MW,24,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_2_st1_1_i2,plc,%MW_Bit,2800,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_2_st1_1_r1,plc,%MW,26,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_2_st1_2_b1,plc,%MW_Bit,3100,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_2_st1_2_i1,plc,%MW,30,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_2_st1_2_i2,plc,%MW_Bit,3400,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_2_st1_2_r1,plc,%MW,32,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_3_st1_1_b1,plc,%MW_Bit,3700,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_3_st1_1_i1,plc,%MW,36,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_3_st1_1_i2,plc,%MW_Bit,4000,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_3_st1_1_r1,plc,%MW,38,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_3_st1_2_b1,plc,%MW_Bit,4300,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_3_st1_2_i1,plc,%MW,42,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_3_st1_2_i2,plc,%MW_Bit,4600,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_3_st1_2_r1,plc,%MW,44,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_4_st1_1_b1,plc,%MW_Bit,4900,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_4_st1_1_i1,plc,%MW,48,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_4_st1_1_i2,plc,%MW_Bit,5200,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_4_st1_1_r1,plc,%MW,50,Complex structure with 3 level | ArrSt2 comment | St1_1 comment | R1 comment,32-bit Float
+varStructureLevel3_arrSt2_4_st1_2_b1,plc,%MW_Bit,5500,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | B1 comment,Undesignated
+varStructureLevel3_arrSt2_4_st1_2_i1,plc,%MW,54,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I1 comment,16-bit Signed
+varStructureLevel3_arrSt2_4_st1_2_i2,plc,%MW_Bit,5800,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | I2 comment,Undesignated
+varStructureLevel3_arrSt2_4_st1_2_r1,plc,%MW,56,Complex structure with 3 level | ArrSt2 comment | St1_2 comment | R1 comment,32-bit Float
 varStructureLevel3_i2,plc,%MW,48,Complex structure with 3 level | I1 comment,16-bit Signed
 varStructureLevel3_st1_b1,plc,%MW_Bit,5100,Complex structure with 3 level | St1 comment | B1 comment,Undesignated
 varStructureLevel3_st1_i1,plc,%MW,50,Complex structure with 3 level | St1 comment | I1 comment,16-bit Signed
