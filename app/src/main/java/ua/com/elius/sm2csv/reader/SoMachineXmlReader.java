@@ -162,13 +162,14 @@ public class SoMachineXmlReader {
             SoMachineRecord.Address addressShifted = address.shifted(addressShift);
             addPrimitive(name, comment, addressShifted, (TypeSimple) type, namePrefix);
         } else if (type instanceof TypeArray) {
-            int arrayLength = ((TypeArray) type).arrayDim.maxrange;
+            int minrange = ((TypeArray) type).arrayDim.minrange;
+            int maxrange = ((TypeArray) type).arrayDim.maxrange;
+            int arrayLength = maxrange - minrange + 1;
             int arraySizeBytes = ((TypeArray) type).size;
             int elementSize = arraySizeBytes / arrayLength;
             Type elementType = mTypeMap.get(((TypeArray) type).basetype);
-            for (int i = 0; i < arrayLength; i++) {
-                // here 'i + 1' is just to start element names from 1
-                addVar(Integer.toString(i + 1), comment, address, elementType,
+            for (int i = minrange; i <= maxrange; i++) {
+                addVar(Integer.toString(i), comment, address, elementType,
                         namePrefix + name + NAME_DIV,
                         addressShift + i * elementSize);
             }
