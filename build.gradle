@@ -1,4 +1,4 @@
-defaultTasks 'sbin'
+defaultTasks 'shadowJar'
 
 buildscript {
     repositories {

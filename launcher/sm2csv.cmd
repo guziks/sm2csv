@@ -1,1 +1,12 @@
-@java -jar %~dp0\sm2csv.jar %*
+@ECHO OFF
+
+SETLOCAL
+
+SET "JAVA_DIST=jdk"
+SET "APP_JAR=sm2csv.jar"
+
+SET "JAVA_EXE=%~dp0\%JAVA_DIST%\bin\java.exe"
+SET "APP_JAR_PATH=%~dp0\%APP_JAR%"
+
+CALL %JAVA_EXE% -jar %APP_JAR_PATH% %*
+EXIT /B %ERRORLEVEL%

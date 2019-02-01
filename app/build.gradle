@@ -4,7 +4,6 @@ apply plugin: 'application'
 mainClassName = 'ua.com.elius.sm2csv.Main'
 
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'edu.sc.seis.launch4j'
 
 //compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
@@ -29,37 +28,16 @@ jar {
     }
 }
 
-def staticBinaryDestination = file("$rootDir/sbin")
-def launcherDir = file("$rootDir/launcher")
+def fatJarDestination = file("$rootDir/fatjar")
 
 shadowJar {
     baseName = rootProject.name
     classifier = ''
-    destinationDir = staticBinaryDestination
-}
-
-createExe {
-    outfile = rootProject.name + '.exe'
-    headerType = 'console'
-    chdir = ''
-    copyConfigurable = project.tasks.shadowJar.outputs.files
-    jar = file("${staticBinaryDestination}/${project.tasks.shadowJar.archiveName}")
-    productName = rootProject.name
-    fileDescription = 'SoMachine to CSV Tags Converter'
-    copyright = 'ELIUS-M'
-}
-
-task sbin(type: Copy, dependsOn: 'createExe', group: 'build') {
-    from (project.tasks.createExe.outputs) {
-        include '*.exe'
-    }
-    from (launcherDir)
-
-    into staticBinaryDestination
+    destinationDir = fatJarDestination
 }
 
 clean {
-    delete staticBinaryDestination
+    delete fatJarDestination
 }
 
 test {
