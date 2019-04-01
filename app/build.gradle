@@ -30,6 +30,11 @@ jar {
 
 def fatJarDestination = file("$rootDir/fatjar")
 
+// self contained binaries destination,
+// also defined in `warp` script,
+// in case of change update both places
+def warpedDestination = file("$rootDir/warped")
+
 shadowJar {
     baseName = rootProject.name
     classifier = ''
@@ -38,6 +43,7 @@ shadowJar {
 
 clean {
     delete fatJarDestination
+    delete warpedDestination
 }
 
 test {

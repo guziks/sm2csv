@@ -8,7 +8,9 @@
 REPO="$(cd "$(dirname "$0")" ; pwd -P)"
 # fatjar subdirectory
 FAT=fatjar
-# warped subdirectory
+# warped subdirectory,
+# also defined in `app/build.gradle`,
+# in case of change update both places
 WARPED=warped
 # app name
 APP=sm2csv
